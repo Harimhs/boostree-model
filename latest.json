@@ -1,44 +1,32 @@
 {
-  "generated_at": "2026-10-14T07:42:01+00:00",
+  "generated_at": "2026-10-14T08:41:10+00:00",
   "pull_stats": {
-    "events": 86616,
+    "events": 86590,
     "bad_lines": 0,
-    "issue_events": 602,
+    "issue_events": 514,
     "missing_issue_payload": 0,
     "pull_requests_skipped": 0,
-    "labeled_issue_events": 466,
+    "labeled_issue_events": 388,
     "hours_missing": 0,
     "hours_failed": 0,
-    "unique_labeled_issues": 453,
+    "unique_labeled_issues": 373,
     "sources": [
-      "2026-10-14-5"
+      "2026-10-14-6"
     ]
   },
-  "issues": 453,
-  "repos": 316,
-  "repos_with_5plus_issues": 9,
-  "distinct_labels": 566,
-  "avg_labels_per_issue": 2.45,
-  "issues_with_body": 450,
+  "issues": 373,
+  "repos": 288,
+  "repos_with_5plus_issues": 6,
+  "distinct_labels": 521,
+  "avg_labels_per_issue": 2.43,
+  "issues_with_body": 368,
   "top_labels": [
     [
       "bug",
-      78
+      52
     ],
     [
       "enhancement",
-      61
-    ],
-    [
-      "needs-review",
-      48
-    ],
-    [
-      "auto-detected",
-      45
-    ],
-    [
-      "pubmed",
       45
     ],
     [
@@ -46,195 +34,203 @@
       24
     ],
     [
-      "priority:P1",
-      10
-    ],
-    [
-      "decision",
-      10
-    ],
-    [
-      "security",
-      9
-    ],
-    [
       "documentation",
       9
     ],
     [
+      "type:bug",
+      9
+    ],
+    [
+      "priority:high",
+      8
+    ],
+    [
+      "decision",
+      8
+    ],
+    [
+      "frontend",
+      8
+    ],
+    [
       "feature",
-      8
-    ],
-    [
-      "task",
-      8
-    ],
-    [
-      "backlog",
-      8
-    ],
-    [
-      "type:feature",
       7
     ],
     [
-      "succeeded",
+      "needs-triage",
+      7
+    ],
+    [
+      "activities",
+      7
+    ],
+    [
+      "Flow",
+      7
+    ],
+    [
+      "security",
       6
     ],
     [
-      "priority:p2",
+      "priority:medium",
+      6
+    ],
+    [
+      "priority: high",
       6
     ],
     [
       "backend",
-      6
-    ],
-    [
-      "ui",
       5
     ],
     [
-      "priority: high",
+      "priority:p1",
       5
     ],
     [
-      "needs-triage",
+      "good first issue",
       5
     ],
     [
-      "loom:ticket",
-      5
+      "P1",
+      4
     ],
     [
-      "status:ready",
-      5
+      "goldens",
+      4
     ],
     [
-      "priority:high",
-      5
+      "renderer",
+      4
     ],
     [
-      "measure",
-      5
+      "ready",
+      4
     ],
     [
-      "P0",
+      "priority:low",
+      4
+    ],
+    [
+      "source-submission",
+      4
+    ],
+    [
+      "pre-screen:pass",
       4
     ]
   ],
   "top_repos": [
     [
-      "yao-care/UsTxGNN",
-      20
+      "adklikha-tech/KORA",
+      7
     ],
     [
       "hyron-fr/hermes-workflow",
-      10
-    ],
-    [
-      "yao-care/HkTxGNN",
-      10
-    ],
-    [
-      "helios1168/td",
       7
     ],
     [
-      "ericphan2545/UniSupport",
-      7
-    ],
-    [
-      "buildpacks/registry-index",
+      "PresetyX/PI_IV-Time-5",
       6
     ],
     [
-      "yao-care/ESTxGNN",
+      "Fidelis900/soroban-starter-kit",
       6
     ],
     [
-      "stellar-steady-sdk/stellar-tab",
+      "LucaNerlich/m10z",
       5
     ],
     [
-      "quadseven/loom",
+      "Ethereal-Future/FuTuRe",
       5
     ],
     [
-      "vitalyiegorov/suuudokuuu",
+      "Ledningssystemet/ledningssystemet",
       4
     ],
     [
-      "netclaw-dev/netclaw",
+      "Vortiago/textscene-inspector",
       4
     ],
     [
-      "shinjiyu/infinitecanvas_engine",
+      "virtual-labs/bugs-virtual-labs",
+      4
+    ],
+    [
+      "steveash/hitchhikers-guide-to-ai-native-engineering",
+      4
+    ],
+    [
+      "mtaanquist/al-workbench",
       3
     ],
     [
-      "maidulcu/masaar-crm-community",
+      "cplieger/animap",
       3
     ],
     [
-      "nathapp-io/nax",
+      "zarubaf/silicon",
       3
     ],
     [
-      "Ananth864/Chengdu80",
+      "vocaro/EPUBLib",
+      3
+    ],
+    [
+      "aiur-team/aiur",
       3
     ]
   ],
   "family_name_variety": {
     "bug": {
-      "distinct_names": 9,
+      "distinct_names": 15,
       "top_names": [
         [
           "bug",
-          78
+          52
         ],
         [
           "type:bug",
-          3
+          9
         ],
         [
           "type/bug",
           2
         ],
         [
-          "type: bug",
-          2
-        ],
-        [
-          "task-bug-reproduction-success",
+          "kind/bug",
           1
         ],
         [
-          "bug :beetle:",
+          "\ud83d\udc1e bug",
           1
         ],
         [
-          "kind:bug",
+          "#bug",
           1
         ],
         [
-          "Bug",
+          "type.Bug",
+          1
+        ],
+        [
+          "fixed-point-regression",
           1
         ]
       ]
     },
     "docs": {
-      "distinct_names": 3,
+      "distinct_names": 2,
       "top_names": [
         [
           "documentation",
           9
         ],
         [
-          "type:docs",
-          1
-        ],
-        [
-          "common-docs",
+          "Area: Documentation :page_facing_up:",
           1
         ]
       ]
@@ -244,81 +240,81 @@
       "top_names": [
         [
           "Duplicate",
-          1
+          2
         ]
       ]
     },
     "feature": {
-      "distinct_names": 12,
+      "distinct_names": 16,
       "top_names": [
         [
           "enhancement",
-          61
+          45
         ],
         [
           "feature",
-          8
-        ],
-        [
-          "type:feature",
           7
         ],
         [
-          "improvement",
+          "type:feature",
           3
         ],
         [
-          "feature:node-delete",
+          "type: feature",
           2
         ],
         [
-          "type:enhancement",
+          "\ud83c\udf1f feature",
           1
         ],
         [
-          "feature-request",
+          "C-feature",
           1
         ],
         [
-          "feature:cli",
+          "improvement",
+          1
+        ],
+        [
+          "\ud83c\udf89 feature",
           1
         ]
       ]
     },
     "other": {
-      "distinct_names": 538,
+      "distinct_names": 483,
       "top_names": [
-        [
-          "needs-review",
-          48
-        ],
-        [
-          "auto-detected",
-          45
-        ],
-        [
-          "pubmed",
-          45
-        ],
         [
           "ready-for-agent",
           24
         ],
         [
-          "priority:P1",
-          10
+          "priority:high",
+          8
         ],
         [
           "decision",
-          10
+          8
+        ],
+        [
+          "frontend",
+          8
+        ],
+        [
+          "needs-triage",
+          7
+        ],
+        [
+          "activities",
+          7
+        ],
+        [
+          "Flow",
+          7
         ],
         [
           "security",
-          9
-        ],
-        [
-          "task",
-          8
+          6
         ]
       ]
     },
@@ -326,20 +322,24 @@
       "distinct_names": 2,
       "top_names": [
         [
-          "discovery:usage",
-          1
+          "question",
+          4
         ],
         [
-          "support",
+          "type/design-question",
           1
         ]
       ]
     },
     "wontfix": {
-      "distinct_names": 1,
+      "distinct_names": 2,
       "top_names": [
         [
-          "r: invalid",
+          "wontfix",
+          3
+        ],
+        [
+          "Invalid",
           1
         ]
       ]
@@ -347,53 +347,48 @@
   },
   "examples": [
     {
-      "repo": "SE-miniproject1/mini-project-documents",
-      "number": 37,
-      "title": "[US-16] Component separation",
+      "repo": "Xalarian-Dev/PokeTracker",
+      "number": 7,
+      "title": "README : mettre \u00e0 jour les parties fausses ou incompl\u00e8tes",
       "labels": [
-        "functional",
-        "priority:medium",
-        "SP-5",
-        "epic:SF-2"
+        "documentation",
+        "ai-suggestion",
+        "source:analyste",
+        "prio:basse"
       ]
     },
     {
-      "repo": "AlterMundi/daimon-matrix",
-      "number": 344,
-      "title": "Integrate member-directed delivery through shared Tribe enrollment",
+      "repo": "PetroSa2/petrosa-tradeengine",
+      "number": 795,
+      "title": "[AUTOSRE] trading-silence: 0 orders executed in 6h (6.0h since last order) \u2014 tradeengine_msgs",
       "labels": [
-        "type:implementation",
-        "status:claimed",
-        "priority:P1"
+        "autosre-audit",
+        "priority:high",
+        "trading-silence"
       ]
     },
     {
-      "repo": "whatDiracIsCooking/FelizJueves",
-      "number": 282,
-      "title": "`kernel_f.py`: the contraction nest, the boundary, HRR after the loop",
+      "repo": "mastra-ai/mastra",
+      "number": 26974,
+      "title": "Durable agent turns build extra ToolStream writers again; agent-turn-tool-stream test fails on main",
       "labels": [
-        "wave-3",
-        "ir",
-        "hgp"
+        "status: needs triage"
       ]
     },
     {
-      "repo": "Xalarian-Dev/Auto_Bot",
-      "number": 1,
-      "title": "Rappeler les candidatures envoy\u00e9es sans suite pour relancer au bon moment",
+      "repo": "delinoio/oss",
+      "number": 3763,
+      "title": "bundlewhy: avoid false stale warnings for transformed PNG assets",
       "labels": [
-        "enhancement",
-        "prio:moyenne",
-        "source:po",
-        "ai-suggestion"
+        "bug"
       ]
     },
     {
-      "repo": "koshian/cayenchat",
-      "number": 358,
-      "title": "\u30c1\u30e3\u30f3\u30cd\u30eb\u30ed\u30b0\u306e\u53f3\u30af\u30ea\u30c3\u30af\u30e1\u30cb\u30e5\u30fc\u306b\u7de8\u96c6\u30fb\u30c1\u30e3\u30f3\u30cd\u30eb\u64cd\u4f5c\u30fbnick\u5909\u66f4\u30fb\u767a\u8a00\u8005priv\u3092\u8ffd\u52a0\u3059\u308b",
+      "repo": "eh-homelab/ScadBuddy",
+      "number": 3329,
+      "title": "[PR #3011 feedback] (non-blocking) agent flow tests: migration coverage scan and deterministic wait",
       "labels": [
-        "ghwatch:done"
+        "pr-feedback"
       ]
     }
   ]

@@ -1,14 +1,14 @@
 # Data summary
 
-_Generated 2026-10-14T07:42:01+00:00 from GH Archive hours: 2026-10-14-5_
+_Generated 2026-10-14T08:41:10+00:00 from GH Archive hours: 2026-10-14-6_
 
 ## Pull
 
 | Metric | Value |
 |---|---|
-| All events scanned | 86,616 |
-| Issue events | 602 |
-| Issue events with labels | 466 |
+| All events scanned | 86,590 |
+| Issue events | 514 |
+| Issue events with labels | 388 |
 | Issue events missing issue details | 0 |
 | Hours not yet published / failed | 0 / 0 |
 
@@ -16,12 +16,12 @@ _Generated 2026-10-14T07:42:01+00:00 from GH Archive hours: 2026-10-14-5_
 
 | Metric | Value |
 |---|---|
-| Unique labeled issues | 453 |
-| Repos | 316 |
-| Repos with 5+ labeled issues | 9 |
-| Distinct label names | 566 |
-| Avg labels per issue | 2.45 |
-| Issues with a description | 450 |
+| Unique labeled issues | 373 |
+| Repos | 288 |
+| Repos with 5+ labeled issues | 6 |
+| Distinct label names | 521 |
+| Avg labels per issue | 2.43 |
+| Issues with a description | 368 |
 
 ## Same idea, different names
 
@@ -29,53 +29,53 @@ How many different label names repos use for each kind of label. This is the var
 
 | Family | Distinct names | Most common names |
 |---|---|---|
-| bug | 9 | `bug` (78), `type:bug` (3), `type/bug` (2), `type: bug` (2), `task-bug-reproduction-success` (1) |
-| docs | 3 | `documentation` (9), `type:docs` (1), `common-docs` (1) |
-| duplicate | 1 | `Duplicate` (1) |
-| feature | 12 | `enhancement` (61), `feature` (8), `type:feature` (7), `improvement` (3), `feature:node-delete` (2) |
-| other | 538 | `needs-review` (48), `auto-detected` (45), `pubmed` (45), `ready-for-agent` (24), `priority:P1` (10) |
-| question | 2 | `discovery:usage` (1), `support` (1) |
-| wontfix | 1 | `r: invalid` (1) |
+| bug | 15 | `bug` (52), `type:bug` (9), `type/bug` (2), `kind/bug` (1), `🐞 bug` (1) |
+| docs | 2 | `documentation` (9), `Area: Documentation :page_facing_up:` (1) |
+| duplicate | 1 | `Duplicate` (2) |
+| feature | 16 | `enhancement` (45), `feature` (7), `type:feature` (3), `type: feature` (2), `🌟 feature` (1) |
+| other | 483 | `ready-for-agent` (24), `priority:high` (8), `decision` (8), `frontend` (8), `needs-triage` (7) |
+| question | 2 | `question` (4), `type/design-question` (1) |
+| wontfix | 2 | `wontfix` (3), `Invalid` (1) |
 
 ## Top labels
 
 | Label | Issues |
 |---|---|
-| `bug` | 78 |
-| `enhancement` | 61 |
-| `needs-review` | 48 |
-| `auto-detected` | 45 |
-| `pubmed` | 45 |
+| `bug` | 52 |
+| `enhancement` | 45 |
 | `ready-for-agent` | 24 |
-| `priority:P1` | 10 |
-| `decision` | 10 |
-| `security` | 9 |
 | `documentation` | 9 |
-| `feature` | 8 |
-| `task` | 8 |
-| `backlog` | 8 |
-| `type:feature` | 7 |
-| `succeeded` | 6 |
+| `type:bug` | 9 |
+| `priority:high` | 8 |
+| `decision` | 8 |
+| `frontend` | 8 |
+| `feature` | 7 |
+| `needs-triage` | 7 |
+| `activities` | 7 |
+| `Flow` | 7 |
+| `security` | 6 |
+| `priority:medium` | 6 |
+| `priority: high` | 6 |
 
 ## Top repos
 
 | Repo | Labeled issues |
 |---|---|
-| yao-care/UsTxGNN | 20 |
-| hyron-fr/hermes-workflow | 10 |
-| yao-care/HkTxGNN | 10 |
-| helios1168/td | 7 |
-| ericphan2545/UniSupport | 7 |
-| buildpacks/registry-index | 6 |
-| yao-care/ESTxGNN | 6 |
-| stellar-steady-sdk/stellar-tab | 5 |
-| quadseven/loom | 5 |
-| vitalyiegorov/suuudokuuu | 4 |
+| adklikha-tech/KORA | 7 |
+| hyron-fr/hermes-workflow | 7 |
+| PresetyX/PI_IV-Time-5 | 6 |
+| Fidelis900/soroban-starter-kit | 6 |
+| LucaNerlich/m10z | 5 |
+| Ethereal-Future/FuTuRe | 5 |
+| Ledningssystemet/ledningssystemet | 4 |
+| Vortiago/textscene-inspector | 4 |
+| virtual-labs/bugs-virtual-labs | 4 |
+| steveash/hitchhikers-guide-to-ai-native-engineering | 4 |
 
 ## Examples
 
-- **SE-miniproject1/mini-project-documents#37**: [US-16] Component separation → `functional`, `priority:medium`, `SP-5`, `epic:SF-2`
-- **AlterMundi/daimon-matrix#344**: Integrate member-directed delivery through shared Tribe enrollment → `type:implementation`, `status:claimed`, `priority:P1`
-- **whatDiracIsCooking/FelizJueves#282**: `kernel_f.py`: the contraction nest, the boundary, HRR after the loop → `wave-3`, `ir`, `hgp`
-- **Xalarian-Dev/Auto_Bot#1**: Rappeler les candidatures envoyées sans suite pour relancer au bon moment → `enhancement`, `prio:moyenne`, `source:po`, `ai-suggestion`
-- **koshian/cayenchat#358**: チャンネルログの右クリックメニューに編集・チャンネル操作・nick変更・発言者privを追加する → `ghwatch:done`
+- **Xalarian-Dev/PokeTracker#7**: README : mettre à jour les parties fausses ou incomplètes → `documentation`, `ai-suggestion`, `source:analyste`, `prio:basse`
+- **PetroSa2/petrosa-tradeengine#795**: [AUTOSRE] trading-silence: 0 orders executed in 6h (6.0h since last order) — tradeengine_msgs → `autosre-audit`, `priority:high`, `trading-silence`
+- **mastra-ai/mastra#26974**: Durable agent turns build extra ToolStream writers again; agent-turn-tool-stream test fails on main → `status: needs triage`
+- **delinoio/oss#3763**: bundlewhy: avoid false stale warnings for transformed PNG assets → `bug`
+- **eh-homelab/ScadBuddy#3329**: [PR #3011 feedback] (non-blocking) agent flow tests: migration coverage scan and deterministic wait → `pr-feedback`
