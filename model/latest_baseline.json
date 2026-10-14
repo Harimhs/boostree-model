@@ -1,261 +1,261 @@
 {
-  "generated_at": "2026-10-14T09:40:55+00:00",
+  "generated_at": "2026-10-14T10:41:40+00:00",
   "task": "issue family: bug / docs / feature / question",
   "data": {
-    "issues_total": 2798,
-    "usable": 1137,
-    "repos": 852,
+    "issues_total": 3052,
+    "usable": 1249,
+    "repos": 923,
     "classes": {
-      "feature": 555,
-      "bug": 502,
-      "docs": 65,
+      "feature": 619,
+      "bug": 541,
+      "docs": 74,
       "question": 15
     },
-    "train": 909,
-    "test": 228
+    "train": 999,
+    "test": 250
   },
   "models": {
     "tfidf": {
-      "accuracy": 0.7018,
-      "macro_f1": 0.4138,
+      "accuracy": 0.772,
+      "macro_f1": 0.4876,
       "per_class": {
         "bug": {
-          "precision": 0.7477,
-          "recall": 0.7547,
-          "f1": 0.7512,
-          "support": 106
+          "precision": 0.7355,
+          "recall": 0.8725,
+          "f1": 0.7982,
+          "support": 102
         },
         "docs": {
-          "precision": 0.25,
-          "recall": 0.1429,
-          "f1": 0.1818,
-          "support": 14
+          "precision": 0.4545,
+          "recall": 0.2941,
+          "f1": 0.3571,
+          "support": 17
         },
         "feature": {
-          "precision": 0.6903,
-          "recall": 0.7573,
-          "f1": 0.7222,
-          "support": 103
+          "precision": 0.839,
+          "recall": 0.7557,
+          "f1": 0.7952,
+          "support": 131
         },
         "question": {
           "precision": 0.0,
           "recall": 0.0,
           "f1": 0.0,
-          "support": 5
+          "support": 0
         }
       },
-      "seconds": 1.2,
+      "seconds": 2.0,
       "top_terms": {
         "bug": [
           "bug",
-          "failed",
           "expected",
           "fix",
-          "error",
-          "not",
+          "failed",
           "found",
-          "its",
           "after",
+          "error",
+          "its",
+          "not",
+          "reproduce",
           "src",
-          "failure",
-          "reproduce"
+          "the"
         ],
         "docs": [
-          "md",
-          "docs",
           "readme",
+          "docs",
+          "md",
           "readme md",
+          "skills",
           "points",
-          "links",
           "agents",
-          "define",
-          "license",
-          "docs and",
-          "deployment",
-          "architecture"
+          "reference",
+          "links",
+          "says",
+          "guide",
+          "license"
         ],
         "feature": [
-          "feature",
           "feat",
+          "feature",
           "each",
           "one",
+          "add",
           "show",
-          "tools",
-          "needs",
           "proposal",
           "implement",
-          "size",
+          "ui",
           "de",
-          "add"
+          "size",
+          "and"
         ],
         "question": [
-          "currently",
-          "alternative",
-          "video audio",
-          "per person",
           "support",
-          "pure",
+          "refs",
+          "triage",
+          "video audio",
+          "currently",
+          "media",
+          "alternative",
+          "could",
           "converting",
           "ffmpeg",
-          "min",
-          "triage",
-          "includes",
-          "person"
+          "js",
+          "pure"
         ]
       },
       "examples": {
         "right": [
           {
-            "repo": "larchanka-training/dmc-1-t2-notebook-mono",
-            "number": 259,
-            "title": "fix(api): pin SQLAlchemy <2.1 / use uv.lock in Dockerfile and update default postgresql+psycopg2 driver scheme",
+            "repo": "calebn/sharecut-studio",
+            "number": 1471,
+            "title": "fix(tighten): propose-edits deadlocks when a gated track needs peer copy lags",
             "true": "bug",
             "predicted": "bug"
           },
           {
-            "repo": "xperiaroco2/prime-game",
-            "number": 977,
-            "title": "docs: the skill-listing ADR records the engineer's account decision (#562)",
-            "true": "docs",
-            "predicted": "docs"
-          },
-          {
-            "repo": "MrityunjayBhardwaj/TheBasher",
-            "number": 1633,
-            "title": "A walk generated along a path stops short on a character whose rig sits under a scaled group",
+            "repo": "omnigent-ai/omnigent",
+            "number": 9970,
+            "title": "[Bug] Codex model and effort picks are rolled back after its idle terminal is reaped",
             "true": "bug",
             "predicted": "bug"
           },
           {
-            "repo": "SruthiVejju/SE_MiniProject",
-            "number": 16,
-            "title": "NFR-4: Support 5,000 Student Accounts",
-            "true": "feature",
-            "predicted": "feature"
+            "repo": "joromi1/splitvault-contracts",
+            "number": 15,
+            "title": "Fee and Tax Bypass in Graduated Tranche Distributions (`release_tranche`)",
+            "true": "bug",
+            "predicted": "bug"
+          },
+          {
+            "repo": "SO4-Markets/so4-oracle",
+            "number": 1291,
+            "title": "The band's min is clamped to 0, which the oracle contract rejects as InvalidPrice, and one invalid entry reverts the who",
+            "true": "bug",
+            "predicted": "bug"
           }
         ],
         "wrong": [
           {
-            "repo": "AbdelrhmanAh7/FlowLine_Web",
-            "number": 180,
-            "title": "Improve client-side error display for /admin/copy",
-            "true": "bug",
-            "predicted": "feature"
+            "repo": "wp-media/wp-rocket",
+            "number": 9007,
+            "title": "Log failures when fetching sitemaps during preload",
+            "true": "feature",
+            "predicted": "bug"
           },
           {
-            "repo": "tki-creator/Lab3_Project",
-            "number": 2,
-            "title": "2.\u5404\u30e2\u30b8\u30e5\u30fc\u30eb\u30d5\u30a1\u30a4\u30eb \u4f5c\u6210",
+            "repo": "franckalbinet/marisco",
+            "number": 76,
+            "title": "Review the api notebooks with `nbreview`",
             "true": "docs",
             "predicted": "feature"
           },
           {
-            "repo": "swisspost/design-system",
-            "number": 4021,
-            "title": "Browser support: baseline",
-            "true": "question",
-            "predicted": "feature"
+            "repo": "anthropics/claude-code",
+            "number": 101989,
+            "title": "[BUG] No way to detach an already-attached secondary working directory from a session",
+            "true": "feature",
+            "predicted": "bug"
           },
           {
-            "repo": "glw907/drafter",
-            "number": 35,
-            "title": "Revisit EACCES reads on a read-only state directory",
-            "true": "question",
+            "repo": "michalwidera/retractordb",
+            "number": 511,
+            "title": "Port Result<T> i RDB_NO_EXCEPTIONS=ON: przegl\u0105d i zatwierdzenie",
+            "true": "feature",
             "predicted": "bug"
           }
         ]
       }
     },
     "minilm": {
-      "accuracy": 0.7149,
-      "macro_f1": 0.5257,
+      "accuracy": 0.644,
+      "macro_f1": 0.3974,
       "per_class": {
         "bug": {
-          "precision": 0.785,
-          "recall": 0.7925,
-          "f1": 0.7887,
-          "support": 106
+          "precision": 0.6944,
+          "recall": 0.7353,
+          "f1": 0.7143,
+          "support": 102
         },
         "docs": {
-          "precision": 0.2778,
-          "recall": 0.3571,
-          "f1": 0.3125,
-          "support": 14
+          "precision": 0.1538,
+          "recall": 0.2353,
+          "f1": 0.186,
+          "support": 17
         },
         "feature": {
-          "precision": 0.7228,
-          "recall": 0.7087,
-          "f1": 0.7157,
-          "support": 103
+          "precision": 0.7664,
+          "recall": 0.626,
+          "f1": 0.6891,
+          "support": 131
         },
         "question": {
-          "precision": 0.5,
-          "recall": 0.2,
-          "f1": 0.2857,
-          "support": 5
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 0
         }
       },
-      "seconds": 53.7,
-      "encoder": "sentence-transformers/all-MiniLM-L6-v2",
+      "seconds": 62.0,
+      "encoder": "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2",
       "examples": {
         "right": [
           {
-            "repo": "larchanka-training/dmc-1-t2-notebook-mono",
-            "number": 259,
-            "title": "fix(api): pin SQLAlchemy <2.1 / use uv.lock in Dockerfile and update default postgresql+psycopg2 driver scheme",
+            "repo": "calebn/sharecut-studio",
+            "number": 1471,
+            "title": "fix(tighten): propose-edits deadlocks when a gated track needs peer copy lags",
             "true": "bug",
             "predicted": "bug"
           },
           {
-            "repo": "MrityunjayBhardwaj/TheBasher",
-            "number": 1633,
-            "title": "A walk generated along a path stops short on a character whose rig sits under a scaled group",
+            "repo": "glennfaison/livepage",
+            "number": 329,
+            "title": "Editor / page builder: /try throws a React hydration error (#418) on every reload once a page is saved",
             "true": "bug",
             "predicted": "bug"
           },
           {
-            "repo": "SruthiVejju/SE_MiniProject",
-            "number": 16,
-            "title": "NFR-4: Support 5,000 Student Accounts",
+            "repo": "TychoHenzen/dod-guard",
+            "number": 922,
+            "title": "Make quality-guard a required PR check instead of a PostToolUse hook",
             "true": "feature",
             "predicted": "feature"
           },
           {
-            "repo": "NousResearch/hermes-agent",
-            "number": 138237,
-            "title": "[Bug][Desktop]: a fully-typed slash command commits as a pill and skips its argument step (completer's trailing space de",
+            "repo": "BAWES-Universe/workadventure-universe",
+            "number": 953,
+            "title": "Chat: opening a conversation does not stay on the newest message",
             "true": "bug",
             "predicted": "bug"
           }
         ],
         "wrong": [
           {
-            "repo": "xperiaroco2/prime-game",
-            "number": 977,
-            "title": "docs: the skill-listing ADR records the engineer's account decision (#562)",
-            "true": "docs",
-            "predicted": "feature"
-          },
-          {
-            "repo": "AbdelrhmanAh7/FlowLine_Web",
-            "number": 180,
-            "title": "Improve client-side error display for /admin/copy",
+            "repo": "omnigent-ai/omnigent",
+            "number": 9970,
+            "title": "[Bug] Codex model and effort picks are rolled back after its idle terminal is reaped",
             "true": "bug",
             "predicted": "feature"
           },
           {
-            "repo": "tki-creator/Lab3_Project",
-            "number": 2,
-            "title": "2.\u5404\u30e2\u30b8\u30e5\u30fc\u30eb\u30d5\u30a1\u30a4\u30eb \u4f5c\u6210",
-            "true": "docs",
+            "repo": "joromi1/splitvault-contracts",
+            "number": 15,
+            "title": "Fee and Tax Bypass in Graduated Tranche Distributions (`release_tranche`)",
+            "true": "bug",
             "predicted": "feature"
           },
           {
-            "repo": "glw907/drafter",
-            "number": 35,
-            "title": "Revisit EACCES reads on a read-only state directory",
-            "true": "question",
-            "predicted": "bug"
+            "repo": "SO4-Markets/so4-oracle",
+            "number": 1291,
+            "title": "The band's min is clamped to 0, which the oracle contract rejects as InvalidPrice, and one invalid entry reverts the who",
+            "true": "bug",
+            "predicted": "feature"
+          },
+          {
+            "repo": "Havens-blog/e-cmdb-web",
+            "number": 9,
+            "title": "[e-cmdb-web] (1+2/5) ??????? 401/403 ???? & ????/?????",
+            "true": "feature",
+            "predicted": "docs"
           }
         ]
       }
