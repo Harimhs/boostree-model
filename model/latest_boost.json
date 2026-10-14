@@ -1,0 +1,544 @@
+{
+  "generated_at": "2026-10-14T07:52:39+00:00",
+  "encoder": "sentence-transformers/all-MiniLM-L6-v2",
+  "features": [
+    "title starts with a tag like [X] or feat:",
+    "text mentions an error, exception or traceback",
+    "text has a code block",
+    "text uses a form template (### headings or checkboxes)",
+    "description length (characters)",
+    "title length (words)",
+    "meaning axis 1",
+    "meaning axis 2",
+    "meaning axis 3",
+    "meaning axis 4"
+  ],
+  "data": {
+    "usable": 820,
+    "train": 656,
+    "test": 164,
+    "classes": {
+      "feature": 413,
+      "bug": 361,
+      "docs": 46
+    }
+  },
+  "rounds": [
+    {
+      "round": 1,
+      "gains": {
+        "layer 1 attention": 1.90398,
+        "layer 1 feed-forward": 3.73932,
+        "layer 2 attention": 1.66771,
+        "layer 2 feed-forward": 3.42432,
+        "layer 3 attention": 1.66016,
+        "layer 3 feed-forward": 2.59435,
+        "layer 4 attention": 1.71382,
+        "layer 4 feed-forward": 2.68052,
+        "layer 5 attention": 1.91283,
+        "layer 5 feed-forward": 3.39526,
+        "layer 6 attention": 7.7489,
+        "layer 6 feed-forward": 1.64481
+      },
+      "sample_loss_before": 0.26851467585849725,
+      "module": "layer 6 attention",
+      "gain": 7.7489,
+      "t": 2.88,
+      "leaves": [
+        {
+          "rule": "text has a code block: no",
+          "issues": 230,
+          "weight": -0.0559
+        },
+        {
+          "rule": "text has a code block: yes",
+          "issues": 26,
+          "weight": 0.0034
+        }
+      ],
+      "sample_loss_after": 0.25518018959370503,
+      "test_macro_f1": 0.5813
+    },
+    {
+      "round": 2,
+      "gains": {
+        "layer 1 attention": 1.50667,
+        "layer 1 feed-forward": 4.50303,
+        "layer 2 attention": 1.94192,
+        "layer 2 feed-forward": 3.0915,
+        "layer 3 attention": 1.84225,
+        "layer 3 feed-forward": 1.86581,
+        "layer 4 attention": 1.61323,
+        "layer 4 feed-forward": 1.63259,
+        "layer 5 attention": 1.67953,
+        "layer 5 feed-forward": 3.3748,
+        "layer 6 attention": 7.58973,
+        "layer 6 feed-forward": 3.33695
+      },
+      "sample_loss_before": 0.27368338874767467,
+      "module": "layer 6 attention",
+      "gain": 7.58973,
+      "t": 3.79,
+      "leaves": [
+        {
+          "rule": "text mentions an error, exception or traceback: no",
+          "issues": 211,
+          "weight": -0.0646
+        },
+        {
+          "rule": "text mentions an error, exception or traceback: yes",
+          "issues": 45,
+          "weight": -0.0149
+        }
+      ],
+      "sample_loss_after": 0.2599609025471539,
+      "test_macro_f1": 0.6013
+    },
+    {
+      "round": 3,
+      "gains": {
+        "layer 1 attention": 3.18687,
+        "layer 1 feed-forward": 6.73016,
+        "layer 2 attention": 3.23299,
+        "layer 2 feed-forward": 4.59982,
+        "layer 3 attention": 2.91115,
+        "layer 3 feed-forward": 2.50728,
+        "layer 4 attention": 2.46323,
+        "layer 4 feed-forward": 2.71338,
+        "layer 5 attention": 2.40745,
+        "layer 5 feed-forward": 2.65771,
+        "layer 6 attention": 5.81689,
+        "layer 6 feed-forward": 1.9008
+      },
+      "sample_loss_before": 0.2702254804587991,
+      "module": "layer 1 feed-forward",
+      "gain": 6.73016,
+      "t": 4.82,
+      "leaves": [
+        {
+          "rule": "all issues",
+          "issues": 256,
+          "weight": -0.0403
+        }
+      ],
+      "sample_loss_after": 0.25955380325934524,
+      "test_macro_f1": 0.6099
+    },
+    {
+      "round": 4,
+      "gains": {
+        "layer 1 attention": 1.73887,
+        "layer 1 feed-forward": 3.08039,
+        "layer 2 attention": 1.88685,
+        "layer 2 feed-forward": 2.33809,
+        "layer 3 attention": 2.01007,
+        "layer 3 feed-forward": 2.30859,
+        "layer 4 attention": 1.84688,
+        "layer 4 feed-forward": 2.03088,
+        "layer 5 attention": 1.54777,
+        "layer 5 feed-forward": 1.96967,
+        "layer 6 attention": 6.36733,
+        "layer 6 feed-forward": 1.69489
+      },
+      "sample_loss_before": 0.2695891399741165,
+      "module": "layer 6 attention",
+      "gain": 6.36733,
+      "t": 2.28,
+      "leaves": [
+        {
+          "rule": "meaning axis 2 \u2264 0.143 and meaning axis 1 \u2264 0.155",
+          "issues": 160,
+          "weight": -0.0532
+        },
+        {
+          "rule": "meaning axis 2 \u2264 0.143 and meaning axis 1 > 0.155",
+          "issues": 43,
+          "weight": 0.0197
+        },
+        {
+          "rule": "meaning axis 2 > 0.143",
+          "issues": 53,
+          "weight": 0.0201
+        }
+      ],
+      "sample_loss_after": 0.2564824642645921,
+      "test_macro_f1": 0.6055
+    },
+    {
+      "round": 5,
+      "gains": {
+        "layer 1 attention": 2.47691,
+        "layer 1 feed-forward": 3.59578,
+        "layer 2 attention": 1.98154,
+        "layer 2 feed-forward": 2.61513,
+        "layer 3 attention": 2.17575,
+        "layer 3 feed-forward": 2.06698,
+        "layer 4 attention": 1.93995,
+        "layer 4 feed-forward": 2.0839,
+        "layer 5 attention": 1.78293,
+        "layer 5 feed-forward": 2.11832,
+        "layer 6 attention": 5.46494,
+        "layer 6 feed-forward": 1.73992
+      },
+      "sample_loss_before": 0.24289270023529286,
+      "module": "layer 6 attention",
+      "gain": 5.46494,
+      "t": 2.29,
+      "leaves": [
+        {
+          "rule": "meaning axis 3 \u2264 -0.123",
+          "issues": 54,
+          "weight": 0.0377
+        },
+        {
+          "rule": "meaning axis 3 > -0.123 and meaning axis 1 \u2264 0.155",
+          "issues": 156,
+          "weight": -0.0467
+        },
+        {
+          "rule": "meaning axis 3 > -0.123 and meaning axis 1 > 0.155",
+          "issues": 46,
+          "weight": 0.0233
+        }
+      ],
+      "sample_loss_after": 0.23065723797782445,
+      "test_macro_f1": 0.6055
+    },
+    {
+      "round": 6,
+      "gains": {
+        "layer 1 attention": 3.84881,
+        "layer 1 feed-forward": 5.42386,
+        "layer 2 attention": 4.12938,
+        "layer 2 feed-forward": 4.92514,
+        "layer 3 attention": 3.94991,
+        "layer 3 feed-forward": 4.6318,
+        "layer 4 attention": 3.66258,
+        "layer 4 feed-forward": 3.91075,
+        "layer 5 attention": 3.52616,
+        "layer 5 feed-forward": 3.56856,
+        "layer 6 attention": 7.90709,
+        "layer 6 feed-forward": 2.65833
+      },
+      "sample_loss_before": 0.26384634580276806,
+      "module": "layer 6 attention",
+      "gain": 7.90709,
+      "t": 5.1,
+      "leaves": [
+        {
+          "rule": "meaning axis 1 \u2264 -0.0555",
+          "issues": 108,
+          "weight": -0.0711
+        },
+        {
+          "rule": "meaning axis 1 > -0.0555",
+          "issues": 148,
+          "weight": -0.0297
+        }
+      ],
+      "sample_loss_after": 0.24909157890738878,
+      "test_macro_f1": 0.61
+    },
+    {
+      "round": 7,
+      "gains": {
+        "layer 1 attention": 1.64855,
+        "layer 1 feed-forward": 2.91186,
+        "layer 2 attention": 1.51112,
+        "layer 2 feed-forward": 2.24994,
+        "layer 3 attention": 1.44631,
+        "layer 3 feed-forward": 1.84683,
+        "layer 4 attention": 1.43296,
+        "layer 4 feed-forward": 2.13238,
+        "layer 5 attention": 1.4993,
+        "layer 5 feed-forward": 2.39469,
+        "layer 6 attention": 7.66801,
+        "layer 6 feed-forward": 1.2865
+      },
+      "sample_loss_before": 0.25192577653200243,
+      "module": "layer 6 attention",
+      "gain": 7.66801,
+      "t": 4.95,
+      "leaves": [
+        {
+          "rule": "meaning axis 1 \u2264 0.155",
+          "issues": 208,
+          "weight": -0.0719
+        },
+        {
+          "rule": "meaning axis 1 > 0.155",
+          "issues": 48,
+          "weight": -0.0141
+        }
+      ],
+      "sample_loss_after": 0.23761304865729282,
+      "test_macro_f1": 0.6149
+    },
+    {
+      "round": 8,
+      "gains": {
+        "layer 1 attention": 2.53659,
+        "layer 1 feed-forward": 3.55869,
+        "layer 2 attention": 2.49284,
+        "layer 2 feed-forward": 2.88735,
+        "layer 3 attention": 2.84804,
+        "layer 3 feed-forward": 2.69588,
+        "layer 4 attention": 3.01166,
+        "layer 4 feed-forward": 2.58458,
+        "layer 5 attention": 2.35531,
+        "layer 5 feed-forward": 2.54329,
+        "layer 6 attention": 5.35979,
+        "layer 6 feed-forward": 2.64754
+      },
+      "sample_loss_before": 0.24681894770348006,
+      "module": "layer 6 attention",
+      "gain": 5.35979,
+      "t": 2.72,
+      "leaves": [
+        {
+          "rule": "meaning axis 3 \u2264 -0.123",
+          "issues": 42,
+          "weight": 0.0326
+        },
+        {
+          "rule": "meaning axis 3 > -0.123 and title length (words) \u2264 13",
+          "issues": 166,
+          "weight": -0.0411
+        },
+        {
+          "rule": "meaning axis 3 > -0.123 and title length (words) > 13",
+          "issues": 48,
+          "weight": 0.0059
+        }
+      ],
+      "sample_loss_after": 0.2359221816750214,
+      "test_macro_f1": 0.6057
+    },
+    {
+      "round": 9,
+      "gains": {
+        "layer 1 attention": 1.50199,
+        "layer 1 feed-forward": 2.65322,
+        "layer 2 attention": 1.47122,
+        "layer 2 feed-forward": 1.87743,
+        "layer 3 attention": 1.52416,
+        "layer 3 feed-forward": 1.59244,
+        "layer 4 attention": 1.74586,
+        "layer 4 feed-forward": 1.57206,
+        "layer 5 attention": 1.20187,
+        "layer 5 feed-forward": 1.60351,
+        "layer 6 attention": 6.297,
+        "layer 6 feed-forward": 1.19736
+      },
+      "sample_loss_before": 0.2436315606202155,
+      "module": "layer 6 attention",
+      "gain": 6.297,
+      "t": 2.9,
+      "leaves": [
+        {
+          "rule": "text uses a form template (### headings or checkboxes): no",
+          "issues": 74,
+          "weight": -0.0092
+        },
+        {
+          "rule": "text uses a form template (### headings or checkboxes): yes and text mentions an error, exception or traceback: no",
+          "issues": 155,
+          "weight": -0.053
+        },
+        {
+          "rule": "text uses a form template (### headings or checkboxes): yes and text mentions an error, exception or traceback: yes",
+          "issues": 27,
+          "weight": 0.011
+        }
+      ],
+      "sample_loss_after": 0.23200660744601803,
+      "test_macro_f1": 0.6057
+    },
+    {
+      "round": 10,
+      "gains": {
+        "layer 1 attention": 3.49404,
+        "layer 1 feed-forward": 3.35501,
+        "layer 2 attention": 2.51128,
+        "layer 2 feed-forward": 2.62535,
+        "layer 3 attention": 2.57681,
+        "layer 3 feed-forward": 2.74427,
+        "layer 4 attention": 2.56395,
+        "layer 4 feed-forward": 2.98448,
+        "layer 5 attention": 2.44651,
+        "layer 5 feed-forward": 4.25977,
+        "layer 6 attention": 5.82704,
+        "layer 6 feed-forward": 3.02022
+      },
+      "sample_loss_before": 0.23516219359976478,
+      "module": "layer 6 attention",
+      "gain": 5.82704,
+      "t": 2.7,
+      "leaves": [
+        {
+          "rule": "all issues",
+          "issues": 256,
+          "weight": -0.0468
+        }
+      ],
+      "sample_loss_after": 0.2255505777701562,
+      "test_macro_f1": 0.6013
+    },
+    {
+      "round": 11,
+      "gains": {
+        "layer 1 attention": 1.87727,
+        "layer 1 feed-forward": 2.89769,
+        "layer 2 attention": 2.01272,
+        "layer 2 feed-forward": 2.1987,
+        "layer 3 attention": 1.9402,
+        "layer 3 feed-forward": 2.08621,
+        "layer 4 attention": 2.10158,
+        "layer 4 feed-forward": 1.96268,
+        "layer 5 attention": 1.64734,
+        "layer 5 feed-forward": 2.60127,
+        "layer 6 attention": 4.50482,
+        "layer 6 feed-forward": 0.92078
+      },
+      "sample_loss_before": 0.2272965117326552,
+      "module": "layer 6 attention",
+      "gain": 4.50482,
+      "t": 4.57,
+      "leaves": [
+        {
+          "rule": "meaning axis 2 \u2264 -0.0663 and meaning axis 4 \u2264 0.0568",
+          "issues": 53,
+          "weight": -0.0423
+        },
+        {
+          "rule": "meaning axis 2 \u2264 -0.0663 and meaning axis 4 > 0.0568",
+          "issues": 32,
+          "weight": 0.0821
+        },
+        {
+          "rule": "meaning axis 2 > -0.0663",
+          "issues": 171,
+          "weight": -0.0569
+        }
+      ],
+      "sample_loss_after": 0.21476311182921437,
+      "test_macro_f1": 0.6058
+    },
+    {
+      "round": 12,
+      "gains": {
+        "layer 1 attention": 1.54033,
+        "layer 1 feed-forward": 3.09824,
+        "layer 2 attention": 1.17843,
+        "layer 2 feed-forward": 1.76207,
+        "layer 3 attention": 0.98584,
+        "layer 3 feed-forward": 0.98805,
+        "layer 4 attention": 1.23426,
+        "layer 4 feed-forward": 2.43531,
+        "layer 5 attention": 1.51013,
+        "layer 5 feed-forward": 3.94405,
+        "layer 6 attention": 5.73386,
+        "layer 6 feed-forward": 4.40404
+      },
+      "sample_loss_before": 0.22761122488293495,
+      "module": "layer 6 attention",
+      "gain": 5.73386,
+      "t": 4.0,
+      "leaves": [
+        {
+          "rule": "all issues",
+          "issues": 256,
+          "weight": -0.0545
+        }
+      ],
+      "sample_loss_after": 0.21771637338345678,
+      "test_macro_f1": 0.6144
+    }
+  ],
+  "status": "ok",
+  "classes": [
+    "bug",
+    "docs",
+    "feature"
+  ],
+  "config": {
+    "max_rounds": 12,
+    "sample_size": 256,
+    "batch_size": 32,
+    "eps": 0.05,
+    "lam": 1.0,
+    "lr": 0.5,
+    "w_max": 2.0,
+    "t_min": 2.0,
+    "t_split": 2.5,
+    "max_depth": 2,
+    "min_leaf": 25,
+    "max_minutes": 150.0,
+    "seed": 0
+  },
+  "start": {
+    "accuracy": 0.7195,
+    "macro_f1": 0.5978,
+    "per_class": {
+      "bug": {
+        "precision": 0.7867,
+        "recall": 0.7375,
+        "f1": 0.7613,
+        "support": 80
+      },
+      "docs": {
+        "precision": 0.25,
+        "recall": 0.375,
+        "f1": 0.3,
+        "support": 8
+      },
+      "feature": {
+        "precision": 0.7273,
+        "recall": 0.7368,
+        "f1": 0.732,
+        "support": 76
+      }
+    }
+  },
+  "final": {
+    "accuracy": 0.7317,
+    "macro_f1": 0.6144,
+    "per_class": {
+      "bug": {
+        "precision": 0.7973,
+        "recall": 0.7375,
+        "f1": 0.7662,
+        "support": 80
+      },
+      "docs": {
+        "precision": 0.3,
+        "recall": 0.375,
+        "f1": 0.3333,
+        "support": 8
+      },
+      "feature": {
+        "precision": 0.725,
+        "recall": 0.7632,
+        "f1": 0.7436,
+        "support": 76
+      }
+    }
+  },
+  "boosters": 12,
+  "stopped_because": "reached the round limit (12)",
+  "modules": [
+    "layer 1 attention",
+    "layer 1 feed-forward",
+    "layer 2 attention",
+    "layer 2 feed-forward",
+    "layer 3 attention",
+    "layer 3 feed-forward",
+    "layer 4 attention",
+    "layer 4 feed-forward",
+    "layer 5 attention",
+    "layer 5 feed-forward",
+    "layer 6 attention",
+    "layer 6 feed-forward"
+  ],
+  "seconds": 2079.7
+}

@@ -1,234 +1,234 @@
 {
-  "generated_at": "2026-10-14T06:50:43+00:00",
+  "generated_at": "2026-10-14T07:51:55+00:00",
   "task": "issue family: bug / docs / feature",
   "data": {
-    "issues_total": 1645,
-    "usable": 650,
-    "repos": 498,
+    "issues_total": 2092,
+    "usable": 820,
+    "repos": 619,
     "classes": {
-      "feature": 333,
-      "bug": 278,
-      "docs": 39
+      "feature": 413,
+      "bug": 361,
+      "docs": 46
     },
-    "train": 520,
-    "test": 130
+    "train": 656,
+    "test": 164
   },
   "models": {
     "tfidf": {
-      "accuracy": 0.8154,
-      "macro_f1": 0.7993,
+      "accuracy": 0.7683,
+      "macro_f1": 0.6975,
       "per_class": {
         "bug": {
-          "precision": 0.8529,
-          "recall": 0.8406,
-          "f1": 0.8467,
-          "support": 69
+          "precision": 0.831,
+          "recall": 0.7375,
+          "f1": 0.7815,
+          "support": 80
         },
         "docs": {
-          "precision": 1.0,
-          "recall": 0.625,
-          "f1": 0.7692,
+          "precision": 0.5714,
+          "recall": 0.5,
+          "f1": 0.5333,
           "support": 8
         },
         "feature": {
-          "precision": 0.7544,
-          "recall": 0.8113,
-          "f1": 0.7818,
-          "support": 53
+          "precision": 0.7326,
+          "recall": 0.8289,
+          "f1": 0.7778,
+          "support": 76
         }
       },
       "seconds": 1.5,
       "top_terms": {
         "bug": [
           "bug",
-          "found",
           "failed",
           "fix",
-          "reproduce",
-          "while",
           "expected",
+          "found",
+          "reproduce",
           "was",
-          "then",
-          "src",
           "after",
-          "to reproduce"
+          "to reproduce",
+          "its",
+          "then",
+          "pumpkin"
         ],
         "docs": [
           "docs",
           "md",
           "readme",
           "readme md",
-          "links",
-          "handling and",
-          "sprint",
-          "define",
-          "md and",
-          "design md",
           "license",
-          "valores"
+          "docs and",
+          "development",
+          "define",
+          "handling and",
+          "links",
+          "sprint",
+          "handling"
         ],
         "feature": [
           "feature",
-          "implementation",
-          "per",
-          "feat",
-          "show",
-          "target",
           "de",
-          "developer",
-          "of",
-          "on the",
-          "and",
-          "small"
+          "feat",
+          "per",
+          "one",
+          "show",
+          "needs",
+          "tools",
+          "it",
+          "proposal",
+          "add",
+          "https developer"
         ]
       },
       "examples": {
         "right": [
           {
-            "repo": "VR-Vlog/VR-Vlog-lilToon-Exporter",
-            "number": 148,
-            "title": "\u7b2c1\u6bb5: 2.3.4\u3088\u308a\u65b0\u3057\u3044lilToon\u3092\u69cb\u6210\u7167\u5408\u3067\u53d7\u3051\u5165\u308c\u3001\u7248\u3054\u3068\u306e\u69cb\u6210\u30cf\u30c3\u30b7\u30e5\u3092CI\u3067\u7167\u5408\u3059\u308b",
-            "true": "feature",
-            "predicted": "feature"
-          },
-          {
-            "repo": "ScenK/Bean",
-            "number": 287,
-            "title": "Move the routine scheduler and watch IO from the app into core",
-            "true": "feature",
-            "predicted": "feature"
-          },
-          {
-            "repo": "tsokiyZan/Pumpkin",
-            "number": 138,
-            "title": "Campfire block cannot cook and cannot be extinguished by potion [upstream 3020]",
+            "repo": "derrring/MFGArchon",
+            "number": 2651,
+            "title": "from mfgarchon import * raises AttributeError: three __all__ lists name functions their module does not bind",
             "true": "bug",
             "predicted": "bug"
           },
           {
-            "repo": "markup-carve/carve-rs",
-            "number": 2736,
-            "title": "Djot import drops the checkbox of an empty task item",
+            "repo": "devexhq/dovo",
+            "number": 848,
+            "title": "Invoke Claude Code headlessly in bare mode",
+            "true": "feature",
+            "predicted": "feature"
+          },
+          {
+            "repo": "pistisAI/pistisai-app",
+            "number": 289,
+            "title": "EPIC: Pi Agent Integration \u2014 Harness, Watcher, Subagent",
+            "true": "feature",
+            "predicted": "feature"
+          },
+          {
+            "repo": "Quantum-Light-Matter-Cooperative-QLMC/pyrite",
+            "number": 489,
+            "title": "Runs fail after interruption when profile is changed",
             "true": "bug",
             "predicted": "bug"
           }
         ],
         "wrong": [
           {
-            "repo": "Johnsonklarry/guitarix-web",
-            "number": 624,
-            "title": "Batch-select multiple tiles with Shift+click for group move or delete \ud83e\uddd9",
-            "true": "feature",
-            "predicted": "bug"
-          },
-          {
-            "repo": "deepnative/deep-native-engine",
-            "number": 512,
-            "title": "[GOV] Require isolated worktrees and preserve concurrent Codex/Claude ownership",
-            "true": "docs",
-            "predicted": "feature"
-          },
-          {
-            "repo": "linagora/twake-ui",
-            "number": 161,
-            "title": "twake-mui: the selected toggle button looks unselected",
+            "repo": "codefuturist/email-mcp",
+            "number": 103,
+            "title": "reply_email and forward_email stack \"Re:\"/\"Fwd:\" prefixes because the existing-prefix check is case-sensitive",
             "true": "bug",
             "predicted": "feature"
           },
           {
-            "repo": "RoyMatus/Swypetris",
-            "number": 303,
-            "title": "Adopt scoped TDD for testable behavior and bug fixes",
-            "true": "docs",
-            "predicted": "feature"
+            "repo": "open-astro/AlpacaBridge",
+            "number": 437,
+            "title": "Sky-Watcher direct driver: no backlash compensation, unlike indi-eqmod",
+            "true": "feature",
+            "predicted": "bug"
+          },
+          {
+            "repo": "LUNARKN1GHT/CampusFlow",
+            "number": 108,
+            "title": "[X001] \u5b9a\u4e49\u5019\u9009\u4e8b\u9879\u4e0e\u5b57\u6bb5\u8bc1\u636e\u6a21\u578b",
+            "true": "feature",
+            "predicted": "docs"
+          },
+          {
+            "repo": "open-astro/AlpacaBridge",
+            "number": 1071,
+            "title": "Full-fake stress cases: assert a connect succeeded during the storm, and use a fresh fake per destruction iteration",
+            "true": "feature",
+            "predicted": "bug"
           }
         ]
       }
     },
     "minilm": {
-      "accuracy": 0.7769,
-      "macro_f1": 0.6952,
+      "accuracy": 0.7134,
+      "macro_f1": 0.5628,
       "per_class": {
         "bug": {
-          "precision": 0.8333,
-          "recall": 0.7971,
-          "f1": 0.8148,
-          "support": 69
+          "precision": 0.8,
+          "recall": 0.75,
+          "f1": 0.7742,
+          "support": 80
         },
         "docs": {
-          "precision": 0.5,
-          "recall": 0.5,
-          "f1": 0.5,
+          "precision": 0.1538,
+          "recall": 0.25,
+          "f1": 0.1905,
           "support": 8
         },
         "feature": {
-          "precision": 0.75,
-          "recall": 0.7925,
-          "f1": 0.7706,
-          "support": 53
+          "precision": 0.7237,
+          "recall": 0.7237,
+          "f1": 0.7237,
+          "support": 76
         }
       },
-      "seconds": 34.2,
+      "seconds": 37.0,
       "encoder": "sentence-transformers/all-MiniLM-L6-v2",
       "examples": {
         "right": [
           {
-            "repo": "VR-Vlog/VR-Vlog-lilToon-Exporter",
-            "number": 148,
-            "title": "\u7b2c1\u6bb5: 2.3.4\u3088\u308a\u65b0\u3057\u3044lilToon\u3092\u69cb\u6210\u7167\u5408\u3067\u53d7\u3051\u5165\u308c\u3001\u7248\u3054\u3068\u306e\u69cb\u6210\u30cf\u30c3\u30b7\u30e5\u3092CI\u3067\u7167\u5408\u3059\u308b",
+            "repo": "derrring/MFGArchon",
+            "number": 2651,
+            "title": "from mfgarchon import * raises AttributeError: three __all__ lists name functions their module does not bind",
+            "true": "bug",
+            "predicted": "bug"
+          },
+          {
+            "repo": "devexhq/dovo",
+            "number": 848,
+            "title": "Invoke Claude Code headlessly in bare mode",
             "true": "feature",
             "predicted": "feature"
           },
           {
-            "repo": "Johnsonklarry/guitarix-web",
-            "number": 624,
-            "title": "Batch-select multiple tiles with Shift+click for group move or delete \ud83e\uddd9",
+            "repo": "pistisAI/pistisai-app",
+            "number": 289,
+            "title": "EPIC: Pi Agent Integration \u2014 Harness, Watcher, Subagent",
             "true": "feature",
             "predicted": "feature"
           },
           {
-            "repo": "ScenK/Bean",
-            "number": 287,
-            "title": "Move the routine scheduler and watch IO from the app into core",
-            "true": "feature",
-            "predicted": "feature"
-          },
-          {
-            "repo": "tsokiyZan/Pumpkin",
-            "number": 138,
-            "title": "Campfire block cannot cook and cannot be extinguished by potion [upstream 3020]",
+            "repo": "Quantum-Light-Matter-Cooperative-QLMC/pyrite",
+            "number": 489,
+            "title": "Runs fail after interruption when profile is changed",
             "true": "bug",
             "predicted": "bug"
           }
         ],
         "wrong": [
           {
-            "repo": "Motoki0705/tennis-lab",
-            "number": 1120,
-            "title": "[\u30c9\u30ad\u30e5\u30e1\u30f3\u30c8] \u6ce8\u91c8\u30fb\u7d99\u7d9a\u5b66\u7fd2\u306e\u5909\u66f4\u5f8c\u30a2\u30fc\u30ad\u30c6\u30af\u30c1\u30e3\u3068\u8cac\u52d9\u5883\u754c\u3092\u6587\u66f8\u5316\u3059\u308b",
-            "true": "docs",
-            "predicted": "bug"
-          },
-          {
-            "repo": "deepnative/deep-native-engine",
-            "number": 512,
-            "title": "[GOV] Require isolated worktrees and preserve concurrent Codex/Claude ownership",
-            "true": "docs",
-            "predicted": "feature"
-          },
-          {
-            "repo": "Motoki0705/tennis-lab",
-            "number": 1130,
-            "title": "[\u6a5f\u80fd] player bbox\u306e\u4fee\u6b63\u30fb\u8ffd\u52a0\u30fb\u9664\u53bb\u3068\u78ba\u8a8d\u6e08\u307f\u7a7atarget\u3092\u8868\u73fe\u3059\u308b",
-            "true": "feature",
-            "predicted": "bug"
-          },
-          {
-            "repo": "linagora/twake-ui",
-            "number": 161,
-            "title": "twake-mui: the selected toggle button looks unselected",
+            "repo": "thinkingreed-inc/F-RevoCRM",
+            "number": 1908,
+            "title": "[\u4e0d\u5177\u5408] #1469 \u5bfe\u5fdc\u5f8c\u3001\u65b0\u898f\u30a4\u30f3\u30b9\u30c8\u30fc\u30eb\u6642\u306b\u30b7\u30b9\u30c6\u30e0\u5909\u6570\u306e\u4fdd\u5b58\u304c\u5931\u6557\u3057\u30a4\u30f3\u30b9\u30c8\u30fc\u30eb\u304c\u4e2d\u65ad\u3059\u308b",
             "true": "bug",
             "predicted": "feature"
+          },
+          {
+            "repo": "akshat-OwO/contingency",
+            "number": 488,
+            "title": "Teach and run an Android private login for #457",
+            "true": "feature",
+            "predicted": "docs"
+          },
+          {
+            "repo": "LUNARKN1GHT/CampusFlow",
+            "number": 108,
+            "title": "[X001] \u5b9a\u4e49\u5019\u9009\u4e8b\u9879\u4e0e\u5b57\u6bb5\u8bc1\u636e\u6a21\u578b",
+            "true": "feature",
+            "predicted": "docs"
+          },
+          {
+            "repo": "open-astro/AlpacaBridge",
+            "number": 1071,
+            "title": "Full-fake stress cases: assert a connect succeeded during the storm, and use a fresh fake per destruction iteration",
+            "true": "feature",
+            "predicted": "bug"
           }
         ]
       }
