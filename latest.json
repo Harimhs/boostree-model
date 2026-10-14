@@ -1,255 +1,255 @@
 {
-  "generated_at": "2026-10-14T05:03:46+00:00",
+  "generated_at": "2026-10-14T06:28:31+00:00",
   "pull_stats": {
-    "events": 86867,
+    "events": 86415,
     "bad_lines": 0,
-    "issue_events": 711,
+    "issue_events": 756,
     "missing_issue_payload": 0,
     "pull_requests_skipped": 0,
-    "labeled_issue_events": 541,
+    "labeled_issue_events": 598,
     "hours_missing": 0,
     "hours_failed": 0,
-    "unique_labeled_issues": 522,
+    "unique_labeled_issues": 584,
     "sources": [
-      "2026-10-14-3"
+      "2026-10-14-4"
     ]
   },
-  "issues": 522,
-  "repos": 348,
-  "repos_with_5plus_issues": 15,
-  "distinct_labels": 642,
-  "avg_labels_per_issue": 2.56,
-  "issues_with_body": 517,
+  "issues": 584,
+  "repos": 374,
+  "repos_with_5plus_issues": 14,
+  "distinct_labels": 617,
+  "avg_labels_per_issue": 2.49,
+  "issues_with_body": 580,
   "top_labels": [
     [
-      "enhancement",
-      82
+      "bug",
+      108
     ],
     [
-      "bug",
-      63
+      "enhancement",
+      102
     ],
     [
       "needs-review",
-      39
+      68
     ],
     [
       "auto-detected",
-      38
+      67
     ],
     [
       "pubmed",
-      36
+      63
     ],
     [
-      "type:task",
-      19
+      "Checkmarx",
+      23
+    ],
+    [
+      "branch:master",
+      23
+    ],
+    [
+      "feedback-app:1511368f-870a-4a99-a2ca-652429c4486f",
+      23
     ],
     [
       "ready-for-agent",
-      19
-    ],
-    [
-      "decision",
-      15
-    ],
-    [
-      "sprint-2",
-      13
-    ],
-    [
-      "team:BE",
-      10
+      21
     ],
     [
       "documentation",
+      16
+    ],
+    [
+      "decision",
+      12
+    ],
+    [
+      "task",
       10
     ],
     [
-      "sprint-1",
+      "frontend",
+      10
+    ],
+    [
+      "coverage",
+      10
+    ],
+    [
+      "SAST",
+      10
+    ],
+    [
+      "backend",
       9
     ],
     [
-      "P2",
+      "good first issue",
       9
     ],
     [
-      "src:design-only",
-      8
-    ],
-    [
-      "priority::medium",
-      8
-    ],
-    [
-      "security",
-      8
-    ],
-    [
-      "type:refactor",
-      8
-    ],
-    [
-      "source:agent",
-      8
-    ],
-    [
-      "type:feature",
+      "size:M",
       7
     ],
     [
-      "priority:medium",
+      "SCA",
       7
     ],
     [
-      "taskq",
-      7
+      "feature",
+      6
     ],
     [
-      "p1",
-      7
+      "help wanted",
+      6
     ],
     [
-      "priority-high",
-      7
+      "type:bug",
+      6
     ],
     [
-      "performance",
-      7
+      "wave:4",
+      6
     ],
     [
-      "priority:high",
-      7
+      "\u6295\u7a3f",
+      6
+    ],
+    [
+      "player",
+      6
     ]
   ],
   "top_repos": [
     [
-      "huongnv-0154/lab5-yuki-coldchain-backlog",
-      17
+      "Relcan-Exploratory-Testing-by-RG/ExploratoryTest-141026",
+      23
     ],
     [
-      "hyron-fr/hermes-workflow",
+      "tsokiyZan/Pumpkin",
+      19
+    ],
+    [
+      "yao-care/CaTxGNN",
       14
     ],
     [
-      "SaimaKapoor/SE-PARKING-PROJECT",
-      9
+      "yao-care/SATxGNN",
+      14
     ],
     [
-      "organizzolini/codebase",
-      8
-    ],
-    [
-      "yao-care/SgTxGNN",
-      7
-    ],
-    [
-      "yao-care/NZTxGNN",
-      7
-    ],
-    [
-      "rjroy/shining-stars",
-      7
-    ],
-    [
-      "yao-care/KrTxGNN",
-      6
-    ],
-    [
-      "taskqorg/taskq",
-      6
-    ],
-    [
-      "yao-care/MyTxGNN",
-      6
-    ],
-    [
-      "handarbeit/fabrik-test-alpha",
-      5
-    ],
-    [
-      "yao-care/NOTxGNN",
-      5
-    ],
-    [
-      "shreya-shahapur/SE-MiniProject",
-      5
+      "hyron-fr/hermes-workflow",
+      12
     ],
     [
       "kolabs-dev/isim",
+      10
+    ],
+    [
+      "leftos/yaat",
+      9
+    ],
+    [
+      "yao-care/PhTxGNN",
+      8
+    ],
+    [
+      "HuangYouci/web-mcd-stargame-2026-github",
+      6
+    ],
+    [
+      "nguyentuanphu/Sparkle-Valley",
       5
     ],
     [
-      "technicks89/Pokemon_Yellow_Legacy",
+      "Motoki0705/tennis-lab",
       5
+    ],
+    [
+      "yao-care/UkTxGNN",
+      5
+    ],
+    [
+      "yao-care/ZaTxGNN",
+      5
+    ],
+    [
+      "yao-care/JpTxGNN",
+      5
+    ],
+    [
+      "AbdelrhmanAh7/FlowLine_Web",
+      4
     ]
   ],
   "family_name_variety": {
     "bug": {
-      "distinct_names": 10,
+      "distinct_names": 9,
       "top_names": [
         [
           "bug",
-          63
+          108
         ],
         [
-          "ameesh:bug",
-          2
+          "type:bug",
+          6
+        ],
+        [
+          "Bug",
+          3
         ],
         [
           "type: bug",
           2
         ],
         [
-          "C-bug",
+          "ci-regression",
           1
         ],
         [
-          "type/bug",
+          "ci-regression-failure",
           1
         ],
         [
-          "kind:bug",
+          "is: bug",
           1
         ],
         [
-          "type:bug",
-          1
-        ],
-        [
-          "impact:crash-loop",
+          "kind: bug",
           1
         ]
       ]
     },
     "docs": {
-      "distinct_names": 4,
+      "distinct_names": 5,
       "top_names": [
         [
           "documentation",
-          10
+          16
         ],
         [
-          "domain/doc",
-          1
+          "area:docs",
+          4
         ],
         [
           "docs",
+          2
+        ],
+        [
+          "type:docs",
           1
         ],
         [
-          "area-docs",
+          "area: docs",
           1
         ]
       ]
     },
     "duplicate": {
-      "distinct_names": 2,
+      "distinct_names": 1,
       "top_names": [
-        [
-          "*duplicate",
-          1
-        ],
         [
           "duplicate",
           1
@@ -257,22 +257,22 @@
       ]
     },
     "feature": {
-      "distinct_names": 12,
+      "distinct_names": 15,
       "top_names": [
         [
           "enhancement",
-          82
-        ],
-        [
-          "type:feature",
-          7
+          102
         ],
         [
           "feature",
           6
         ],
         [
-          "feature-request",
+          "type:feature",
+          3
+        ],
+        [
+          "Improvement",
           3
         ],
         [
@@ -280,70 +280,62 @@
           2
         ],
         [
-          "type: feature",
+          "feature-request",
           2
         ],
         [
-          "kind:feature",
+          "type/feature",
           1
         ],
         [
-          "ameesh:improvement",
+          "feature:cli",
           1
         ]
       ]
     },
     "other": {
-      "distinct_names": 608,
+      "distinct_names": 583,
       "top_names": [
         [
           "needs-review",
-          39
+          68
         ],
         [
           "auto-detected",
-          38
+          67
         ],
         [
           "pubmed",
-          36
+          63
         ],
         [
-          "type:task",
-          19
+          "Checkmarx",
+          23
+        ],
+        [
+          "branch:master",
+          23
+        ],
+        [
+          "feedback-app:1511368f-870a-4a99-a2ca-652429c4486f",
+          23
         ],
         [
           "ready-for-agent",
-          19
+          21
         ],
         [
           "decision",
-          15
-        ],
-        [
-          "sprint-2",
-          13
-        ],
-        [
-          "team:BE",
-          10
+          12
         ]
       ]
     },
     "question": {
-      "distinct_names": 4,
+      "distinct_names": 2,
       "top_names": [
         [
           "question",
-          4
-        ],
-        [
-          "help wanted",
           3
-        ],
-        [
-          "type: setup help",
-          1
         ],
         [
           "Card Support",
@@ -355,11 +347,11 @@
       "distinct_names": 2,
       "top_names": [
         [
-          "wontfix",
-          2
+          "invalid link",
+          1
         ],
         [
-          "invalid",
+          "wontfix",
           1
         ]
       ]
@@ -367,53 +359,56 @@
   },
   "examples": [
     {
-      "repo": "clockgrove/factory",
-      "number": 1101,
-      "title": "Acknowledge each terminal native planning return once",
+      "repo": "on-par/software-factory",
+      "number": 2800,
+      "title": "Extract cmdRun and runLane into cli/run.ts",
       "labels": [
-        "leaf",
-        "P1"
+        "factory:in-progress",
+        "factory:order:3",
+        "factory:lane:ara",
+        "factory:claimed-by:patricks-mac-mini-16255",
+        "factory:claim-expires:1791951477"
       ]
     },
     {
-      "repo": "sravya-cloud/online_examination_portal",
-      "number": 45,
-      "title": "FR-04: Create examinations",
+      "repo": "eunsoogi/codexy",
+      "number": 1318,
+      "title": "Cancel Watcher waits after successful cross-thread message delivery",
       "labels": [
-        "sprint-1",
-        "functional",
-        "sp-5"
+        "type/fix",
+        "status/in-progress",
+        "priority/high",
+        "area/plugin",
+        "area/mcp-lsp",
+        "area/qa"
       ]
     },
     {
-      "repo": "huongnv-0154/lab5-yuki-coldchain-backlog",
-      "number": 227,
-      "title": "FG07-02.3 RPC import_temp_readings + route \u2014 X\u00e1c minh t\u1ec7p, ch\u1ed1ng tr\u00f9ng, ghi m\u1ed9t transaction",
+      "repo": "jikig-ai/soleur",
+      "number": 10231,
+      "title": "feat: productize gate-literal divergence harness into a repeatable external-output-filter eval",
       "labels": [
-        "type:task",
-        "team:BE",
-        "epic:E-07",
-        "src:design-only",
-        "src:integration"
+        "priority/p3-low",
+        "type/feature",
+        "domain/engineering"
       ]
     },
     {
-      "repo": "youneedgreg/chessy",
-      "number": 121,
-      "title": "Code health: fix ESLint errors and stop linting the Stockfish bundle",
+      "repo": "aien-spark/aien-sovereign-core",
+      "number": 495,
+      "title": "What blocks the persistent-KV PRs from merging?",
       "labels": [
-        "good first issue",
-        "difficulty: easy",
-        "area: infra"
+        "wayfinder:research"
       ]
     },
     {
-      "repo": "Tamriel-Toolkit/ESO-Trade-Project",
-      "number": 100,
-      "title": "[FEAT] Complete bidirectional deep-linked Marketplace filter state",
+      "repo": "ZelfOfficial/zelf-dashboard",
+      "number": 8,
+      "title": "Staff sign-in goes through /api/clients/auth instead of v4 /api/staff/auth",
       "labels": [
-        "enhancement",
-        "feature"
+        "bug",
+        "v4-migration",
+        "priority:high"
       ]
     }
   ]
