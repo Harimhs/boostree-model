@@ -28,7 +28,7 @@ inconsistent.
 
 - [x] Step 1: pull real labeled issues and summarize them
 - [x] Step 2: baselines (TF-IDF, frozen MiniLM + label head), retrained every 3 hours
-- [ ] Step 3: booster trees
+- [x] Step 3: gain-guided booster trees inside the encoder (first version)
 - [ ] Step 4: scheduled continuous training, versions on Hugging Face
 - [ ] Step 5: live dashboard (curves, gain heatmap, split rules, drift, consistency report)
 

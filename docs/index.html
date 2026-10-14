@@ -20,6 +20,18 @@
     --warning: #fab219;
     --critical: #d03b3b;
     --chip: #ecebe7;
+    --seq-1: #cde2fb; --seq-2: #9ec5f4; --seq-3: #6da7ec; --seq-4: #3987e5;
+    --seq-5: #256abf; --seq-6: #184f95; --seq-7: #0d366b;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:where(:not([data-theme="light"])) {
+      --seq-1: #0d366b; --seq-2: #184f95; --seq-3: #256abf; --seq-4: #3987e5;
+      --seq-5: #6da7ec; --seq-6: #9ec5f4; --seq-7: #cde2fb;
+    }
+  }
+  :root[data-theme="dark"] {
+    --seq-1: #0d366b; --seq-2: #184f95; --seq-3: #256abf; --seq-4: #3987e5;
+    --seq-5: #6da7ec; --seq-6: #9ec5f4; --seq-7: #cde2fb;
   }
   @media (prefers-color-scheme: dark) {
     :root:where(:not([data-theme="light"])) {
@@ -109,6 +121,22 @@
   .soon div { border: 1px dashed var(--border); border-radius: 10px; padding: 10px; }
   .soon b { font-size: 13px; }
   .err { color: var(--critical); font-size: 13px; }
+  .terms { display: grid; gap: 8px; margin-top: 8px; }
+  .terms b { font-size: 13px; display: block; margin-bottom: 3px; }
+  .ex { font-size: 13px; padding: 6px 0; border-bottom: 1px solid var(--grid); }
+  .ex .meta { color: var(--text-muted); font-size: 12px; }
+  .mark { font-weight: 700; }
+  .heat { display: grid; gap: 2px; margin-top: 8px; font-size: 11px; align-items: center; overflow-x: auto; }
+  .heat .rl { color: var(--text-secondary); white-space: nowrap; padding-right: 6px; }
+  .heat .ch { color: var(--text-muted); text-align: center; }
+  .heat .cell { height: 18px; border-radius: 3px; position: relative; cursor: pointer; }
+  .heat .cell.pick::after { content: "●"; position: absolute; inset: 0; display: grid; place-items: center; color: var(--surface-1); font-size: 10px; }
+  .heat-legend { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--text-secondary); margin-top: 6px; flex-wrap: wrap; }
+  .heat-legend i { width: 16px; height: 10px; border-radius: 2px; display: inline-block; }
+  .round { border-top: 1px solid var(--grid); padding: 8px 0; font-size: 13px; }
+  .round .leaf { display: grid; grid-template-columns: 1fr auto; gap: 8px; padding: 2px 0 2px 10px; color: var(--text-secondary); }
+  .round .leaf .w { font-variant-numeric: tabular-nums; }
+  #heat-info { min-height: 18px; margin-top: 4px; }
   .empty { padding: 14px 0; }
   footer { margin-top: 18px; text-align: center; }
   .toggle { background: none; border: 1px solid var(--border); color: var(--text-secondary); border-radius: 8px; padding: 3px 8px; font-size: 12px; cursor: pointer; }
@@ -132,6 +160,18 @@
     <h2>Training</h2>
     <div class="muted" id="train-sub">Predict an issue's type (bug, feature, docs, question) from its text. Scored on the newest issues it hasn't seen.</div>
     <div id="train"></div>
+  </section>
+
+  <section class="card">
+    <h2>What it learned</h2>
+    <div class="muted">The words that push hardest toward each type (word-count model), and real guesses on new issues.</div>
+    <div id="pattern"></div>
+  </section>
+
+  <section class="card">
+    <h2>Booster trees</h2>
+    <div class="muted">Step 3: tiny adjustments inside the encoder, chosen round by round with XGBoost's gain formula.</div>
+    <div id="boost"></div>
   </section>
 
   <section class="card">
@@ -161,9 +201,9 @@
   <section class="card">
     <h2>Coming next</h2>
     <div class="soon">
-      <div><b>Gain heatmap</b><div class="muted">Step 3: which layers get boosters, round by round</div></div>
-      <div><b>Split rules</b><div class="muted">Step 3: where repos disagree, in plain words</div></div>
-      <div><b>Drift and consistency</b><div class="muted">Step 5: label drift alerts and the consistency report</div></div>
+      <div><b>Per-repo labels</b><div class="muted">Step 4: predict each repo's own label names, published on Hugging Face</div></div>
+      <div><b>Drift alerts</b><div class="muted">Step 5: when a repo starts labeling differently</div></div>
+      <div><b>Consistency report</b><div class="muted">Step 5: near-identical issues that got different labels</div></div>
     </div>
   </section>
 
@@ -345,6 +385,87 @@ function renderTraining(base, hist) {
   lineChart(chart, series, { yFormat: v => `${Math.round(v * 100)}%`, yMax: 1, yLabel: "Macro-F1 over training runs" });
 }
 
+function renderPattern(base) {
+  const host = document.getElementById("pattern");
+  const tf = base?.models?.tfidf, ml = base?.models?.minilm;
+  if (!tf?.top_terms) {
+    host.innerHTML = `<div class="muted empty">Appears after the next training run.</div>`;
+    return;
+  }
+  const terms = Object.entries(tf.top_terms).map(([cls, words]) => `
+    <div><b>${esc(cls)}</b><div class="chips">${words.slice(0, 10).map(w => `<span class="chip">${esc(w)}</span>`).join("")}</div></div>`).join("");
+  const ex = (list, ok) => (list || []).slice(0, 3).map(e => `
+    <div class="ex"><span class="mark" style="color:${ok ? "var(--good)" : "var(--critical)"}">${ok ? "✓" : "✕"}</span>
+      ${esc(e.title)}
+      <div class="meta">${esc(e.repo)}#${e.number} · actual <b>${esc(e.true)}</b> · guessed <b>${esc(e.predicted)}</b></div></div>`).join("");
+  const src = ml?.examples ? ml : tf;
+  host.innerHTML = `<div class="terms">${terms}</div>
+    <h3>Real guesses on new issues (${src === ml ? "MiniLM" : "word-count"})</h3>
+    ${ex(src.examples?.right, true)}${ex(src.examples?.wrong, false)}`;
+}
+
+function heatColor(gain, max) {
+  if (!(gain > 0) || !(max > 0)) return "var(--grid)";
+  const rel = Math.max(-4, Math.log10(gain / max));   // 0 = best, -4 = 10,000x smaller
+  const step = Math.min(7, Math.max(1, Math.round(7 + rel * 1.5)));
+  return `var(--seq-${step})`;
+}
+
+function renderBoost(boost, bhist) {
+  const host = document.getElementById("boost");
+  if (!boost) {
+    host.innerHTML = `<div class="muted empty">The first booster-tree run hasn't finished yet. It runs after each training (every 3 hours).</div>`;
+    return;
+  }
+  if (boost.status !== "ok") {
+    host.innerHTML = `<div class="muted empty">${esc(boost.status)}</div>`;
+    return;
+  }
+  const kept = boost.rounds.filter(r => r.module);
+  const delta = boost.final.macro_f1 - boost.start.macro_f1;
+  const sign = delta >= 0 ? "+" : "−";
+  // gain heatmap: one row per candidate matrix, one column per round
+  const mods = boost.modules || Object.keys(boost.rounds[0]?.gains || {});
+  const rounds = boost.rounds.filter(r => r.gains);
+  const short = m => m.replace("layer ", "L").replace(" attention", " attn").replace(" feed-forward", " ffn");
+  let cells = `<div></div>` + rounds.map(r => `<div class="ch">${r.round}</div>`).join("");
+  for (const m of mods) {
+    cells += `<div class="rl">${esc(short(m))}</div>`;
+    for (const r of rounds) {
+      const max = Math.max(...Object.values(r.gains));
+      const g = r.gains[m];
+      const pick = r.module === m;
+      cells += `<div class="cell${pick ? " pick" : ""}" style="background:${heatColor(g, max)}"
+        data-info="${esc(`Round ${r.round} · ${m}: gain ${g}${pick ? " · chosen" : ""}`)}"
+        title="Round ${r.round} · ${esc(m)}: gain ${g}${pick ? " (chosen)" : ""}"></div>`;
+    }
+  }
+  const roundsHtml = kept.map(r => `
+    <div class="round"><b>Round ${r.round}: ${esc(r.module)}</b>
+      <span class="muted"> · gain ${r.gain} · t ${r.t}${r.test_macro_f1 != null ? ` · test F1 ${pct(r.test_macro_f1)}` : ""}</span>
+      ${r.leaves.map(l => `<div class="leaf"><span>${esc(l.rule)} <span class="muted">(${l.issues} issues)</span></span>
+        <span class="w">${l.weight > 0 ? "+" : ""}${l.weight}</span></div>`).join("")}
+    </div>`).join("");
+  host.innerHTML = `
+    <div class="kpis inner">
+      <div class="kpi"><div class="v">${pct(boost.start.macro_f1)}</div><div class="l">Before boosting (MiniLM)</div></div>
+      <div class="kpi"><div class="v">${pct(boost.final.macro_f1)}</div><div class="l">After boosting · ${sign}${Math.abs(delta * 100).toFixed(1)} pts</div></div>
+      <div class="kpi"><div class="v">${fmt(boost.boosters)}</div><div class="l">Boosters kept</div></div>
+      <div class="kpi"><div class="v">${fmt(rounds.length)}</div><div class="l">Rounds run</div></div>
+    </div>
+    <div class="muted" style="margin-top:8px">Stopped because: ${esc(boost.stopped_because)}.</div>
+    <h3>Gain heatmap: where the model asked to change</h3>
+    <div class="heat" style="grid-template-columns: auto repeat(${rounds.length}, minmax(18px, 1fr))">${cells}</div>
+    <div class="heat-legend">Lower gain <i style="background:var(--seq-1)"></i><i style="background:var(--seq-3)"></i><i style="background:var(--seq-5)"></i><i style="background:var(--seq-7)"></i> higher gain · ● chosen</div>
+    <div class="muted" id="heat-info">Tap a cell to see its gain.</div>
+    <h3>Rounds and split rules</h3>
+    <div class="muted">Each booster pushes its direction by the leaf's weight. Opposite signs mean two groups of issues needed opposite changes.</div>
+    ${roundsHtml || `<div class="muted empty">No booster passed the noise test yet.</div>`}`;
+  host.querySelectorAll(".heat .cell").forEach(c => c.addEventListener("click", () => {
+    document.getElementById("heat-info").textContent = c.dataset.info;
+  }));
+}
+
 function renderTrend(history) {
   const host = document.getElementById("trend");
   const pts = [];
@@ -394,11 +515,14 @@ async function load() {
   document.getElementById("updated").textContent = "Loading…";
   loadStatus();
   try {
-    const [latest, history, base, trainHist] = await Promise.all([
+    const [latest, history, base, trainHist, boost, boostHist] = await Promise.all([
       fetchJSON("latest.json"), fetchLines("history.jsonl"),
       fetchJSON("model/latest_baseline.json"), fetchLines("model/model_history.jsonl"),
+      fetchJSON("model/latest_boost.json"), fetchLines("model/boost_history.jsonl"),
     ]);
     renderTraining(base, trainHist);
+    renderPattern(base);
+    renderBoost(boost, boostHist);
     if (latest) {
       renderKpis(history, latest);
       renderTrend(history);
