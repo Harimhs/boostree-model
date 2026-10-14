@@ -1,369 +1,315 @@
 {
-  "generated_at": "2026-10-14T09:40:11+00:00",
+  "generated_at": "2026-10-14T10:15:47+00:00",
   "pull_stats": {
-    "events": 87836,
+    "events": 87461,
     "bad_lines": 0,
-    "issue_events": 428,
+    "issue_events": 328,
     "missing_issue_payload": 0,
     "pull_requests_skipped": 0,
-    "labeled_issue_events": 345,
+    "labeled_issue_events": 262,
     "hours_missing": 0,
     "hours_failed": 0,
-    "unique_labeled_issues": 340,
+    "unique_labeled_issues": 259,
     "sources": [
-      "2026-10-14-7"
+      "2026-10-14-8"
     ]
   },
-  "issues": 340,
-  "repos": 261,
-  "repos_with_5plus_issues": 1,
-  "distinct_labels": 489,
-  "avg_labels_per_issue": 2.56,
-  "issues_with_body": 340,
+  "issues": 259,
+  "repos": 212,
+  "repos_with_5plus_issues": 2,
+  "distinct_labels": 409,
+  "avg_labels_per_issue": 2.41,
+  "issues_with_body": 254,
   "top_labels": [
     [
-      "bug",
-      59
-    ],
-    [
       "enhancement",
-      51
+      50
     ],
     [
-      "ready-for-agent",
-      15
-    ],
-    [
-      "area: admin",
-      15
-    ],
-    [
-      "qa: test-case",
-      14
-    ],
-    [
-      "priority: high",
-      12
-    ],
-    [
-      "feature",
-      11
-    ],
-    [
-      "page: reports",
-      10
-    ],
-    [
-      "qa: functional",
-      9
-    ],
-    [
-      "documentation",
-      8
-    ],
-    [
-      "priority: medium",
-      8
+      "bug",
+      33
     ],
     [
       "type:feature",
+      11
+    ],
+    [
+      "ready-for-agent",
       8
     ],
     [
-      "Stellar Wave",
+      "documentation",
       7
     ],
     [
-      "roadmap",
-      5
-    ],
-    [
-      "needs-triage",
-      5
-    ],
-    [
-      "qa: api",
-      5
-    ],
-    [
-      "backend",
-      5
-    ],
-    [
       "decision",
-      5
-    ],
-    [
-      "P3",
-      5
+      7
     ],
     [
       "ready",
+      7
+    ],
+    [
+      "P2",
+      6
+    ],
+    [
+      "task",
+      6
+    ],
+    [
+      "area:ui",
       5
     ],
     [
-      "priority: low",
+      "P1",
+      5
+    ],
+    [
+      "area:docs",
       4
     ],
     [
-      "type:bug",
+      "in-progress",
       4
     ],
     [
-      "good first issue",
+      "feature",
       4
     ],
     [
-      "ci",
+      "priority:p1",
       4
     ],
     [
-      "performance",
+      "type:task",
       4
+    ],
+    [
+      "priority:high",
+      3
+    ],
+    [
+      "priority:p2",
+      3
+    ],
+    [
+      "frontend",
+      3
+    ],
+    [
+      "tech-debt",
+      3
+    ],
+    [
+      "area: engine",
+      3
+    ],
+    [
+      "ai-ready",
+      3
+    ],
+    [
+      "ameesh",
+      3
+    ],
+    [
+      "blocked",
+      3
+    ],
+    [
+      "library-adoption",
+      3
     ]
   ],
   "top_repos": [
     [
-      "UA-5341-TAQC/selenium_java",
-      24
-    ],
-    [
       "hyron-fr/hermes-workflow",
-      4
+      6
     ],
     [
-      "adklikha-tech/KORA",
-      4
-    ],
-    [
-      "CMPUT301F26-lambdaBBB/lambda_BBB-events",
-      4
-    ],
-    [
-      "joshuauaua/Placer",
-      3
-    ],
-    [
-      "dent-ist/MatterFlow",
-      3
-    ],
-    [
-      "bnsd55/open-scion",
-      3
-    ],
-    [
-      "SO4-Markets/so4-oracle",
-      3
-    ],
-    [
-      "IA-P1-BCN/g1-python-crud-api",
-      3
-    ],
-    [
-      "tvolodi-org/letflow",
-      3
+      "brycejmurrin/f1-game",
+      6
     ],
     [
       "Flixarr/flixarr",
+      4
+    ],
+    [
+      "joromi1/splitvault-contracts",
+      4
+    ],
+    [
+      "valence-works/elsa-control",
+      4
+    ],
+    [
+      "leynos/mapsplice",
+      3
+    ],
+    [
+      "morluto/rea",
+      3
+    ],
+    [
+      "manaty/ameesh",
+      3
+    ],
+    [
+      "QuinntyneBrown/shot-there",
+      3
+    ],
+    [
+      "AbdelrhmanAh7/FlowLine_Web",
+      3
+    ],
+    [
+      "HL7Austria/CDA2FHIR",
       2
     ],
     [
-      "BAWES-Universe/workadventure-universe",
+      "Tupig/Tupig_synergy",
       2
     ],
     [
-      "CrowBe/weave",
+      "AxalNetwork/StudioOS",
       2
     ],
     [
-      "kailash-os/kailash-guide",
+      "SEAME-pt/SEA-ME_Team1_ROSRangers",
       2
     ],
     [
-      "koshian/cayenchat",
+      "IA-P1-BCN/g1-python-crud-api",
       2
     ]
   ],
   "family_name_variety": {
     "bug": {
-      "distinct_names": 9,
+      "distinct_names": 6,
       "top_names": [
         [
           "bug",
-          59
+          33
         ],
         [
-          "type:bug",
-          4
-        ],
-        [
-          "Bug",
+          "type: bug",
           2
         ],
         [
-          "kind/bug",
+          "ameesh:bug",
+          2
+        ],
+        [
+          "type:bug",
           1
         ],
         [
-          "module: crash",
+          "\ud83d\udc1e Bug",
           1
         ],
         [
-          "type/bug",
-          1
-        ],
-        [
-          "perf-regression",
-          1
-        ],
-        [
-          "aistock:bug",
+          "meta:regression",
           1
         ]
       ]
     },
     "docs": {
-      "distinct_names": 8,
+      "distinct_names": 3,
       "top_names": [
         [
           "documentation",
-          8
+          7
         ],
         [
           "area:docs",
-          2
+          4
         ],
         [
-          "area/docs",
-          1
-        ],
-        [
-          "type: docs",
-          1
-        ],
-        [
-          "Type : Documentation",
-          1
-        ],
-        [
-          "OKR : Documentation",
-          1
-        ],
-        [
-          "area: docs-process",
-          1
-        ],
-        [
-          "\ud83d\udcd6 documentation",
-          1
-        ]
-      ]
-    },
-    "duplicate": {
-      "distinct_names": 2,
-      "top_names": [
-        [
-          "Duplicate",
-          1
-        ],
-        [
-          "duplicate",
+          "area: documentation",
           1
         ]
       ]
     },
     "feature": {
-      "distinct_names": 13,
+      "distinct_names": 7,
       "top_names": [
         [
           "enhancement",
-          51
-        ],
-        [
-          "feature",
-          11
+          50
         ],
         [
           "type:feature",
-          8
+          11
         ],
         [
-          "Feature",
-          1
-        ],
-        [
-          "type: enhancement",
-          1
+          "feature",
+          4
         ],
         [
           "type: feature",
           1
         ],
         [
-          "seo-proposal",
+          "feature/composite-performance",
           1
         ],
         [
-          "type.Enhancement",
+          "Type: Enhancement",
+          1
+        ],
+        [
+          "type/feature",
           1
         ]
       ]
     },
     "other": {
-      "distinct_names": 454,
+      "distinct_names": 391,
       "top_names": [
         [
           "ready-for-agent",
-          15
-        ],
-        [
-          "area: admin",
-          15
-        ],
-        [
-          "qa: test-case",
-          14
-        ],
-        [
-          "priority: high",
-          12
-        ],
-        [
-          "page: reports",
-          10
-        ],
-        [
-          "qa: functional",
-          9
-        ],
-        [
-          "priority: medium",
           8
         ],
         [
-          "Stellar Wave",
+          "decision",
           7
+        ],
+        [
+          "ready",
+          7
+        ],
+        [
+          "P2",
+          6
+        ],
+        [
+          "task",
+          6
+        ],
+        [
+          "area:ui",
+          5
+        ],
+        [
+          "P1",
+          5
+        ],
+        [
+          "in-progress",
+          4
         ]
       ]
     },
     "question": {
-      "distinct_names": 1,
-      "top_names": [
-        [
-          "question",
-          2
-        ]
-      ]
-    },
-    "wontfix": {
       "distinct_names": 2,
       "top_names": [
         [
-          "Invalid",
+          "Card Support",
           1
         ],
         [
-          "wontfix",
+          "question",
           1
         ]
       ]
@@ -371,49 +317,52 @@
   },
   "examples": [
     {
-      "repo": "laurigates/claude-plugins",
-      "number": 3073,
-      "title": "[Bug] evaluate-plugin: drift probe walks session cwd unguarded",
+      "repo": "intel/torch-xpu-ops",
+      "number": 5369,
+      "title": "[Triton][BMG] 1 confirmed performance drops",
       "labels": [
-        "bug"
+        "performance",
+        "hw: BMG",
+        "dependency component: Triton"
       ]
     },
     {
-      "repo": "Graphene-Lab/AgentBridge",
-      "number": 100,
-      "title": "OfficeManager improvement",
+      "repo": "anchor-tools/stellar-toml-lint",
+      "number": 344,
+      "title": "Autonomous System Number (ASN) BGP route leak and routing anomaly detector",
       "labels": [
-        "enhancement"
+        "enhancement",
+        "Wave: High"
       ]
     },
     {
-      "repo": "ifahrentholz/beton",
-      "number": 167,
-      "title": "M2 \u00b7 WP-44 \u00b7 Usage-API, Subscription-Usage & `beton usage`",
+      "repo": "pyrycode/pyrycode",
+      "number": 3325,
+      "title": "perf(thread): stop rewriting the whole thread cache and re-resolving every item on each history append",
       "labels": [
-        "type:work-package",
-        "needs-vendor-cli",
-        "area:server",
-        "area:harness",
-        "area:cli"
+        "priority:high",
+        "family-dispatches:1",
+        "wip:refiner",
+        "claim:build-fractal-2"
       ]
     },
     {
-      "repo": "adklikha-tech/KORA",
-      "number": 70,
-      "title": "[Flow] [Activities] [Files, folders, environment, and processes] [Browse for File]",
+      "repo": "EricKingWhy/intelligence-agent",
+      "number": 1136,
+      "title": "[Web UI] \u4eae\u8272\u4e3b\u9898\u8bed\u4e49\u8272\u6b63\u6587\u5bf9\u6bd4\u5ea6\u4e0d\u8fbe\u6807\uff1a--warning/--danger \u5728\u7eaf\u767d\u5e95\u4e0a\u9650\u5373 <4.5\uff0c\u8c03 alpha \u65e0\u89e3\uff08\u542b e2e \u8986\u76d6\u7f3a\u53e3\uff09",
       "labels": [
-        "activities",
-        "Flow",
-        "MVP1"
+        "bug",
+        "needs-triage",
+        "P2"
       ]
     },
     {
-      "repo": "joshuauaua/Placer",
-      "number": 171,
-      "title": "need to be able to edit tools (inclduign start date) bug",
+      "repo": "pyrite-wiki/pyrite",
+      "number": 883,
+      "title": "spike: can Obscura speed up exploratory and smoke UI testing?",
       "labels": [
-        "question"
+        "enhancement",
+        "help wanted"
       ]
     }
   ]
