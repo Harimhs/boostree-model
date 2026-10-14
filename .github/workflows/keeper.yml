@@ -1,0 +1,48 @@
+name: Keeper
+
+# GitHub's cron schedule is best-effort and often skips runs. This workflow
+# keeps the pipeline moving without relying on it: it starts "Pull data" every
+# hour and "Train" every 3 hours, then restarts itself just before GitHub's
+# 6-hour job limit. (A workflow_dispatch sent with GITHUB_TOKEN is one of the
+# few events allowed to start new runs.) The cron below only revives the chain
+# if it ever breaks; the concurrency setting keeps exactly one keeper alive.
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "5 */6 * * *"
+  push:
+    branches: [code]
+    paths:
+      - ".github/workflows/keeper.yml"
+
+permissions:
+  actions: write
+  contents: read
+
+concurrency:
+  group: keeper
+  cancel-in-progress: true
+
+jobs:
+  keep:
+    runs-on: ubuntu-latest
+    timeout-minutes: 350
+    env:
+      GH_TOKEN: ${{ github.token }}
+      REPO: ${{ github.repository }}
+    steps:
+      - name: Start pulls hourly and training every 3 hours
+        run: |
+          for i in 1 2 3 4 5; do
+            echo "Round $i: starting Pull data"
+            gh workflow run pull-data.yml --ref code -R "$REPO" || echo "dispatch failed, continuing"
+            if [ $((i % 3)) -eq 1 ]; then
+              echo "Round $i: starting Train"
+              gh workflow run train.yml --ref code -R "$REPO" || echo "dispatch failed, continuing"
+            fi
+            sleep 3540
+          done
+
+      - name: Restart the keeper (keeps the chain alive)
+        if: always()
+        run: gh workflow run keeper.yml --ref code -R "$REPO"
