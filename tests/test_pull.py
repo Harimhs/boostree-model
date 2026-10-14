@@ -49,6 +49,30 @@ def test_hour_urls_format():
     assert urls[1][1].endswith("/2026-10-14-6.json.gz")
 
 
+def test_hour_urls_after_catches_up_in_order_with_cap():
+    from boostree.data.pull_gharchive import hour_urls_after
+
+    now = datetime(2026, 10, 14, 9, 30, tzinfo=timezone.utc)
+    labels = [l for l, _ in hour_urls_after("2026-10-14-3", lag=2, max_hours=6, now=now)]
+    assert labels == ["2026-10-14-4", "2026-10-14-5", "2026-10-14-6", "2026-10-14-7"]
+    capped = [l for l, _ in hour_urls_after("2026-10-13-20", lag=2, max_hours=3, now=now)]
+    assert capped == ["2026-10-13-21", "2026-10-13-22", "2026-10-13-23"]
+    assert hour_urls_after("2026-10-14-7", lag=2, max_hours=6, now=now) == []
+
+
+def test_history_append_and_last_hour(tmp_path):
+    from boostree.data import history
+
+    path = tmp_path / "history.jsonl"
+    summary = {"generated_at": "t1", "issues": 5, "repos": 2, "distinct_labels": 3,
+               "pull_stats": {"sources": ["2026-10-14-9", "2026-10-14-10"], "events": 9},
+               "family_name_variety": {"bug": {"distinct_names": 4, "top_names": []}}}
+    history.append(str(path), history.record_from_summary(summary))
+    rec = history.read_history(str(path))[0]
+    assert rec["family_distinct"] == {"bug": 4}
+    assert history.last_hour(str(path)) == "2026-10-14-10"  # numeric, not string order
+
+
 def test_family():
     assert family("type: bug") == "bug"
     assert family("kind/feature") == "feature"

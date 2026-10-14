@@ -14,6 +14,7 @@ import argparse
 import gzip
 import io
 import json
+import os
 import sys
 import time
 from datetime import datetime, timedelta, timezone
@@ -36,6 +37,28 @@ def hour_urls(hours: int, lag: int, now: datetime | None = None) -> list[tuple[s
         t = start - timedelta(hours=i)
         label = f"{t:%Y-%m-%d}-{t.hour}"
         out.append((label, GHARCHIVE_URL.format(date=f"{t:%Y-%m-%d}", hour=t.hour)))
+    return out
+
+
+def parse_hour_label(label: str) -> datetime:
+    """'2026-10-14-2' -> datetime(2026, 10, 14, 2, tzinfo=UTC)."""
+    date_part, hour = label.rsplit("-", 1)
+    day = datetime.strptime(date_part, "%Y-%m-%d").replace(tzinfo=timezone.utc)
+    return day + timedelta(hours=int(hour))
+
+
+def hour_urls_after(last_label: str, lag: int, max_hours: int,
+                    now: datetime | None = None) -> list[tuple[str, str]]:
+    """Hours newer than `last_label` that should be published by now, oldest
+    first, capped at `max_hours` (so a long gap catches up over several runs)."""
+    now = now or datetime.now(timezone.utc)
+    newest = now.replace(minute=0, second=0, microsecond=0) - timedelta(hours=lag)
+    t = parse_hour_label(last_label) + timedelta(hours=1)
+    out = []
+    while t <= newest and len(out) < max_hours:
+        label = f"{t:%Y-%m-%d}-{t.hour}"
+        out.append((label, GHARCHIVE_URL.format(date=f"{t:%Y-%m-%d}", hour=t.hour)))
+        t += timedelta(hours=1)
     return out
 
 
@@ -131,6 +154,9 @@ def main(argv=None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--hours", type=int, default=6)
     parser.add_argument("--lag", type=int, default=DEFAULT_LAG_HOURS)
+    parser.add_argument("--after", default="",
+                        help="continue after this hour label (e.g. 2026-10-14-2); "
+                             "--hours then caps how many hours to catch up")
     parser.add_argument("--local-file", help="parse a local .json.gz instead of downloading")
     parser.add_argument("--out", required=True, help="output parquet path")
     parser.add_argument("--stats-out", help="optional JSON file for pull stats")
@@ -144,7 +170,17 @@ def main(argv=None) -> int:
             rows = parse_lines(fh, stats)
         sources.append(args.local_file)
     else:
-        for label, url in hour_urls(args.hours, args.lag):
+        if args.after:
+            targets = hour_urls_after(args.after, args.lag, args.hours)
+            if not targets:
+                print(f"nothing new after {args.after} yet", file=sys.stderr)
+                # Marker file lets the workflow skip the remaining steps.
+                marker = os.path.join(os.path.dirname(args.out) or ".", "nothing_new")
+                open(marker, "w").close()
+                return 0
+        else:
+            targets = hour_urls(args.hours, args.lag)
+        for label, url in targets:
             print(f"pulling {label} ...", file=sys.stderr)
             before = len(rows)
             rows.extend(stream_url(url, stats))

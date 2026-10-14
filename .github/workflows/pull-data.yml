@@ -1,14 +1,19 @@
 name: Pull data
 
-# Step 1: pull real labeled GitHub issues from GH Archive and write a summary.
-# Run it from your phone: Actions tab -> "Pull data" -> Run workflow.
-# A push of code changes also runs it (with a quick 1-hour pull), so fixes get
-# tested automatically without anyone tapping "Run workflow".
+# Pulls real labeled GitHub issues from GH Archive, every hour.
+# Each run continues from the newest hour already pulled (recorded on the
+# `data` branch), so no hour is skipped or pulled twice. Results go to:
+#   - the `data` branch (latest.json, history.jsonl) -> read by the dashboard
+#   - a Hugging Face dataset (the raw issues, accumulating over time)
+#
+# Manual run from your phone: Actions tab -> "Pull data" -> Run workflow.
 on:
+  schedule:
+    - cron: "17 * * * *"
   workflow_dispatch:
     inputs:
       hours:
-        description: "How many recent hours of GH Archive to scan"
+        description: "Max hours to catch up in this run"
         default: "6"
         required: true
   push:
@@ -36,6 +41,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Check out the data branch
+        uses: actions/checkout@v4
+        with:
+          ref: data
+          path: data-branch
+
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
@@ -50,12 +61,17 @@ jobs:
       - name: Pull labeled issues
         run: |
           mkdir -p data
+          LAST=$(python -m boostree.data.history --summary none \
+                   --history data-branch/history.jsonl --print-last-hour)
+          echo "Last pulled hour: ${LAST:-none}"
           python -m boostree.data.pull_gharchive \
-            --hours "${{ inputs.hours || '1' }}" \
+            --hours "${{ inputs.hours || '3' }}" \
+            --after "$LAST" \
             --out data/issues.parquet \
             --stats-out data/pull_stats.json
 
       - name: Summarize
+        if: hashFiles('data/nothing_new') == ''
         run: |
           mkdir -p reports
           python -m boostree.data.summarize \
@@ -64,24 +80,19 @@ jobs:
           cat reports/data_summary.md >> "$GITHUB_STEP_SUMMARY"
 
       - name: Save data to Hugging Face
-        if: env.HF_TOKEN != ''
+        if: hashFiles('data/nothing_new') == '' && env.HF_TOKEN != ''
         run: python -m boostree.data.push_hf --file data/issues.parquet
 
-      - name: Keep a copy as a run artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: issues-${{ github.run_id }}
-          path: data/
-          retention-days: 14
-
-      - name: Commit the summary report
+      - name: Publish to the data branch (feeds the dashboard)
+        if: hashFiles('data/nothing_new') == ''
         run: |
+          cp reports/data_summary.json data-branch/latest.json
+          cp reports/data_summary.md data-branch/latest.md
+          python -m boostree.data.history \
+            --summary reports/data_summary.json --history data-branch/history.jsonl
+          cd data-branch
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add reports/
-          if git diff --cached --quiet; then
-            echo "No report changes"
-          else
-            git commit -m "Update data summary (run ${{ github.run_number }})"
-            git push
-          fi
+          git add -A
+          git commit -m "Pull run ${{ github.run_number }}" || exit 0
+          git push

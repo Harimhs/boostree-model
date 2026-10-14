@@ -32,7 +32,7 @@ inconsistent.
 - [ ] Step 4: scheduled continuous training, versions on Hugging Face
 - [ ] Step 5: live dashboard (curves, gain heatmap, split rules, drift, consistency report)
 
-Latest data report: [reports/data_summary.md](reports/data_summary.md)
+Live dashboard: https://harimhs.github.io/boostree-model/ · Latest data report: [data branch](https://github.com/Harimhs/boostree-model/blob/data/latest.md)
 
 ## Run step 1
 
