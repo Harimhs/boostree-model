@@ -15,6 +15,7 @@
     --text-secondary: #52514e;
     --text-muted: #77766f;
     --series-1: #2a78d6;
+    --series-2: #eb6834;
     --good: #0ca30c;
     --warning: #fab219;
     --critical: #d03b3b;
@@ -31,6 +32,7 @@
       --text-secondary: #c3c2b7;
       --text-muted: #9a998f;
       --series-1: #3987e5;
+      --series-2: #d95926;
       --chip: #2a2a28;
     }
   }
@@ -44,6 +46,7 @@
     --text-secondary: #c3c2b7;
     --text-muted: #9a998f;
     --series-1: #3987e5;
+    --series-2: #d95926;
     --chip: #2a2a28;
   }
   * { box-sizing: border-box; }
@@ -57,6 +60,7 @@
   header { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px; margin-bottom: 4px; }
   h1 { font-size: 22px; margin: 0; letter-spacing: -0.01em; }
   h2 { font-size: 15px; margin: 0 0 2px; }
+  h3 { font-size: 13px; margin: 14px 0 4px; color: var(--text-secondary); }
   .sub { color: var(--text-secondary); font-size: 13px; }
   .muted { color: var(--text-muted); font-size: 13px; }
   a { color: var(--series-1); }
@@ -68,39 +72,44 @@
     margin-top: 12px;
   }
   .status { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; color: var(--text-secondary); }
-  .dot { width: 9px; height: 9px; border-radius: 50%; display: inline-block; }
+  .dot { width: 9px; height: 9px; border-radius: 50%; display: inline-block; flex: none; }
   .kpis { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-top: 12px; }
   @media (min-width: 640px) { .kpis { grid-template-columns: repeat(4, 1fr); } }
   .kpi { background: var(--surface-1); border: 1px solid var(--border); border-radius: 12px; padding: 12px; }
+  .kpis.inner { margin-top: 10px; }
+  .kpis.inner .kpi { background: var(--surface-0); }
   .kpi .v { font-size: 24px; font-weight: 650; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
-  .kpi .l { color: var(--text-secondary); font-size: 12px; }
+  .kpi .l { color: var(--text-secondary); font-size: 12px; display: flex; align-items: center; gap: 6px; }
   .chart { position: relative; margin-top: 8px; }
   .chart svg { display: block; width: 100%; height: auto; overflow: visible; }
   .axis text { fill: var(--text-muted); font-size: 11px; }
   .gridline { stroke: var(--grid); stroke-width: 1; }
+  .legend { display: flex; flex-wrap: wrap; gap: 12px; font-size: 12px; color: var(--text-secondary); margin-top: 8px; }
+  .legend span { display: inline-flex; align-items: center; gap: 6px; }
+  .swatch { width: 14px; height: 3px; border-radius: 2px; display: inline-block; }
   .tip {
     position: absolute; pointer-events: none; display: none;
     background: var(--surface-1); border: 1px solid var(--border); border-radius: 8px;
     padding: 6px 8px; font-size: 12px; color: var(--text-primary);
-    box-shadow: 0 2px 8px rgba(0,0,0,.12); white-space: nowrap;
+    box-shadow: 0 2px 8px rgba(0,0,0,.12); white-space: nowrap; z-index: 2;
   }
   .tip b { font-variant-numeric: tabular-nums; }
   table { width: 100%; border-collapse: collapse; font-size: 13px; }
   th, td { text-align: left; padding: 7px 4px; border-bottom: 1px solid var(--grid); vertical-align: top; }
   th { color: var(--text-secondary); font-weight: 600; }
-  td.n { font-variant-numeric: tabular-nums; text-align: right; white-space: nowrap; }
+  td.n, th.n { font-variant-numeric: tabular-nums; text-align: right; white-space: nowrap; }
   .chips { display: flex; flex-wrap: wrap; gap: 4px; }
   .chip { background: var(--chip); border-radius: 6px; padding: 1px 6px; font: 12px ui-monospace, SFMono-Regular, Menlo, monospace; }
   .bars .row { display: grid; grid-template-columns: minmax(90px, 38%) 1fr auto; align-items: center; gap: 8px; padding: 3px 0; font-size: 13px; }
   .bars .name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12px; }
-  .bars .track { height: 12px; }
-  .bars .fill { height: 12px; background: var(--series-1); border-radius: 0 4px 4px 0; min-width: 2px; }
+  .bars .fill { height: 12px; background: var(--series-1); border-radius: 0 4px 4px 0; min-width: 2px; display: block; }
   .bars .val { font-variant-numeric: tabular-nums; color: var(--text-secondary); min-width: 2.5em; text-align: right; }
   .soon { display: grid; grid-template-columns: 1fr; gap: 8px; margin-top: 8px; }
-  @media (min-width: 640px) { .soon { grid-template-columns: 1fr 1fr; } }
+  @media (min-width: 640px) { .soon { grid-template-columns: 1fr 1fr 1fr; } }
   .soon div { border: 1px dashed var(--border); border-radius: 10px; padding: 10px; }
   .soon b { font-size: 13px; }
   .err { color: var(--critical); font-size: 13px; }
+  .empty { padding: 14px 0; }
   footer { margin-top: 18px; text-align: center; }
   .toggle { background: none; border: 1px solid var(--border); color: var(--text-secondary); border-radius: 8px; padding: 3px 8px; font-size: 12px; cursor: pointer; }
 </style>
@@ -112,9 +121,18 @@
     <button class="toggle" id="refresh" type="button">Refresh</button>
   </header>
   <div class="sub">Live dashboard: real GitHub issues, pulled every hour</div>
-  <div class="status" id="status" style="margin-top:8px"><span class="dot" style="background:var(--text-muted)"></span> Checking latest run…</div>
+  <div style="margin-top:8px; display:grid; gap:4px">
+    <div class="status" id="status-pull"><span class="dot" style="background:var(--text-muted)"></span> Data: checking…</div>
+    <div class="status" id="status-train"><span class="dot" style="background:var(--text-muted)"></span> Training: checking…</div>
+  </div>
 
   <section class="kpis" id="kpis"></section>
+
+  <section class="card">
+    <h2>Training</h2>
+    <div class="muted" id="train-sub">Predict an issue's type (bug, feature, docs, question) from its text. Scored on the newest issues it hasn't seen.</div>
+    <div id="train"></div>
+  </section>
 
   <section class="card">
     <h2>Labeled issues per hour</h2>
@@ -141,10 +159,8 @@
   </section>
 
   <section class="card">
-    <h2>Model</h2>
-    <div class="muted">These fill in as the next steps ship.</div>
+    <h2>Coming next</h2>
     <div class="soon">
-      <div><b>Training curve</b><div class="muted">Step 2 to 4: loss and accuracy per boosting round</div></div>
       <div><b>Gain heatmap</b><div class="muted">Step 3: which layers get boosters, round by round</div></div>
       <div><b>Split rules</b><div class="muted">Step 3: where repos disagree, in plain words</div></div>
       <div><b>Drift and consistency</b><div class="muted">Step 5: label drift alerts and the consistency report</div></div>
@@ -153,8 +169,8 @@
 
   <footer class="muted">
     <a href="https://github.com/Harimhs/boostree-model">GitHub repo</a> ·
-    <a href="https://github.com/Harimhs/boostree-model/actions/workflows/pull-data.yml">Runs</a> ·
-    <a href="https://github.com/Harimhs/boostree-model/blob/data/latest.md">Latest report</a>
+    <a href="https://github.com/Harimhs/boostree-model/actions">Runs</a> ·
+    <a href="https://github.com/Harimhs/boostree-model/blob/data/latest.md">Latest data report</a>
     <div id="updated" style="margin-top:6px"></div>
   </footer>
 </main>
@@ -163,7 +179,12 @@
 const REPO = "Harimhs/boostree-model";
 const RAW = `https://raw.githubusercontent.com/${REPO}/data`;
 const fmt = n => (n ?? 0).toLocaleString("en-IN");
+const pct = v => (v == null ? "–" : `${(v * 100).toFixed(1)}%`);
 const esc = s => String(s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const MODELS = [
+  { key: "minilm", name: "MiniLM encoder", color: "var(--series-1)" },
+  { key: "tfidf", name: "Word-count (TF-IDF)", color: "var(--series-2)" },
+];
 
 function hourToDate(label) {
   const [y, m, d, h] = label.split("-").map(Number);
@@ -180,29 +201,95 @@ function ago(date) {
   return h < 48 ? `${h} h ago` : `${Math.round(h / 24)} days ago`;
 }
 
-async function getJSON(url) {
-  const r = await fetch(url, { cache: "no-store" });
-  if (!r.ok) throw new Error(`${r.status} for ${url}`);
-  return r.json();
+async function fetchText(path) {
+  const r = await fetch(`${RAW}/${path}?t=${Date.now()}`, { cache: "no-store" });
+  if (r.status === 404) return null;
+  if (!r.ok) throw new Error(`${r.status} for ${path}`);
+  return r.text();
 }
-async function getHistory() {
-  const r = await fetch(`${RAW}/history.jsonl?t=${Date.now()}`, { cache: "no-store" });
-  if (!r.ok) throw new Error(`${r.status} for history`);
-  const text = await r.text();
-  return text.split("\n").filter(Boolean).map(l => JSON.parse(l));
+const fetchJSON = async path => { const t = await fetchText(path); return t == null ? null : JSON.parse(t); };
+const fetchLines = async path => { const t = await fetchText(path); return t == null ? [] : t.split("\n").filter(Boolean).map(l => JSON.parse(l)); };
+
+/* ---------- generic line chart: series = [{name, color, points:[{t: Date, y}]}] ---------- */
+function lineChart(host, series, { yFormat = fmt, yMax = null, yLabel = "" } = {}) {
+  const all = series.flatMap(s => s.points);
+  const W = 640, H = 220, L = 46, R = 12, T = 12, B = 28;
+  const t0 = Math.min(...all.map(p => +p.t)), t1 = Math.max(...all.map(p => +p.t));
+  const top = yMax ?? (Math.max(...all.map(p => p.y)) * 1.15 || 1);
+  const x = t => L + (W - L - R) * ((+t - t0) / (t1 - t0 || 1));
+  const y = v => T + (H - T - B) * (1 - v / top);
+  let grid = "";
+  for (let i = 0; i <= 4; i++) {
+    const v = top * i / 4;
+    grid += `<line class="gridline" x1="${L}" x2="${W - R}" y1="${y(v)}" y2="${y(v)}"/>` +
+            `<text x="${L - 6}" y="${y(v) + 4}" text-anchor="end">${yFormat(v)}</text>`;
+  }
+  const times = [...new Set(all.map(p => +p.t))].sort((a, b) => a - b);
+  const xt = [times[0], times[Math.floor(times.length / 2)], times[times.length - 1]];
+  const xlabels = xt.map((t, i) => `<text x="${x(t)}" y="${H - 8}" text-anchor="${["start", "middle", "end"][i]}">${esc(localTime(new Date(t)))}</text>`).join("");
+  const lines = series.map(s => {
+    const pts = [...s.points].sort((a, b) => a.t - b.t);
+    const d = pts.map((p, i) => `${i ? "L" : "M"}${x(p.t).toFixed(1)},${y(p.y).toFixed(1)}`).join("");
+    const dots = pts.length <= 48 ? pts.map(p => `<circle cx="${x(p.t)}" cy="${y(p.y)}" r="3" fill="${s.color}" stroke="var(--surface-1)" stroke-width="2"/>`).join("") : "";
+    return `<path d="${d}" fill="none" stroke="${s.color}" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>${dots}`;
+  }).join("");
+  const legend = series.length > 1
+    ? `<div class="legend">${series.map(s => `<span><i class="swatch" style="background:${s.color}"></i>${esc(s.name)}</span>`).join("")}</div>` : "";
+  host.innerHTML = `
+    <svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(yLabel)}">
+      <g class="axis">${grid}${xlabels}</g>${lines}
+      <line class="xh" y1="${T}" y2="${H - B}" stroke="var(--text-muted)" stroke-width="1" stroke-dasharray="3 3" style="display:none"/>
+      <rect class="hit" x="${L}" y="${T}" width="${W - L - R}" height="${H - T - B}" fill="transparent"/>
+    </svg><div class="tip"></div>${legend}`;
+  const svg = host.querySelector("svg"), tip = host.querySelector(".tip"), xh = host.querySelector(".xh");
+  function move(ev) {
+    const pt = ev.touches ? ev.touches[0] : ev;
+    const box = svg.getBoundingClientRect();
+    const sx = (pt.clientX - box.left) * (W / box.width);
+    let best = times[0];
+    for (const t of times) if (Math.abs(x(t) - sx) < Math.abs(x(best) - sx)) best = t;
+    const px = x(best);
+    xh.setAttribute("x1", px); xh.setAttribute("x2", px); xh.style.display = "";
+    const rows = series.map(s => {
+      const p = s.points.find(q => +q.t === best);
+      return p ? `<div><i class="swatch" style="background:${s.color}"></i> ${series.length > 1 ? esc(s.name) + ": " : ""}<b>${yFormat(p.y)}</b></div>` : "";
+    }).join("");
+    tip.innerHTML = `${esc(localTime(new Date(best)))}${rows}`;
+    tip.style.display = "block";
+    const left = px * box.width / W, tw = tip.offsetWidth;
+    tip.style.left = Math.min(Math.max(left - tw / 2, 0), box.width - tw) + "px";
+    tip.style.top = "0px";
+  }
+  function leave() { tip.style.display = "none"; xh.style.display = "none"; }
+  const hit = host.querySelector(".hit");
+  hit.addEventListener("mousemove", move);
+  hit.addEventListener("touchstart", move, { passive: true });
+  hit.addEventListener("touchmove", move, { passive: true });
+  hit.addEventListener("mouseleave", leave);
 }
 
-function renderStatus(run) {
-  const el = document.getElementById("status");
-  if (!run) { el.innerHTML = `<span class="dot" style="background:var(--text-muted)"></span> No runs yet`; return; }
-  let color = "var(--warning)", icon = "◷", word = "Running";
+/* ---------- status ---------- */
+function setStatus(id, label, run) {
+  const el = document.getElementById(id);
+  if (!run) { el.innerHTML = `<span class="dot" style="background:var(--text-muted)"></span> ${label}: no runs yet`; return; }
+  let color = "var(--warning)", icon = "◷", word = "running";
   if (run.status === "completed") {
-    if (run.conclusion === "success") { color = "var(--good)"; icon = "✓"; word = "Last run succeeded"; }
-    else { color = "var(--critical)"; icon = "✕"; word = `Last run ${run.conclusion}`; }
-  } else if (run.status === "queued") { word = "Queued"; }
-  el.innerHTML = `<span class="dot" style="background:${color}"></span> ${icon} ${word} · ${ago(new Date(run.updated_at))} · <a href="${run.html_url}">view</a>`;
+    if (run.conclusion === "success") { color = "var(--good)"; icon = "✓"; word = "last run succeeded"; }
+    else { color = "var(--critical)"; icon = "✕"; word = `last run ${run.conclusion}`; }
+  } else if (run.status === "queued") { word = "queued"; }
+  el.innerHTML = `<span class="dot" style="background:${color}"></span> ${icon} ${label}: ${word} · ${ago(new Date(run.updated_at))} · <a href="${run.html_url}">view</a>`;
+}
+async function loadStatus() {
+  for (const [id, label, file] of [["status-pull", "Data", "pull-data.yml"], ["status-train", "Training", "train.yml"]]) {
+    try {
+      const r = await fetch(`https://api.github.com/repos/${REPO}/actions/workflows/${file}/runs?per_page=1`);
+      const j = r.ok ? await r.json() : {};
+      setStatus(id, label, j.workflow_runs?.[0]);
+    } catch { document.getElementById(id).textContent = `${label}: status unavailable`; }
+  }
 }
 
+/* ---------- sections ---------- */
 function renderKpis(history, latest) {
   const hours = new Set(history.flatMap(r => r.hours || []));
   const total = history.reduce((s, r) => s + (r.issues || 0), 0);
@@ -218,69 +305,58 @@ function renderKpis(history, latest) {
     .map(([v, l]) => `<div class="kpi"><div class="v">${v}</div><div class="l">${l}</div></div>`).join("");
 }
 
+function renderTraining(base, hist) {
+  const host = document.getElementById("train");
+  if (!base) {
+    host.innerHTML = `<div class="muted empty">The first training run hasn't finished yet. Results appear here after it does.</div>`;
+    return;
+  }
+  const d = base.data || {};
+  if (base.status !== "ok") {
+    host.innerHTML = `<div class="muted empty">Not enough data yet: ${fmt(d.usable)} usable issues so far. Training retries every 3 hours as more arrive.</div>`;
+    return;
+  }
+  const m = base.models;
+  const kpis = MODELS.filter(x => m[x.key]).map(x => `
+    <div class="kpi"><div class="v">${pct(m[x.key].macro_f1)}</div>
+    <div class="l"><i class="swatch" style="background:${x.color}"></i>${esc(x.name)} · macro-F1</div></div>`).join("");
+  const classes = Object.keys(m.minilm?.per_class || m.tfidf?.per_class || {});
+  const rows = classes.map(c => `<tr><td>${esc(c)}</td>${MODELS.map(x => `<td class="n">${pct(m[x.key]?.per_class?.[c]?.f1)}</td>`).join("")}<td class="n">${fmt(m.minilm?.per_class?.[c]?.support)}</td></tr>`).join("");
+  host.innerHTML = `
+    <div class="kpis inner">${kpis}
+      <div class="kpi"><div class="v">${fmt(d.train)}</div><div class="l">Training issues</div></div>
+      <div class="kpi"><div class="v">${fmt(d.test)}</div><div class="l">Test issues (newest)</div></div>
+    </div>
+    <h3>Score over time</h3>
+    <div class="chart" id="train-chart"></div>
+    <h3>Per type (F1 on test issues)</h3>
+    <table><thead><tr><th>Type</th>${MODELS.map(x => `<th class="n">${esc(x.name.split(" ")[0])}</th>`).join("")}<th class="n">Test issues</th></tr></thead><tbody>${rows}</tbody></table>
+    <div class="muted" style="margin-top:6px">Trained ${ago(new Date(base.generated_at))} on ${fmt(d.usable)} issues from ${fmt(d.repos)} repos. Macro-F1 averages the types equally, so rare types count as much as common ones.</div>`;
+  const ok = hist.filter(h => h.status === "ok");
+  const chart = document.getElementById("train-chart");
+  if (ok.length < 2) {
+    chart.innerHTML = `<div class="muted empty">The score line appears after the second training run (every 3 hours).</div>`;
+    return;
+  }
+  const series = MODELS.map(x => ({
+    name: x.name, color: x.color,
+    points: ok.filter(h => h[`${x.key}_macro_f1`] != null).map(h => ({ t: new Date(h.time), y: h[`${x.key}_macro_f1`] })),
+  })).filter(s => s.points.length);
+  lineChart(chart, series, { yFormat: v => `${Math.round(v * 100)}%`, yMax: 1, yLabel: "Macro-F1 over training runs" });
+}
+
 function renderTrend(history) {
   const host = document.getElementById("trend");
-  // One point per pulled hour (a run covering 3 hours gives 3 points at its average).
   const pts = [];
   for (const r of history) {
     const hrs = r.hours || [];
-    for (const h of hrs) pts.push({ t: hourToDate(h), y: Math.round((r.issues || 0) / hrs.length), label: h });
+    for (const h of hrs) pts.push({ t: hourToDate(h), y: Math.round((r.issues || 0) / hrs.length) });
   }
-  pts.sort((a, b) => a.t - b.t);
   if (pts.length < 2) {
-    host.innerHTML = `<div class="muted" style="padding:16px 0">Only ${pts.length} hour pulled so far. The line appears after the next hourly run.</div>`;
+    host.innerHTML = `<div class="muted empty">Only ${pts.length} hour pulled so far. The line appears after the next hourly run.</div>`;
     return;
   }
-  const W = 640, H = 220, L = 40, R = 12, T = 12, B = 28;
-  const t0 = +pts[0].t, t1 = +pts[pts.length - 1].t;
-  const yMax = Math.max(...pts.map(p => p.y)) * 1.15 || 1;
-  const x = t => L + (W - L - R) * ((+t - t0) / (t1 - t0 || 1));
-  const y = v => T + (H - T - B) * (1 - v / yMax);
-  const ticks = 4;
-  let grid = "";
-  for (let i = 0; i <= ticks; i++) {
-    const v = Math.round(yMax * i / ticks);
-    grid += `<line class="gridline" x1="${L}" x2="${W - R}" y1="${y(v)}" y2="${y(v)}"/>` +
-            `<text x="${L - 6}" y="${y(v) + 4}" text-anchor="end">${fmt(v)}</text>`;
-  }
-  const xt = [pts[0], pts[Math.floor(pts.length / 2)], pts[pts.length - 1]];
-  const xlabels = xt.map((p, i) => `<text x="${x(p.t)}" y="${H - 8}" text-anchor="${["start", "middle", "end"][i]}">${esc(localTime(p.t))}</text>`).join("");
-  const path = pts.map((p, i) => `${i ? "L" : "M"}${x(p.t).toFixed(1)},${y(p.y).toFixed(1)}`).join("");
-  const dots = pts.length <= 48
-    ? pts.map(p => `<circle cx="${x(p.t)}" cy="${y(p.y)}" r="3" fill="var(--series-1)" stroke="var(--surface-1)" stroke-width="2"/>`).join("")
-    : "";
-  host.innerHTML = `
-    <svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Labeled issues per GitHub hour">
-      <g class="axis">${grid}${xlabels}</g>
-      <path d="${path}" fill="none" stroke="var(--series-1)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
-      ${dots}
-      <line id="xh" y1="${T}" y2="${H - B}" stroke="var(--text-muted)" stroke-width="1" stroke-dasharray="3 3" style="display:none"/>
-      <circle id="xd" r="5" fill="var(--series-1)" stroke="var(--surface-1)" stroke-width="2" style="display:none"/>
-      <rect x="${L}" y="${T}" width="${W - L - R}" height="${H - T - B}" fill="transparent" id="hit"/>
-    </svg><div class="tip" id="tip"></div>`;
-  const svg = host.querySelector("svg"), tip = host.querySelector("#tip");
-  const xh = host.querySelector("#xh"), xd = host.querySelector("#xd");
-  function move(ev) {
-    const pt = ev.touches ? ev.touches[0] : ev;
-    const box = svg.getBoundingClientRect();
-    const sx = (pt.clientX - box.left) * (W / box.width);
-    let best = pts[0];
-    for (const p of pts) if (Math.abs(x(p.t) - sx) < Math.abs(x(best.t) - sx)) best = p;
-    const px = x(best.t), py = y(best.y);
-    xh.setAttribute("x1", px); xh.setAttribute("x2", px); xh.style.display = "";
-    xd.setAttribute("cx", px); xd.setAttribute("cy", py); xd.style.display = "";
-    tip.innerHTML = `${esc(localTime(best.t))}<br><b>${fmt(best.y)}</b> labeled issues`;
-    tip.style.display = "block";
-    const left = px * box.width / W, tw = tip.offsetWidth;
-    tip.style.left = Math.min(Math.max(left - tw / 2, 0), box.width - tw) + "px";
-    tip.style.top = Math.max(py * box.height / H - 52, 0) + "px";
-  }
-  function leave() { tip.style.display = "none"; xh.style.display = "none"; xd.style.display = "none"; }
-  const hit = host.querySelector("#hit");
-  hit.addEventListener("mousemove", move);
-  hit.addEventListener("touchstart", move, { passive: true });
-  hit.addEventListener("touchmove", move, { passive: true });
-  hit.addEventListener("mouseleave", leave);
+  lineChart(host, [{ name: "Labeled issues", color: "var(--series-1)", points: pts }], { yLabel: "Labeled issues per GitHub hour" });
 }
 
 function renderFamilies(latest) {
@@ -303,7 +379,7 @@ function renderLabels(latest) {
   document.getElementById("labels").innerHTML = top.map(([name, n]) => `
     <div class="row" title="${esc(name)}: ${n} issues">
       <span class="name">${esc(name)}</span>
-      <span class="track"><span class="fill" style="display:block;width:${(n / max * 100).toFixed(1)}%"></span></span>
+      <span><span class="fill" style="width:${(n / max * 100).toFixed(1)}%"></span></span>
       <span class="val">${fmt(n)}</span>
     </div>`).join("");
 }
@@ -316,26 +392,27 @@ function renderRepos(latest) {
 
 async function load() {
   document.getElementById("updated").textContent = "Loading…";
+  loadStatus();
   try {
-    const [latest, history] = await Promise.all([getJSON(`${RAW}/latest.json?t=${Date.now()}`), getHistory()]);
-    renderKpis(history, latest);
-    renderTrend(history);
-    renderFamilies(latest);
-    renderLabels(latest);
-    renderRepos(latest);
-    const sources = latest.pull_stats?.sources || [];
-    document.getElementById("labels-sub").textContent =
-      sources.length ? `Latest pull: GitHub hour ${sources.join(", ")} (UTC)` : "Latest pull";
-    document.getElementById("updated").textContent =
-      `Data updated ${ago(new Date(latest.generated_at))} · ${history.length} runs so far`;
+    const [latest, history, base, trainHist] = await Promise.all([
+      fetchJSON("latest.json"), fetchLines("history.jsonl"),
+      fetchJSON("model/latest_baseline.json"), fetchLines("model/model_history.jsonl"),
+    ]);
+    renderTraining(base, trainHist);
+    if (latest) {
+      renderKpis(history, latest);
+      renderTrend(history);
+      renderFamilies(latest);
+      renderLabels(latest);
+      renderRepos(latest);
+      const sources = latest.pull_stats?.sources || [];
+      document.getElementById("labels-sub").textContent =
+        sources.length ? `Latest pull: GitHub hour ${sources.join(", ")} (UTC)` : "Latest pull";
+      document.getElementById("updated").textContent =
+        `Data updated ${ago(new Date(latest.generated_at))} · ${history.length} pulls so far`;
+    }
   } catch (err) {
     document.getElementById("updated").innerHTML = `<span class="err">Could not load data: ${esc(err.message)}</span>`;
-  }
-  try {
-    const runs = await getJSON(`https://api.github.com/repos/${REPO}/actions/workflows/pull-data.yml/runs?per_page=1`);
-    renderStatus(runs.workflow_runs?.[0]);
-  } catch {
-    document.getElementById("status").textContent = "Run status unavailable right now";
   }
 }
 

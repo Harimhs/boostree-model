@@ -1,0 +1,67 @@
+name: Train
+
+# Step 2: retrain the baselines on all issues collected so far, every 3 hours.
+# Results go to the `data` branch (model/...) and show on the dashboard.
+on:
+  schedule:
+    - cron: "47 */3 * * *"
+  workflow_dispatch:
+  push:
+    branches: [code]
+    paths:
+      - "src/boostree/model/**"
+      - "tests/test_model*.py"
+      - "requirements-model.txt"
+      - ".github/workflows/train.yml"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: train
+  cancel-in-progress: false
+
+jobs:
+  train:
+    runs-on: ubuntu-latest
+    timeout-minutes: 300
+    env:
+      PYTHONPATH: src
+      HF_TOKEN: ${{ secrets.HF_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check out the data branch
+        uses: actions/checkout@v4
+        with:
+          ref: data
+          path: data-branch
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: Install (CPU-only PyTorch keeps this small and fast)
+        run: |
+          pip install torch --index-url https://download.pytorch.org/whl/cpu
+          pip install -r requirements-model.txt
+
+      - name: Tests
+        run: python -m pytest -q tests
+
+      - name: Train and evaluate baselines
+        run: |
+          mkdir -p data-branch/model
+          python -m boostree.model.baseline \
+            --out data-branch/model/latest_baseline.json \
+            --history data-branch/model/model_history.jsonl
+          {
+            echo "## Baseline results"
+            echo '```json'
+            cat data-branch/model/latest_baseline.json
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Publish to the data branch (feeds the dashboard)
+        run: bash scripts/push_data_branch.sh data-branch "Train run ${{ github.run_number }}"

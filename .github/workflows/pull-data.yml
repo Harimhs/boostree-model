@@ -90,9 +90,4 @@ jobs:
           cp reports/data_summary.md data-branch/latest.md
           python -m boostree.data.history \
             --summary reports/data_summary.json --history data-branch/history.jsonl
-          cd data-branch
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -A
-          git commit -m "Pull run ${{ github.run_number }}" || exit 0
-          git push
+          bash scripts/push_data_branch.sh data-branch "Pull run ${{ github.run_number }}"
