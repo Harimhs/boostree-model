@@ -1,0 +1,1 @@
+{"time": "2026-10-14T04:57:59+00:00", "hours": ["2026-10-14-2"], "events": 84066, "issue_events": 766, "labeled_issue_events": 577, "missing_issue_payload": 0, "issues": 543, "repos": 375, "distinct_labels": 653, "family_distinct": {"bug": 10, "docs": 5, "feature": 13, "other": 623, "question": 1, "wontfix": 1}}
