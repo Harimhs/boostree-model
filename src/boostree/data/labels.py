@@ -8,8 +8,10 @@ import re
 
 FAMILY_KEYWORDS = {
     "bug": ["bug", "defect", "crash", "regression", "broken"],
-    "feature": ["feature", "enhancement", "improvement", "proposal", "request"],
-    "question": ["question", "support", "usage", "howto", "how to", "help"],
+    # "feature request", not bare "request" (that would also catch "pull request").
+    "feature": ["feature", "enhancement", "improvement", "proposal", "feature request"],
+    # No bare "help": "help wanted" means "needs a contributor", not a question.
+    "question": ["question", "support", "usage", "howto", "how to"],
     "docs": ["doc", "docs", "documentation"],
     "duplicate": ["duplicate", "dupe"],
     "wontfix": ["wontfix", "won't fix", "invalid", "not planned"],

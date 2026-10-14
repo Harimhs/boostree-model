@@ -79,6 +79,9 @@ def test_family():
     assert family("🐛 Bug") == "bug"
     assert family("documentation") == "docs"
     assert family("good first issue") == "other"
+    assert family("help wanted") == "other"
+    assert family("needs pull request") == "other"
+    assert family("feature request") == "feature"
 
 
 def test_end_to_end_local_file(tmp_path):
