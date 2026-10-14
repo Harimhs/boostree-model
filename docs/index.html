@@ -222,7 +222,7 @@ const fmt = n => (n ?? 0).toLocaleString("en-IN");
 const pct = v => (v == null ? "–" : `${(v * 100).toFixed(1)}%`);
 const esc = s => String(s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 const MODELS = [
-  { key: "minilm", name: "MiniLM encoder", color: "var(--series-1)" },
+  { key: "minilm", name: "Encoder (multilingual)", color: "var(--series-1)" },
   { key: "tfidf", name: "Word-count (TF-IDF)", color: "var(--series-2)" },
 ];
 
@@ -400,7 +400,7 @@ function renderPattern(base) {
       <div class="meta">${esc(e.repo)}#${e.number} · actual <b>${esc(e.true)}</b> · guessed <b>${esc(e.predicted)}</b></div></div>`).join("");
   const src = ml?.examples ? ml : tf;
   host.innerHTML = `<div class="terms">${terms}</div>
-    <h3>Real guesses on new issues (${src === ml ? "MiniLM" : "word-count"})</h3>
+    <h3>Real guesses on new issues (${src === ml ? "encoder" : "word-count"})</h3>
     ${ex(src.examples?.right, true)}${ex(src.examples?.wrong, false)}`;
 }
 
@@ -424,20 +424,25 @@ function renderBoost(boost, bhist) {
   const kept = boost.rounds.filter(r => r.module);
   const delta = boost.final.macro_f1 - boost.start.macro_f1;
   const sign = delta >= 0 ? "+" : "−";
-  // gain heatmap: one row per candidate matrix, one column per round
-  const mods = boost.modules || Object.keys(boost.rounds[0]?.gains || {});
-  const rounds = boost.rounds.filter(r => r.gains);
+  // heatmap: one row per candidate matrix, one column per round.
+  // New runs record "signal" (pull strength) for every matrix; older runs only had gains.
+  const val = r => r.signal || r.gains;
+  const mods = boost.modules || Object.keys(val(boost.rounds[0] || {}) || {});
+  const rounds = boost.rounds.filter(r => val(r));
+  const kind = rounds.some(r => r.signal) ? "pull strength" : "gain";
   const short = m => m.replace("layer ", "L").replace(" attention", " attn").replace(" feed-forward", " ffn");
   let cells = `<div></div>` + rounds.map(r => `<div class="ch">${r.round}</div>`).join("");
   for (const m of mods) {
     cells += `<div class="rl">${esc(short(m))}</div>`;
     for (const r of rounds) {
-      const max = Math.max(...Object.values(r.gains));
-      const g = r.gains[m];
+      const v = val(r);
+      const max = Math.max(...Object.values(v));
+      const g = v[m];
       const pick = r.module === m;
+      const tested = r.signal && r.gains && r.gains[m] != null ? ` · tested, gain ${r.gains[m]}` : "";
+      const info = `Round ${r.round} · ${m}: ${kind} ${g != null ? Number(g).toPrecision(3) : "–"}${tested}${pick ? " · chosen" : ""}`;
       cells += `<div class="cell${pick ? " pick" : ""}" style="background:${heatColor(g, max)}"
-        data-info="${esc(`Round ${r.round} · ${m}: gain ${g}${pick ? " · chosen" : ""}`)}"
-        title="Round ${r.round} · ${esc(m)}: gain ${g}${pick ? " (chosen)" : ""}"></div>`;
+        data-info="${esc(info)}" title="${esc(info)}"></div>`;
     }
   }
   const roundsHtml = kept.map(r => `
@@ -448,16 +453,17 @@ function renderBoost(boost, bhist) {
     </div>`).join("");
   host.innerHTML = `
     <div class="kpis inner">
-      <div class="kpi"><div class="v">${pct(boost.start.macro_f1)}</div><div class="l">Before boosting (MiniLM)</div></div>
+      <div class="kpi"><div class="v">${pct(boost.start.macro_f1)}</div><div class="l">Before boosting (encoder)</div></div>
       <div class="kpi"><div class="v">${pct(boost.final.macro_f1)}</div><div class="l">After boosting · ${sign}${Math.abs(delta * 100).toFixed(1)} pts</div></div>
       <div class="kpi"><div class="v">${fmt(boost.boosters)}</div><div class="l">Boosters kept</div></div>
       <div class="kpi"><div class="v">${fmt(rounds.length)}</div><div class="l">Rounds run</div></div>
     </div>
     <div class="muted" style="margin-top:8px">Stopped because: ${esc(boost.stopped_because)}.</div>
-    <h3>Gain heatmap: where the model asked to change</h3>
+    <h3>Heatmap: where the model asked to change</h3>
+    <div class="muted">Every layer is screened each round (${kind}); the strongest ${boost.config?.top_k ?? ""} are tested properly and the best one is kept.</div>
     <div class="heat" style="grid-template-columns: auto repeat(${rounds.length}, minmax(18px, 1fr))">${cells}</div>
-    <div class="heat-legend">Lower gain <i style="background:var(--seq-1)"></i><i style="background:var(--seq-3)"></i><i style="background:var(--seq-5)"></i><i style="background:var(--seq-7)"></i> higher gain · ● chosen</div>
-    <div class="muted" id="heat-info">Tap a cell to see its gain.</div>
+    <div class="heat-legend">Weaker <i style="background:var(--seq-1)"></i><i style="background:var(--seq-3)"></i><i style="background:var(--seq-5)"></i><i style="background:var(--seq-7)"></i> stronger · ● chosen</div>
+    <div class="muted" id="heat-info">Tap a cell to see its value.</div>
     <h3>Rounds and split rules</h3>
     <div class="muted">Each booster pushes its direction by the leaf's weight. Opposite signs mean two groups of issues needed opposite changes.</div>
     ${roundsHtml || `<div class="muted empty">No booster passed the noise test yet.</div>`}`;

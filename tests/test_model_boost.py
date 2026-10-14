@@ -37,7 +37,16 @@ def test_trainer_runs_and_never_increases_sample_loss():
     assert kept, "expected at least one booster to be kept"
     for r in kept:
         assert r["sample_loss_after"] < r["sample_loss_before"]
-        assert set(r["gains"]) == set(trainer.mods)
+        assert set(r["signal"]) == set(trainer.mods)      # every matrix is screened
+        assert set(r["gains"]) <= set(trainer.mods)       # only the shortlist gets a gain
+
+
+def test_shortlist_limits_gain_tests():
+    model, head, split = tiny_setup(seed=3)
+    cfg = BoostConfig(max_rounds=1, sample_size=60, batch_size=30, min_leaf=10, t_min=0.0, top_k=2)
+    trainer = BoostTrainer(model, head, split, split, cfg, log=lambda *_: None)
+    trainer.fit()
+    assert len(trainer.rounds[0]["gains"]) == 2 and len(trainer.rounds[0]["signal"]) == 4
     assert trainer.predict("test").shape == (len(split.y),)
 
 

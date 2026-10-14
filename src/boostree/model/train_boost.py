@@ -95,8 +95,8 @@ def main(argv=None) -> int:
     parser.add_argument("--out", required=True)
     parser.add_argument("--history", required=True)
     parser.add_argument("--dataset", default="boostree-issues")
-    parser.add_argument("--max-rounds", type=int, default=12)
-    parser.add_argument("--max-minutes", type=float, default=150)
+    parser.add_argument("--max-rounds", type=int, default=30)
+    parser.add_argument("--max-minutes", type=float, default=140)
     args = parser.parse_args(argv)
 
     from transformers import AutoModel, AutoTokenizer

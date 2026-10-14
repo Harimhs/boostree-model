@@ -68,7 +68,7 @@ jobs:
           python -m boostree.model.train_boost \
             --out data-branch/model/latest_boost.json \
             --history data-branch/model/boost_history.jsonl \
-            --max-rounds 12 --max-minutes 150
+            --max-rounds 30 --max-minutes 140
           python - <<'EOF' >> "$GITHUB_STEP_SUMMARY"
           import json
           d = json.load(open("data-branch/model/latest_boost.json"))

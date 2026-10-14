@@ -222,6 +222,7 @@ class BoostConfig:
     t_split: float = 2.5       # a split must separate clearly different pulls
     max_depth: int = 2
     min_leaf: int = 25
+    top_k: int = 6             # full gain test only for the k matrices with the strongest gradient signal
     max_minutes: float = 150.0
     seed: int = 0
 
@@ -335,10 +336,18 @@ class BoostTrainer:
 
         grads = self.gradients(idx)
         base_loss = self.losses("train", idx)
-        cands = []
+        # First-order screen: the top singular value of each gradient is how fast the
+        # loss changes along that matrix's best rank-1 direction. Only the strongest
+        # top_k get the (more expensive) per-example g/h measurement.
+        directions = {}
         for name, grad in grads.items():
             U, S, Vh = torch.linalg.svd(grad, full_matrices=False)
-            u, v = U[:, 0].contiguous(), Vh[0].contiguous()
+            directions[name] = (U[:, 0].contiguous(), Vh[0].contiguous(), float(S[0]))
+        signal = {name: round(d[2], 6) for name, d in directions.items()}
+        shortlist = sorted(directions, key=lambda nm: directions[nm][2], reverse=True)[:cfg.top_k]
+        cands = []
+        for name in shortlist:
+            u, v, _ = directions[name]
             mod = self.mods[name]
             mod.probe = (u, v, cfg.eps)
             plus = self.losses("train", idx)
@@ -357,7 +366,8 @@ class BoostTrainer:
         gain_map = {cd["module"]: round(cd["gain"], 5) for cd in cands}
         eligible = sorted([cd for cd in cands if abs(cd["t"]) >= cfg.t_min],
                           key=lambda cd: cd["gain"], reverse=True)
-        record = {"round": r, "gains": gain_map, "sample_loss_before": float((c * base_loss).sum() / c.sum())}
+        record = {"round": r, "signal": signal, "gains": gain_map,
+                  "sample_loss_before": float((c * base_loss).sum() / c.sum())}
         if not eligible:
             record["stopped"] = "no layer's gain is beyond its noise (all |t| < %.1f)" % cfg.t_min
             self.rounds.append(record)

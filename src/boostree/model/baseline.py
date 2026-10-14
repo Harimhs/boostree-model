@@ -26,7 +26,8 @@ from sklearn.metrics import accuracy_score, f1_score, precision_recall_fscore_su
 
 from boostree.model.dataset import build_family_dataset, load_issues_from_hf, time_split
 
-ENCODER = "sentence-transformers/all-MiniLM-L6-v2"
+# Multilingual (50+ languages): many GitHub issues are not in English.
+ENCODER = "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2"
 
 
 def score(y_true, y_pred, classes) -> dict:
