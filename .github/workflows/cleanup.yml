@@ -1,0 +1,25 @@
+name: Cleanup
+on:
+  push:
+    branches: [code]
+    paths: [".github/workflows/cleanup.yml"]
+jobs:
+  delete-hf:
+    runs-on: ubuntu-latest
+    env:
+      HF_TOKEN: ${{ secrets.HF_TOKEN }}
+    steps:
+      - run: pip install -q huggingface_hub
+      - run: |
+          python - <<'PY'
+          import os
+          from huggingface_hub import HfApi
+          api = HfApi(token=os.environ["HF_TOKEN"])
+          user = api.whoami()["name"]
+          for rid, kind in [(f"{user}/boostree-issues", "dataset"), (f"{user}/boostree", "model")]:
+              try:
+                  api.delete_repo(rid, repo_type=kind)
+                  print("deleted", kind, rid)
+              except Exception as e:
+                  print("not deleted", kind, rid, type(e).__name__, str(e)[:200])
+          PY
