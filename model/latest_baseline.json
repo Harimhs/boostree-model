@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-14T06:43:39+00:00",
+  "generated_at": "2026-10-14T06:50:43+00:00",
   "task": "issue family: bug / docs / feature",
   "data": {
     "issues_total": 1645,
@@ -37,7 +37,113 @@
           "support": 53
         }
       },
-      "seconds": 1.4
+      "seconds": 1.5,
+      "top_terms": {
+        "bug": [
+          "bug",
+          "found",
+          "failed",
+          "fix",
+          "reproduce",
+          "while",
+          "expected",
+          "was",
+          "then",
+          "src",
+          "after",
+          "to reproduce"
+        ],
+        "docs": [
+          "docs",
+          "md",
+          "readme",
+          "readme md",
+          "links",
+          "handling and",
+          "sprint",
+          "define",
+          "md and",
+          "design md",
+          "license",
+          "valores"
+        ],
+        "feature": [
+          "feature",
+          "implementation",
+          "per",
+          "feat",
+          "show",
+          "target",
+          "de",
+          "developer",
+          "of",
+          "on the",
+          "and",
+          "small"
+        ]
+      },
+      "examples": {
+        "right": [
+          {
+            "repo": "VR-Vlog/VR-Vlog-lilToon-Exporter",
+            "number": 148,
+            "title": "\u7b2c1\u6bb5: 2.3.4\u3088\u308a\u65b0\u3057\u3044lilToon\u3092\u69cb\u6210\u7167\u5408\u3067\u53d7\u3051\u5165\u308c\u3001\u7248\u3054\u3068\u306e\u69cb\u6210\u30cf\u30c3\u30b7\u30e5\u3092CI\u3067\u7167\u5408\u3059\u308b",
+            "true": "feature",
+            "predicted": "feature"
+          },
+          {
+            "repo": "ScenK/Bean",
+            "number": 287,
+            "title": "Move the routine scheduler and watch IO from the app into core",
+            "true": "feature",
+            "predicted": "feature"
+          },
+          {
+            "repo": "tsokiyZan/Pumpkin",
+            "number": 138,
+            "title": "Campfire block cannot cook and cannot be extinguished by potion [upstream 3020]",
+            "true": "bug",
+            "predicted": "bug"
+          },
+          {
+            "repo": "markup-carve/carve-rs",
+            "number": 2736,
+            "title": "Djot import drops the checkbox of an empty task item",
+            "true": "bug",
+            "predicted": "bug"
+          }
+        ],
+        "wrong": [
+          {
+            "repo": "Johnsonklarry/guitarix-web",
+            "number": 624,
+            "title": "Batch-select multiple tiles with Shift+click for group move or delete \ud83e\uddd9",
+            "true": "feature",
+            "predicted": "bug"
+          },
+          {
+            "repo": "deepnative/deep-native-engine",
+            "number": 512,
+            "title": "[GOV] Require isolated worktrees and preserve concurrent Codex/Claude ownership",
+            "true": "docs",
+            "predicted": "feature"
+          },
+          {
+            "repo": "linagora/twake-ui",
+            "number": 161,
+            "title": "twake-mui: the selected toggle button looks unselected",
+            "true": "bug",
+            "predicted": "feature"
+          },
+          {
+            "repo": "RoyMatus/Swypetris",
+            "number": 303,
+            "title": "Adopt scoped TDD for testable behavior and bug fixes",
+            "true": "docs",
+            "predicted": "feature"
+          }
+        ]
+      }
     },
     "minilm": {
       "accuracy": 0.7769,
@@ -62,8 +168,70 @@
           "support": 53
         }
       },
-      "seconds": 34.7,
-      "encoder": "sentence-transformers/all-MiniLM-L6-v2"
+      "seconds": 34.2,
+      "encoder": "sentence-transformers/all-MiniLM-L6-v2",
+      "examples": {
+        "right": [
+          {
+            "repo": "VR-Vlog/VR-Vlog-lilToon-Exporter",
+            "number": 148,
+            "title": "\u7b2c1\u6bb5: 2.3.4\u3088\u308a\u65b0\u3057\u3044lilToon\u3092\u69cb\u6210\u7167\u5408\u3067\u53d7\u3051\u5165\u308c\u3001\u7248\u3054\u3068\u306e\u69cb\u6210\u30cf\u30c3\u30b7\u30e5\u3092CI\u3067\u7167\u5408\u3059\u308b",
+            "true": "feature",
+            "predicted": "feature"
+          },
+          {
+            "repo": "Johnsonklarry/guitarix-web",
+            "number": 624,
+            "title": "Batch-select multiple tiles with Shift+click for group move or delete \ud83e\uddd9",
+            "true": "feature",
+            "predicted": "feature"
+          },
+          {
+            "repo": "ScenK/Bean",
+            "number": 287,
+            "title": "Move the routine scheduler and watch IO from the app into core",
+            "true": "feature",
+            "predicted": "feature"
+          },
+          {
+            "repo": "tsokiyZan/Pumpkin",
+            "number": 138,
+            "title": "Campfire block cannot cook and cannot be extinguished by potion [upstream 3020]",
+            "true": "bug",
+            "predicted": "bug"
+          }
+        ],
+        "wrong": [
+          {
+            "repo": "Motoki0705/tennis-lab",
+            "number": 1120,
+            "title": "[\u30c9\u30ad\u30e5\u30e1\u30f3\u30c8] \u6ce8\u91c8\u30fb\u7d99\u7d9a\u5b66\u7fd2\u306e\u5909\u66f4\u5f8c\u30a2\u30fc\u30ad\u30c6\u30af\u30c1\u30e3\u3068\u8cac\u52d9\u5883\u754c\u3092\u6587\u66f8\u5316\u3059\u308b",
+            "true": "docs",
+            "predicted": "bug"
+          },
+          {
+            "repo": "deepnative/deep-native-engine",
+            "number": 512,
+            "title": "[GOV] Require isolated worktrees and preserve concurrent Codex/Claude ownership",
+            "true": "docs",
+            "predicted": "feature"
+          },
+          {
+            "repo": "Motoki0705/tennis-lab",
+            "number": 1130,
+            "title": "[\u6a5f\u80fd] player bbox\u306e\u4fee\u6b63\u30fb\u8ffd\u52a0\u30fb\u9664\u53bb\u3068\u78ba\u8a8d\u6e08\u307f\u7a7atarget\u3092\u8868\u73fe\u3059\u308b",
+            "true": "feature",
+            "predicted": "bug"
+          },
+          {
+            "repo": "linagora/twake-ui",
+            "number": 161,
+            "title": "twake-mui: the selected toggle button looks unselected",
+            "true": "bug",
+            "predicted": "feature"
+          }
+        ]
+      }
     }
   },
   "status": "ok"
