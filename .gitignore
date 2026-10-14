@@ -1,6 +1,7 @@
 __pycache__/
 *.pyc
 .pytest_cache/
-data/
+# downloaded data only (root folder), never the src/boostree/data code
+/data/
 *.parquet
 .venv/

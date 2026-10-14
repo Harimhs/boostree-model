@@ -2,6 +2,8 @@ name: Pull data
 
 # Step 1: pull real labeled GitHub issues from GH Archive and write a summary.
 # Run it from your phone: Actions tab -> "Pull data" -> Run workflow.
+# A push of code changes also runs it (with a quick 1-hour pull), so fixes get
+# tested automatically without anyone tapping "Run workflow".
 on:
   workflow_dispatch:
     inputs:
@@ -9,6 +11,13 @@ on:
         description: "How many recent hours of GH Archive to scan"
         default: "6"
         required: true
+  push:
+    branches: [code]
+    paths:
+      - "src/**"
+      - "tests/**"
+      - "requirements.txt"
+      - ".github/workflows/pull-data.yml"
 
 permissions:
   contents: write
@@ -42,7 +51,7 @@ jobs:
         run: |
           mkdir -p data
           python -m boostree.data.pull_gharchive \
-            --hours "${{ inputs.hours }}" \
+            --hours "${{ inputs.hours || '1' }}" \
             --out data/issues.parquet \
             --stats-out data/pull_stats.json
 
