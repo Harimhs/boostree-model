@@ -1,80 +1,84 @@
 {
-  "generated_at": "2026-10-14T04:57:59+00:00",
+  "generated_at": "2026-10-14T05:03:46+00:00",
   "pull_stats": {
-    "events": 84066,
+    "events": 86867,
     "bad_lines": 0,
-    "issue_events": 766,
+    "issue_events": 711,
     "missing_issue_payload": 0,
     "pull_requests_skipped": 0,
-    "labeled_issue_events": 577,
+    "labeled_issue_events": 541,
     "hours_missing": 0,
     "hours_failed": 0,
-    "unique_labeled_issues": 543,
+    "unique_labeled_issues": 522,
     "sources": [
-      "2026-10-14-2"
+      "2026-10-14-3"
     ]
   },
-  "issues": 543,
-  "repos": 375,
-  "repos_with_5plus_issues": 11,
-  "distinct_labels": 653,
-  "avg_labels_per_issue": 2.41,
-  "issues_with_body": 537,
+  "issues": 522,
+  "repos": 348,
+  "repos_with_5plus_issues": 15,
+  "distinct_labels": 642,
+  "avg_labels_per_issue": 2.56,
+  "issues_with_body": 517,
   "top_labels": [
     [
       "enhancement",
-      85
+      82
     ],
     [
       "bug",
-      75
+      63
     ],
     [
-      "ready-for-agent",
-      24
+      "needs-review",
+      39
     ],
     [
-      "decision",
-      19
+      "auto-detected",
+      38
     ],
     [
-      "feature",
-      14
+      "pubmed",
+      36
     ],
     [
       "type:task",
-      14
+      19
     ],
     [
-      "confidence/confirmed",
-      12
+      "ready-for-agent",
+      19
     ],
     [
-      "P2",
-      11
+      "decision",
+      15
+    ],
+    [
+      "sprint-2",
+      13
     ],
     [
       "team:BE",
-      11
+      10
     ],
     [
       "documentation",
       10
     ],
     [
-      "type:story",
-      10
-    ],
-    [
-      "src:l5",
-      9
-    ],
-    [
       "sprint-1",
       9
     ],
     [
-      "backlog",
+      "P2",
+      9
+    ],
+    [
+      "src:design-only",
+      8
+    ],
+    [
+      "priority::medium",
       8
     ],
     [
@@ -82,35 +86,15 @@
       8
     ],
     [
-      "complexity/M",
+      "type:refactor",
       8
     ],
     [
-      "agent-runtime",
+      "source:agent",
       8
     ],
     [
-      "story",
-      8
-    ],
-    [
-      "P1",
-      7
-    ],
-    [
-      "backend",
-      7
-    ],
-    [
-      "wayfinder:grilling",
-      7
-    ],
-    [
-      "update-available",
-      7
-    ],
-    [
-      "update-fork",
+      "type:feature",
       7
     ],
     [
@@ -118,70 +102,86 @@
       7
     ],
     [
-      "sandbox",
+      "taskq",
+      7
+    ],
+    [
+      "p1",
+      7
+    ],
+    [
+      "priority-high",
+      7
+    ],
+    [
+      "performance",
+      7
+    ],
+    [
+      "priority:high",
       7
     ]
   ],
   "top_repos": [
     [
       "huongnv-0154/lab5-yuki-coldchain-backlog",
-      20
+      17
     ],
     [
       "hyron-fr/hermes-workflow",
-      18
+      14
     ],
     [
-      "prime-radiant-inc/evener",
-      13
+      "SaimaKapoor/SE-PARKING-PROJECT",
+      9
     ],
     [
-      "sheeeng/rajbos-github-fork-updater",
+      "organizzolini/codebase",
+      8
+    ],
+    [
+      "yao-care/SgTxGNN",
       7
     ],
     [
-      "sumanthrangausa-06/Rekrut_AI_v2",
+      "yao-care/NZTxGNN",
       7
     ],
     [
-      "rg3915/HubFlow",
+      "rjroy/shining-stars",
       7
     ],
     [
-      "SE-MiniProject-Team5/MiniProject_Team5_Smart_Budget_Manager",
+      "yao-care/KrTxGNN",
       6
     ],
     [
-      "joseguzman1337/joseguzman1337",
+      "taskqorg/taskq",
       6
     ],
     [
-      "Cassiiopeia/suh-project-utility",
+      "yao-care/MyTxGNN",
+      6
+    ],
+    [
+      "handarbeit/fabrik-test-alpha",
       5
     ],
     [
-      "TEO1Group/TEO1_ClinicaDental",
+      "yao-care/NOTxGNN",
       5
     ],
     [
-      "Pcc329/solution-finder",
+      "shreya-shahapur/SE-MiniProject",
       5
     ],
     [
-      "dkackman/diffusers-workflow",
-      4
+      "kolabs-dev/isim",
+      5
     ],
     [
-      "sravya-cloud/online_examination_portal",
-      4
-    ],
-    [
-      "Silthus/kudos",
-      4
-    ],
-    [
-      "Tupig/Tupig_synergy",
-      4
+      "technicks89/Pokemon_Yellow_Legacy",
+      5
     ]
   ],
   "family_name_variety": {
@@ -190,201 +190,230 @@
       "top_names": [
         [
           "bug",
-          75
+          63
         ],
         [
-          "Bug",
-          4
+          "ameesh:bug",
+          2
         ],
         [
-          "type:bug",
-          3
+          "type: bug",
+          2
+        ],
+        [
+          "C-bug",
+          1
         ],
         [
           "type/bug",
           1
         ],
         [
-          "I Font Bug",
+          "kind:bug",
           1
         ],
         [
-          "unconfirmed bug",
+          "type:bug",
           1
         ],
         [
-          "confirmed bug",
-          1
-        ],
-        [
-          "kind: bug",
+          "impact:crash-loop",
           1
         ]
       ]
     },
     "docs": {
-      "distinct_names": 5,
+      "distinct_names": 4,
       "top_names": [
         [
           "documentation",
           10
         ],
         [
-          "area:docs",
-          3
-        ],
-        [
-          "Documentation",
-          1
-        ],
-        [
-          "modulo:docs",
+          "domain/doc",
           1
         ],
         [
           "docs",
           1
+        ],
+        [
+          "area-docs",
+          1
+        ]
+      ]
+    },
+    "duplicate": {
+      "distinct_names": 2,
+      "top_names": [
+        [
+          "*duplicate",
+          1
+        ],
+        [
+          "duplicate",
+          1
         ]
       ]
     },
     "feature": {
-      "distinct_names": 13,
+      "distinct_names": 12,
       "top_names": [
         [
           "enhancement",
-          85
-        ],
-        [
-          "feature",
-          14
+          82
         ],
         [
           "type:feature",
+          7
+        ],
+        [
+          "feature",
           6
         ],
         [
-          "feature:campaign-builder",
+          "feature-request",
+          3
+        ],
+        [
+          "Feature",
           2
         ],
         [
-          "\ud83d\udee0\ufe0f feature",
+          "type: feature",
+          2
+        ],
+        [
+          "kind:feature",
           1
         ],
         [
-          "engine-request",
-          1
-        ],
-        [
-          "\u2728 feature",
-          1
-        ],
-        [
-          "t:feature",
+          "ameesh:improvement",
           1
         ]
       ]
     },
     "other": {
-      "distinct_names": 623,
+      "distinct_names": 608,
       "top_names": [
         [
-          "ready-for-agent",
-          24
+          "needs-review",
+          39
         ],
         [
-          "decision",
-          19
+          "auto-detected",
+          38
+        ],
+        [
+          "pubmed",
+          36
         ],
         [
           "type:task",
-          14
+          19
         ],
         [
-          "confidence/confirmed",
-          12
+          "ready-for-agent",
+          19
         ],
         [
-          "P2",
-          11
+          "decision",
+          15
+        ],
+        [
+          "sprint-2",
+          13
         ],
         [
           "team:BE",
-          11
-        ],
-        [
-          "type:story",
           10
-        ],
-        [
-          "src:l5",
-          9
         ]
       ]
     },
     "question": {
-      "distinct_names": 1,
+      "distinct_names": 4,
       "top_names": [
         [
           "question",
+          4
+        ],
+        [
+          "help wanted",
+          3
+        ],
+        [
+          "type: setup help",
+          1
+        ],
+        [
+          "Card Support",
           1
         ]
       ]
     },
     "wontfix": {
-      "distinct_names": 1,
+      "distinct_names": 2,
       "top_names": [
         [
           "wontfix",
           2
+        ],
+        [
+          "invalid",
+          1
         ]
       ]
     }
   },
   "examples": [
     {
-      "repo": "daniel-ospina/tortoise",
-      "number": 8560,
-      "title": "fix(collision_preflight): it cannot answer \"is #N already landed?\" \u2014 a CLOSED/landed issue reads CLEAN and a lane is dispatched onto shipped code",
+      "repo": "clockgrove/factory",
+      "number": 1101,
+      "title": "Acknowledge each terminal native planning return once",
       "labels": [
-        "complexity:complex",
-        "team:organisation-design-team"
+        "leaf",
+        "P1"
       ]
     },
     {
-      "repo": "MonashNovaRover/nova",
-      "number": 1196,
-      "title": "Cube localisation through pointcloud + image",
+      "repo": "sravya-cloud/online_examination_portal",
+      "number": 45,
+      "title": "FR-04: Create examinations",
       "labels": [
-        "autonomous",
-        "recruit"
+        "sprint-1",
+        "functional",
+        "sp-5"
       ]
     },
     {
-      "repo": "Nameahs/tape",
-      "number": 15,
-      "title": "Digest window drops evening filings (timestamp compared as text)",
+      "repo": "huongnv-0154/lab5-yuki-coldchain-backlog",
+      "number": 227,
+      "title": "FG07-02.3 RPC import_temp_readings + route \u2014 X\u00e1c minh t\u1ec7p, ch\u1ed1ng tr\u00f9ng, ghi m\u1ed9t transaction",
       "labels": [
-        "bug"
+        "type:task",
+        "team:BE",
+        "epic:E-07",
+        "src:design-only",
+        "src:integration"
       ]
     },
     {
-      "repo": "sabino/dxt",
-      "number": 232,
-      "title": "Apply PostgreSQL profile connection retry policy before session establishment",
+      "repo": "youneedgreg/chessy",
+      "number": 121,
+      "title": "Code health: fix ESLint errors and stop linting the Stockfish bundle",
       "labels": [
-        "type:compat",
-        "area:adapter-abi",
-        "role:worker",
-        "status:review",
-        "priority:p2"
+        "good first issue",
+        "difficulty: easy",
+        "area: infra"
       ]
     },
     {
-      "repo": "meilisearch/meilisearch-php",
-      "number": 844,
-      "title": "Add types to settings handling methods (HandlesSettings trait)",
+      "repo": "Tamriel-Toolkit/ESO-Trade-Project",
+      "number": 100,
+      "title": "[FEAT] Complete bidirectional deep-linked Marketplace filter state",
       "labels": [
-        "breaking-change"
+        "enhancement",
+        "feature"
       ]
     }
   ]
