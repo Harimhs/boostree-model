@@ -1,313 +1,334 @@
 {
-  "generated_at": "2026-10-14T10:15:47+00:00",
+  "generated_at": "2026-10-14T11:38:21+00:00",
   "pull_stats": {
-    "events": 87461,
+    "events": 88758,
     "bad_lines": 0,
-    "issue_events": 328,
+    "issue_events": 326,
     "missing_issue_payload": 0,
     "pull_requests_skipped": 0,
-    "labeled_issue_events": 262,
+    "labeled_issue_events": 243,
     "hours_missing": 0,
     "hours_failed": 0,
-    "unique_labeled_issues": 259,
+    "unique_labeled_issues": 243,
     "sources": [
-      "2026-10-14-8"
+      "2026-10-14-9"
     ]
   },
-  "issues": 259,
-  "repos": 212,
-  "repos_with_5plus_issues": 2,
-  "distinct_labels": 409,
-  "avg_labels_per_issue": 2.41,
-  "issues_with_body": 254,
+  "issues": 243,
+  "repos": 210,
+  "repos_with_5plus_issues": 1,
+  "distinct_labels": 318,
+  "avg_labels_per_issue": 2.08,
+  "issues_with_body": 238,
   "top_labels": [
     [
-      "enhancement",
-      50
-    ],
-    [
       "bug",
-      33
+      51
     ],
     [
-      "type:feature",
-      11
+      "enhancement",
+      45
     ],
     [
       "ready-for-agent",
-      8
-    ],
-    [
-      "documentation",
-      7
+      14
     ],
     [
       "decision",
-      7
+      14
     ],
     [
-      "ready",
-      7
-    ],
-    [
-      "P2",
+      "needs-triage",
       6
-    ],
-    [
-      "task",
-      6
-    ],
-    [
-      "area:ui",
-      5
-    ],
-    [
-      "P1",
-      5
-    ],
-    [
-      "area:docs",
-      4
-    ],
-    [
-      "in-progress",
-      4
     ],
     [
       "feature",
+      6
+    ],
+    [
+      "in-progress",
+      5
+    ],
+    [
+      "P3",
+      5
+    ],
+    [
+      "type:feature",
       4
     ],
     [
-      "priority:p1",
-      4
+      "P1",
+      3
     ],
     [
-      "type:task",
-      4
+      "good first issue",
+      3
+    ],
+    [
+      "security",
+      3
+    ],
+    [
+      "Top priorit\u00e9",
+      3
+    ],
+    [
+      "documentation",
+      3
+    ],
+    [
+      "help wanted",
+      3
+    ],
+    [
+      "backend",
+      2
+    ],
+    [
+      "size:S",
+      2
+    ],
+    [
+      "hardening",
+      2
+    ],
+    [
+      "severity:low",
+      2
+    ],
+    [
+      "priority:medium",
+      2
+    ],
+    [
+      "N: AdGuard Browser Extension",
+      2
+    ],
+    [
+      "status:done",
+      2
     ],
     [
       "priority:high",
-      3
+      2
     ],
     [
-      "priority:p2",
-      3
+      "tooling",
+      2
     ],
     [
-      "frontend",
-      3
-    ],
-    [
-      "tech-debt",
-      3
-    ],
-    [
-      "area: engine",
-      3
-    ],
-    [
-      "ai-ready",
-      3
-    ],
-    [
-      "ameesh",
-      3
-    ],
-    [
-      "blocked",
-      3
-    ],
-    [
-      "library-adoption",
-      3
+      "pipeline:implementing",
+      2
     ]
   ],
   "top_repos": [
     [
       "hyron-fr/hermes-workflow",
-      6
+      14
     ],
     [
-      "brycejmurrin/f1-game",
-      6
-    ],
-    [
-      "Flixarr/flixarr",
-      4
-    ],
-    [
-      "joromi1/splitvault-contracts",
-      4
-    ],
-    [
-      "valence-works/elsa-control",
-      4
-    ],
-    [
-      "leynos/mapsplice",
+      "calebn/sharecut-studio",
       3
     ],
     [
-      "morluto/rea",
-      3
-    ],
-    [
-      "manaty/ameesh",
-      3
-    ],
-    [
-      "QuinntyneBrown/shot-there",
-      3
-    ],
-    [
-      "AbdelrhmanAh7/FlowLine_Web",
-      3
-    ],
-    [
-      "HL7Austria/CDA2FHIR",
+      "Cratis/Chronicle",
       2
     ],
     [
-      "Tupig/Tupig_synergy",
+      "OpenEPaperLink/OpenEPaperLink",
       2
     ],
     [
-      "AxalNetwork/StudioOS",
+      "InauguralSystems/EigenScript",
       2
     ],
     [
-      "SEAME-pt/SEA-ME_Team1_ROSRangers",
+      "accensa/accensa-contracts",
       2
     ],
     [
-      "IA-P1-BCN/g1-python-crud-api",
+      "Marco-Cricchio/moh",
+      2
+    ],
+    [
+      "AdguardTeam/AdguardFilters",
+      2
+    ],
+    [
+      "yicheng47/runner",
+      2
+    ],
+    [
+      "vanpariyar/swaminarayan-charitra",
+      2
+    ],
+    [
+      "osl-vvce/code-shelf",
+      2
+    ],
+    [
+      "nahcnuj/makamujo",
+      2
+    ],
+    [
+      "mkny13/couch-tour",
+      2
+    ],
+    [
+      "luisgf/openvc",
+      2
+    ],
+    [
+      "dkackman/diffusers-workflow",
       2
     ]
   ],
   "family_name_variety": {
     "bug": {
-      "distinct_names": 6,
+      "distinct_names": 7,
       "top_names": [
         [
           "bug",
-          33
+          51
+        ],
+        [
+          "Bug",
+          2
+        ],
+        [
+          "ci/auth-broken",
+          1
+        ],
+        [
+          "kind:defect",
+          1
         ],
         [
           "type: bug",
-          2
+          1
         ],
         [
-          "ameesh:bug",
-          2
+          "security-bug",
+          1
         ],
         [
           "type:bug",
-          1
-        ],
-        [
-          "\ud83d\udc1e Bug",
-          1
-        ],
-        [
-          "meta:regression",
           1
         ]
       ]
     },
     "docs": {
-      "distinct_names": 3,
+      "distinct_names": 5,
       "top_names": [
         [
           "documentation",
-          7
+          3
         ],
         [
-          "area:docs",
-          4
+          "type:documentation",
+          1
         ],
         [
-          "area: documentation",
+          "area/docs",
+          1
+        ],
+        [
+          "project: documentation",
+          1
+        ],
+        [
+          "docs",
+          1
+        ]
+      ]
+    },
+    "duplicate": {
+      "distinct_names": 1,
+      "top_names": [
+        [
+          "duplicate",
           1
         ]
       ]
     },
     "feature": {
-      "distinct_names": 7,
+      "distinct_names": 11,
       "top_names": [
         [
           "enhancement",
-          50
-        ],
-        [
-          "type:feature",
-          11
+          45
         ],
         [
           "feature",
+          6
+        ],
+        [
+          "type:feature",
           4
         ],
         [
-          "type: feature",
+          "ui improvement",
           1
         ],
         [
-          "feature/composite-performance",
+          "Feature request",
           1
         ],
         [
-          "Type: Enhancement",
+          "type:enhancement",
           1
         ],
         [
-          "type/feature",
+          "Needs Design / Proposal",
+          1
+        ],
+        [
+          "type.Enhancement",
           1
         ]
       ]
     },
     "other": {
-      "distinct_names": 391,
+      "distinct_names": 293,
       "top_names": [
         [
           "ready-for-agent",
-          8
+          14
         ],
         [
           "decision",
-          7
+          14
         ],
         [
-          "ready",
-          7
-        ],
-        [
-          "P2",
+          "needs-triage",
           6
         ],
         [
-          "task",
-          6
+          "in-progress",
+          5
         ],
         [
-          "area:ui",
+          "P3",
           5
         ],
         [
           "P1",
-          5
+          3
         ],
         [
-          "in-progress",
-          4
+          "good first issue",
+          3
+        ],
+        [
+          "security",
+          3
         ]
       ]
     },
     "question": {
-      "distinct_names": 2,
+      "distinct_names": 1,
       "top_names": [
-        [
-          "Card Support",
-          1
-        ],
         [
           "question",
           1
@@ -317,52 +338,51 @@
   },
   "examples": [
     {
-      "repo": "intel/torch-xpu-ops",
-      "number": 5369,
-      "title": "[Triton][BMG] 1 confirmed performance drops",
+      "repo": "lifeunsubscribe/Sharkrite",
+      "number": 1270,
+      "title": "`create_issues` SPIKE_KEY parse arm and title-derived fallback still unpinned for issue #1156",
       "labels": [
-        "performance",
-        "hw: BMG",
-        "dependency component: Triton"
+        "priority-medium",
+        "review-follow-up"
       ]
     },
     {
-      "repo": "anchor-tools/stellar-toml-lint",
-      "number": 344,
-      "title": "Autonomous System Number (ASN) BGP route leak and routing anomaly detector",
+      "repo": "jikig-ai/soleur",
+      "number": 9777,
+      "title": "[ci/auth-broken] Synthetic OAuth probe failed",
       "labels": [
-        "enhancement",
-        "Wave: High"
+        "priority/p1-high",
+        "ci/auth-broken"
       ]
     },
     {
-      "repo": "pyrycode/pyrycode",
-      "number": 3325,
-      "title": "perf(thread): stop rewriting the whole thread cache and re-resolving every item on each history append",
-      "labels": [
-        "priority:high",
-        "family-dispatches:1",
-        "wip:refiner",
-        "claim:build-fractal-2"
-      ]
-    },
-    {
-      "repo": "EricKingWhy/intelligence-agent",
-      "number": 1136,
-      "title": "[Web UI] \u4eae\u8272\u4e3b\u9898\u8bed\u4e49\u8272\u6b63\u6587\u5bf9\u6bd4\u5ea6\u4e0d\u8fbe\u6807\uff1a--warning/--danger \u5728\u7eaf\u767d\u5e95\u4e0a\u9650\u5373 <4.5\uff0c\u8c03 alpha \u65e0\u89e3\uff08\u542b e2e \u8986\u76d6\u7f3a\u53e3\uff09",
+      "repo": "andeplane/fem-lab",
+      "number": 511,
+      "title": "Inherited heat field falsely leaves a static Step unloaded",
       "labels": [
         "bug",
-        "needs-triage",
-        "P2"
+        "engine",
+        "app",
+        "numerics",
+        "in progress"
       ]
     },
     {
-      "repo": "pyrite-wiki/pyrite",
-      "number": 883,
-      "title": "spike: can Obscura speed up exploratory and smoke UI testing?",
+      "repo": "Clockworks-Solutions/skip-ui",
+      "number": 15,
+      "title": "Fix Tab Bar width",
       "labels": [
-        "enhancement",
-        "help wanted"
+        "bug",
+        "enhancement"
+      ]
+    },
+    {
+      "repo": "shubhodeep1/coding-workflows",
+      "number": 7374,
+      "title": "Pin jlumbroso/free-disk-space to a commit SHA in review_autofix.yml (SEC-001)",
+      "labels": [
+        "ai:implementing",
+        "ai:orchestrator-managed"
       ]
     }
   ]
