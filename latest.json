@@ -1,187 +1,187 @@
 {
-  "generated_at": "2026-10-14T06:28:31+00:00",
+  "generated_at": "2026-10-14T07:42:01+00:00",
   "pull_stats": {
-    "events": 86415,
+    "events": 86616,
     "bad_lines": 0,
-    "issue_events": 756,
+    "issue_events": 602,
     "missing_issue_payload": 0,
     "pull_requests_skipped": 0,
-    "labeled_issue_events": 598,
+    "labeled_issue_events": 466,
     "hours_missing": 0,
     "hours_failed": 0,
-    "unique_labeled_issues": 584,
+    "unique_labeled_issues": 453,
     "sources": [
-      "2026-10-14-4"
+      "2026-10-14-5"
     ]
   },
-  "issues": 584,
-  "repos": 374,
-  "repos_with_5plus_issues": 14,
-  "distinct_labels": 617,
-  "avg_labels_per_issue": 2.49,
-  "issues_with_body": 580,
+  "issues": 453,
+  "repos": 316,
+  "repos_with_5plus_issues": 9,
+  "distinct_labels": 566,
+  "avg_labels_per_issue": 2.45,
+  "issues_with_body": 450,
   "top_labels": [
     [
       "bug",
-      108
+      78
     ],
     [
       "enhancement",
-      102
+      61
     ],
     [
       "needs-review",
-      68
+      48
     ],
     [
       "auto-detected",
-      67
+      45
     ],
     [
       "pubmed",
-      63
-    ],
-    [
-      "Checkmarx",
-      23
-    ],
-    [
-      "branch:master",
-      23
-    ],
-    [
-      "feedback-app:1511368f-870a-4a99-a2ca-652429c4486f",
-      23
+      45
     ],
     [
       "ready-for-agent",
-      21
+      24
     ],
     [
-      "documentation",
-      16
+      "priority:P1",
+      10
     ],
     [
       "decision",
-      12
-    ],
-    [
-      "task",
       10
     ],
     [
-      "frontend",
-      10
-    ],
-    [
-      "coverage",
-      10
-    ],
-    [
-      "SAST",
-      10
-    ],
-    [
-      "backend",
+      "security",
       9
     ],
     [
-      "good first issue",
+      "documentation",
       9
-    ],
-    [
-      "size:M",
-      7
-    ],
-    [
-      "SCA",
-      7
     ],
     [
       "feature",
+      8
+    ],
+    [
+      "task",
+      8
+    ],
+    [
+      "backlog",
+      8
+    ],
+    [
+      "type:feature",
+      7
+    ],
+    [
+      "succeeded",
       6
     ],
     [
-      "help wanted",
+      "priority:p2",
       6
     ],
     [
-      "type:bug",
+      "backend",
       6
     ],
     [
-      "wave:4",
-      6
+      "ui",
+      5
     ],
     [
-      "\u6295\u7a3f",
-      6
+      "priority: high",
+      5
     ],
     [
-      "player",
-      6
+      "needs-triage",
+      5
+    ],
+    [
+      "loom:ticket",
+      5
+    ],
+    [
+      "status:ready",
+      5
+    ],
+    [
+      "priority:high",
+      5
+    ],
+    [
+      "measure",
+      5
+    ],
+    [
+      "P0",
+      4
     ]
   ],
   "top_repos": [
     [
-      "Relcan-Exploratory-Testing-by-RG/ExploratoryTest-141026",
-      23
-    ],
-    [
-      "tsokiyZan/Pumpkin",
-      19
-    ],
-    [
-      "yao-care/CaTxGNN",
-      14
-    ],
-    [
-      "yao-care/SATxGNN",
-      14
+      "yao-care/UsTxGNN",
+      20
     ],
     [
       "hyron-fr/hermes-workflow",
-      12
-    ],
-    [
-      "kolabs-dev/isim",
       10
     ],
     [
-      "leftos/yaat",
-      9
+      "yao-care/HkTxGNN",
+      10
     ],
     [
-      "yao-care/PhTxGNN",
-      8
+      "helios1168/td",
+      7
     ],
     [
-      "HuangYouci/web-mcd-stargame-2026-github",
+      "ericphan2545/UniSupport",
+      7
+    ],
+    [
+      "buildpacks/registry-index",
       6
     ],
     [
-      "nguyentuanphu/Sparkle-Valley",
+      "yao-care/ESTxGNN",
+      6
+    ],
+    [
+      "stellar-steady-sdk/stellar-tab",
       5
     ],
     [
-      "Motoki0705/tennis-lab",
+      "quadseven/loom",
       5
     ],
     [
-      "yao-care/UkTxGNN",
-      5
-    ],
-    [
-      "yao-care/ZaTxGNN",
-      5
-    ],
-    [
-      "yao-care/JpTxGNN",
-      5
-    ],
-    [
-      "AbdelrhmanAh7/FlowLine_Web",
+      "vitalyiegorov/suuudokuuu",
       4
+    ],
+    [
+      "netclaw-dev/netclaw",
+      4
+    ],
+    [
+      "shinjiyu/infinitecanvas_engine",
+      3
+    ],
+    [
+      "maidulcu/masaar-crm-community",
+      3
+    ],
+    [
+      "nathapp-io/nax",
+      3
+    ],
+    [
+      "Ananth864/Chengdu80",
+      3
     ]
   ],
   "family_name_variety": {
@@ -190,59 +190,51 @@
       "top_names": [
         [
           "bug",
-          108
+          78
         ],
         [
           "type:bug",
-          6
+          3
         ],
         [
-          "Bug",
-          3
+          "type/bug",
+          2
         ],
         [
           "type: bug",
           2
         ],
         [
-          "ci-regression",
+          "task-bug-reproduction-success",
           1
         ],
         [
-          "ci-regression-failure",
+          "bug :beetle:",
           1
         ],
         [
-          "is: bug",
+          "kind:bug",
           1
         ],
         [
-          "kind: bug",
+          "Bug",
           1
         ]
       ]
     },
     "docs": {
-      "distinct_names": 5,
+      "distinct_names": 3,
       "top_names": [
         [
           "documentation",
-          16
-        ],
-        [
-          "area:docs",
-          4
-        ],
-        [
-          "docs",
-          2
+          9
         ],
         [
           "type:docs",
           1
         ],
         [
-          "area: docs",
+          "common-docs",
           1
         ]
       ]
@@ -251,40 +243,40 @@
       "distinct_names": 1,
       "top_names": [
         [
-          "duplicate",
+          "Duplicate",
           1
         ]
       ]
     },
     "feature": {
-      "distinct_names": 15,
+      "distinct_names": 12,
       "top_names": [
         [
           "enhancement",
-          102
+          61
         ],
         [
           "feature",
-          6
+          8
         ],
         [
           "type:feature",
+          7
+        ],
+        [
+          "improvement",
           3
         ],
         [
-          "Improvement",
-          3
-        ],
-        [
-          "Feature",
+          "feature:node-delete",
           2
+        ],
+        [
+          "type:enhancement",
+          1
         ],
         [
           "feature-request",
-          2
-        ],
-        [
-          "type/feature",
           1
         ],
         [
@@ -294,39 +286,39 @@
       ]
     },
     "other": {
-      "distinct_names": 583,
+      "distinct_names": 538,
       "top_names": [
         [
           "needs-review",
-          68
+          48
         ],
         [
           "auto-detected",
-          67
+          45
         ],
         [
           "pubmed",
-          63
-        ],
-        [
-          "Checkmarx",
-          23
-        ],
-        [
-          "branch:master",
-          23
-        ],
-        [
-          "feedback-app:1511368f-870a-4a99-a2ca-652429c4486f",
-          23
+          45
         ],
         [
           "ready-for-agent",
-          21
+          24
+        ],
+        [
+          "priority:P1",
+          10
         ],
         [
           "decision",
-          12
+          10
+        ],
+        [
+          "security",
+          9
+        ],
+        [
+          "task",
+          8
         ]
       ]
     },
@@ -334,24 +326,20 @@
       "distinct_names": 2,
       "top_names": [
         [
-          "question",
-          3
+          "discovery:usage",
+          1
         ],
         [
-          "Card Support",
+          "support",
           1
         ]
       ]
     },
     "wontfix": {
-      "distinct_names": 2,
+      "distinct_names": 1,
       "top_names": [
         [
-          "invalid link",
-          1
-        ],
-        [
-          "wontfix",
+          "r: invalid",
           1
         ]
       ]
@@ -359,56 +347,53 @@
   },
   "examples": [
     {
-      "repo": "on-par/software-factory",
-      "number": 2800,
-      "title": "Extract cmdRun and runLane into cli/run.ts",
+      "repo": "SE-miniproject1/mini-project-documents",
+      "number": 37,
+      "title": "[US-16] Component separation",
       "labels": [
-        "factory:in-progress",
-        "factory:order:3",
-        "factory:lane:ara",
-        "factory:claimed-by:patricks-mac-mini-16255",
-        "factory:claim-expires:1791951477"
+        "functional",
+        "priority:medium",
+        "SP-5",
+        "epic:SF-2"
       ]
     },
     {
-      "repo": "eunsoogi/codexy",
-      "number": 1318,
-      "title": "Cancel Watcher waits after successful cross-thread message delivery",
+      "repo": "AlterMundi/daimon-matrix",
+      "number": 344,
+      "title": "Integrate member-directed delivery through shared Tribe enrollment",
       "labels": [
-        "type/fix",
-        "status/in-progress",
-        "priority/high",
-        "area/plugin",
-        "area/mcp-lsp",
-        "area/qa"
+        "type:implementation",
+        "status:claimed",
+        "priority:P1"
       ]
     },
     {
-      "repo": "jikig-ai/soleur",
-      "number": 10231,
-      "title": "feat: productize gate-literal divergence harness into a repeatable external-output-filter eval",
+      "repo": "whatDiracIsCooking/FelizJueves",
+      "number": 282,
+      "title": "`kernel_f.py`: the contraction nest, the boundary, HRR after the loop",
       "labels": [
-        "priority/p3-low",
-        "type/feature",
-        "domain/engineering"
+        "wave-3",
+        "ir",
+        "hgp"
       ]
     },
     {
-      "repo": "aien-spark/aien-sovereign-core",
-      "number": 495,
-      "title": "What blocks the persistent-KV PRs from merging?",
+      "repo": "Xalarian-Dev/Auto_Bot",
+      "number": 1,
+      "title": "Rappeler les candidatures envoy\u00e9es sans suite pour relancer au bon moment",
       "labels": [
-        "wayfinder:research"
+        "enhancement",
+        "prio:moyenne",
+        "source:po",
+        "ai-suggestion"
       ]
     },
     {
-      "repo": "ZelfOfficial/zelf-dashboard",
-      "number": 8,
-      "title": "Staff sign-in goes through /api/clients/auth instead of v4 /api/staff/auth",
+      "repo": "koshian/cayenchat",
+      "number": 358,
+      "title": "\u30c1\u30e3\u30f3\u30cd\u30eb\u30ed\u30b0\u306e\u53f3\u30af\u30ea\u30c3\u30af\u30e1\u30cb\u30e5\u30fc\u306b\u7de8\u96c6\u30fb\u30c1\u30e3\u30f3\u30cd\u30eb\u64cd\u4f5c\u30fbnick\u5909\u66f4\u30fb\u767a\u8a00\u8005priv\u3092\u8ffd\u52a0\u3059\u308b",
       "labels": [
-        "bug",
-        "v4-migration",
-        "priority:high"
+        "ghwatch:done"
       ]
     }
   ]
