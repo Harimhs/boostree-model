@@ -1,68 +1,68 @@
 {
-  "generated_at": "2026-10-14T05:59:33+00:00",
+  "generated_at": "2026-10-14T06:43:39+00:00",
   "task": "issue family: bug / docs / feature",
   "data": {
-    "issues_total": 1064,
-    "usable": 400,
-    "repos": 332,
+    "issues_total": 1645,
+    "usable": 650,
+    "repos": 498,
     "classes": {
-      "feature": 218,
-      "bug": 156,
-      "docs": 26
+      "feature": 333,
+      "bug": 278,
+      "docs": 39
     },
-    "train": 320,
-    "test": 80
+    "train": 520,
+    "test": 130
   },
   "models": {
     "tfidf": {
-      "accuracy": 0.8125,
-      "macro_f1": 0.5504,
+      "accuracy": 0.8154,
+      "macro_f1": 0.7993,
       "per_class": {
         "bug": {
-          "precision": 0.8966,
-          "recall": 0.7429,
-          "f1": 0.8125,
-          "support": 35
+          "precision": 0.8529,
+          "recall": 0.8406,
+          "f1": 0.8467,
+          "support": 69
         },
         "docs": {
-          "precision": 0.0,
-          "recall": 0.0,
-          "f1": 0.0,
-          "support": 3
+          "precision": 1.0,
+          "recall": 0.625,
+          "f1": 0.7692,
+          "support": 8
         },
         "feature": {
-          "precision": 0.7647,
-          "recall": 0.9286,
-          "f1": 0.8387,
-          "support": 42
+          "precision": 0.7544,
+          "recall": 0.8113,
+          "f1": 0.7818,
+          "support": 53
         }
       },
-      "seconds": 1.1
+      "seconds": 1.4
     },
     "minilm": {
-      "accuracy": 0.7375,
-      "macro_f1": 0.6322,
+      "accuracy": 0.7769,
+      "macro_f1": 0.6952,
       "per_class": {
         "bug": {
-          "precision": 0.7838,
-          "recall": 0.8286,
-          "f1": 0.8056,
-          "support": 35
+          "precision": 0.8333,
+          "recall": 0.7971,
+          "f1": 0.8148,
+          "support": 69
         },
         "docs": {
-          "precision": 0.25,
-          "recall": 0.6667,
-          "f1": 0.3636,
-          "support": 3
+          "precision": 0.5,
+          "recall": 0.5,
+          "f1": 0.5,
+          "support": 8
         },
         "feature": {
-          "precision": 0.8,
-          "recall": 0.6667,
-          "f1": 0.7273,
-          "support": 42
+          "precision": 0.75,
+          "recall": 0.7925,
+          "f1": 0.7706,
+          "support": 53
         }
       },
-      "seconds": 27.4,
+      "seconds": 34.7,
       "encoder": "sentence-transformers/all-MiniLM-L6-v2"
     }
   },

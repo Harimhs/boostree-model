@@ -1,1 +1,2 @@
 {"time": "2026-10-14T05:59:33+00:00", "status": "ok", "usable": 400, "train": 320, "test": 80, "tfidf_macro_f1": 0.5504, "minilm_macro_f1": 0.6322, "tfidf_accuracy": 0.8125, "minilm_accuracy": 0.7375}
+{"time": "2026-10-14T06:43:39+00:00", "status": "ok", "usable": 650, "train": 520, "test": 130, "tfidf_macro_f1": 0.7993, "minilm_macro_f1": 0.6952, "tfidf_accuracy": 0.8154, "minilm_accuracy": 0.7769}
