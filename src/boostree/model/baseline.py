@@ -43,6 +43,33 @@ def score(y_true, y_pred, classes) -> dict:
     }
 
 
+def top_terms(vec, clf, n: int = 12) -> dict:
+    """The words/phrases that push hardest toward each type: the learned pattern."""
+    names = vec.get_feature_names_out()
+    coefs = clf.coef_
+    out = {}
+    if coefs.shape[0] == 1:  # two classes: one weight row, sign picks the class
+        row = coefs[0]
+        out[clf.classes_[1]] = [names[i] for i in np.argsort(row)[::-1][:n]]
+        out[clf.classes_[0]] = [names[i] for i in np.argsort(row)[:n]]
+    else:
+        for k, cls in enumerate(clf.classes_):
+            out[cls] = [names[i] for i in np.argsort(coefs[k])[::-1][:n]]
+    return out
+
+
+def examples(test, pred, n: int = 4) -> dict:
+    """A few real right and wrong guesses, to see what the model gets and misses."""
+    rows = test.assign(pred=pred)
+    pick = lambda df: [
+        {"repo": r.repo, "number": int(r.number), "title": r.text.split("\n", 1)[0][:120],
+         "true": r.target, "predicted": r.pred}
+        for r in df.head(n).itertuples()
+    ]
+    return {"right": pick(rows[rows.pred == rows.target]),
+            "wrong": pick(rows[rows.pred != rows.target])}
+
+
 def run_tfidf(train, test, classes) -> dict:
     start = time.time()
     vec = TfidfVectorizer(ngram_range=(1, 2), min_df=2, max_features=50000, sublinear_tf=True)
@@ -50,7 +77,8 @@ def run_tfidf(train, test, classes) -> dict:
     clf = LogisticRegression(max_iter=2000, class_weight="balanced")
     clf.fit(xtr, train["target"])
     pred = clf.predict(vec.transform(test["text"]))
-    return {**score(test["target"], pred, classes), "seconds": round(time.time() - start, 1)}
+    return {**score(test["target"], pred, classes), "seconds": round(time.time() - start, 1),
+            "top_terms": top_terms(vec, clf), "examples": examples(test, pred)}
 
 
 def embed(texts: list[str], batch_size: int = 64) -> np.ndarray:
@@ -70,7 +98,7 @@ def run_minilm(train, test, classes) -> dict:
     clf.fit(xtr, train["target"])
     pred = clf.predict(xte)
     return {**score(test["target"], pred, classes), "seconds": round(time.time() - start, 1),
-            "encoder": ENCODER}
+            "encoder": ENCODER, "examples": examples(test, pred)}
 
 
 def main(argv=None) -> int:
