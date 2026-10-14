@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Commit X-ray</title>
+<meta name="description" content="Predicts which code commits will cause bugs, before anyone knows. Real Apache commits, from-scratch gradient boosting.">
+<style>
+:root {
+  --bg: #f6f5f1; --card: #ffffff; --ink: #1b1d22; --muted: #646a73; --line: #e4e2dc;
+  --accent: #3d5afe; --risk: #d8452f; --risk-soft: #fbe5e1; --safe: #2f8f5b; --safe-soft: #e0f2e8;
+  --warn: #c98a12; --bar: #d9dce3; --shadow: 0 1px 2px rgba(0,0,0,.05), 0 4px 16px rgba(0,0,0,.04);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #111317; --card: #1a1d23; --ink: #eceef2; --muted: #9aa1ac; --line: #2a2e36;
+    --accent: #7b8cff; --risk: #ff6f59; --risk-soft: #3a211d; --safe: #4cc38a; --safe-soft: #17301f;
+    --warn: #e2a93b; --bar: #313641; --shadow: none;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #111317; --card: #1a1d23; --ink: #eceef2; --muted: #9aa1ac; --line: #2a2e36;
+  --accent: #7b8cff; --risk: #ff6f59; --risk-soft: #3a211d; --safe: #4cc38a; --safe-soft: #17301f;
+  --warn: #e2a93b; --bar: #313641; --shadow: none;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; background: var(--bg); color: var(--ink); }
+body { font: 15px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, sans-serif; -webkit-font-smoothing: antialiased; }
+.wrap { max-width: 640px; margin: 0 auto; padding: 20px 16px 48px; }
+header h1 { font-size: 28px; letter-spacing: -.02em; margin: 6px 0 4px; }
+header p { margin: 0; color: var(--muted); }
+.eyebrow { font-size: 12px; text-transform: uppercase; letter-spacing: .08em; color: var(--accent); font-weight: 600; }
+.card { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 18px 16px; margin-top: 16px; box-shadow: var(--shadow); }
+.card h2 { font-size: 17px; margin: 0 0 4px; letter-spacing: -.01em; }
+.card .sub { color: var(--muted); font-size: 13.5px; margin: 0 0 14px; }
+.big { font-size: 44px; font-weight: 700; letter-spacing: -.03em; line-height: 1; }
+.hero { display: flex; gap: 14px; align-items: baseline; flex-wrap: wrap; }
+.hero .txt { flex: 1 1 220px; color: var(--muted); }
+.hero .txt b { color: var(--ink); }
+.bars { margin-top: 14px; display: grid; gap: 10px; }
+.brow .top { display: flex; justify-content: space-between; font-size: 13.5px; margin-bottom: 4px; }
+.brow .top b { font-variant-numeric: tabular-nums; }
+.track { height: 10px; background: var(--bar); border-radius: 99px; overflow: hidden; }
+.fill { height: 100%; border-radius: 99px; background: var(--muted); }
+.fill.ours { background: var(--accent); }
+.meta { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 14px; }
+.chip { font-size: 12px; padding: 4px 9px; border-radius: 99px; background: var(--bg); border: 1px solid var(--line); color: var(--muted); }
+.buckets { display: grid; gap: 8px; }
+.bk { display: grid; grid-template-columns: 64px 1fr 46px; gap: 10px; align-items: center; font-size: 13.5px; }
+.bk .lbl { white-space: nowrap; color: var(--muted); font-variant-numeric: tabular-nums; }
+.bk .val { text-align: right; font-weight: 600; font-variant-numeric: tabular-nums; }
+.list { display: grid; gap: 10px; }
+.commit { border: 1px solid var(--line); border-radius: 14px; padding: 12px; cursor: pointer; background: var(--card); transition: border-color .15s; }
+.commit:hover { border-color: var(--accent); }
+.commit .row { display: flex; gap: 12px; align-items: center; }
+.pill { flex: 0 0 auto; min-width: 54px; text-align: center; font-weight: 700; font-size: 14px; padding: 6px 8px; border-radius: 10px; font-variant-numeric: tabular-nums; }
+.pill.hi { background: var(--risk-soft); color: var(--risk); }
+.pill.mid { background: color-mix(in srgb, var(--warn) 18%, transparent); color: var(--warn); }
+.pill.lo { background: var(--safe-soft); color: var(--safe); }
+.commit .t { font-size: 14px; line-height: 1.35; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+.commit .p { font-size: 12px; color: var(--muted); margin-top: 2px; }
+.detail { display: none; margin-top: 12px; padding-top: 12px; border-top: 1px dashed var(--line); }
+.commit.open .detail { display: block; }
+.gauge { height: 12px; border-radius: 99px; background: linear-gradient(90deg, var(--safe), var(--warn), var(--risk)); position: relative; margin: 8px 0 4px; }
+.gauge i { position: absolute; top: -4px; width: 4px; height: 20px; border-radius: 2px; background: var(--ink); transform: translateX(-2px); }
+.scale { display: flex; justify-content: space-between; font-size: 11px; color: var(--muted); }
+.why { margin: 12px 0 0; display: grid; gap: 6px; }
+.why .r { display: grid; grid-template-columns: 1fr 58px; gap: 8px; align-items: center; font-size: 13px; }
+.why .r .w { text-align: right; font-weight: 600; font-variant-numeric: tabular-nums; }
+.why .r .w.up { color: var(--risk); } .why .r .w.down { color: var(--safe); }
+.why .r small { color: var(--muted); }
+.btn { margin-top: 12px; width: 100%; padding: 11px; border-radius: 12px; border: 1px solid var(--accent); background: transparent; color: var(--accent); font-weight: 600; font-size: 14px; cursor: pointer; }
+.truth { display: none; margin-top: 12px; padding: 12px; border-radius: 12px; font-size: 14px; }
+.truth.show { display: block; }
+.truth.bug { background: var(--risk-soft); }
+.truth.clean { background: var(--safe-soft); }
+.truth a { color: var(--accent); }
+.verdict { font-size: 12.5px; color: var(--muted); margin-top: 6px; }
+svg text { fill: var(--muted); font-size: 19px; }
+.formula { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12px; background: var(--bg); border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; overflow-x: auto; white-space: pre; }
+.steps { margin: 0; padding-left: 18px; color: var(--muted); font-size: 14px; }
+.steps li { margin: 4px 0; } .steps b { color: var(--ink); }
+footer { color: var(--muted); font-size: 12.5px; margin-top: 22px; line-height: 1.6; }
+footer a { color: var(--muted); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="eyebrow">Commit X-ray · v0</div>
+    <h1>Which commit will break production?</h1>
+    <p>A model that scores every code change for bug risk the moment it's pushed, weeks before the bug is found.</p>
+  </header>
+
+  <section class="card" id="headline"></section>
+  <section class="card" id="trust"></section>
+
+  <section class="card">
+    <h2>Try it on real commits</h2>
+    <p class="sub">Real commits from Apache Kafka, Hive, Flink, HBase… from 2017–2019, years the model never saw. Tap one, read the risk, then reveal what really happened. Includes misses and false alarms too.</p>
+    <div class="list" id="commits"></div>
+  </section>
+
+  <section class="card" id="delay"></section>
+
+  <section class="card">
+    <h2>How it works</h2>
+    <ol class="steps">
+      <li><b>Every commit becomes 13 numbers</b>: size, files and subsystems touched, how spread-out it is, the files' past change history, the author's experience in that area.</li>
+      <li><b>Labels come from history itself</b>: when a later "fix" commit lands, <i>git blame</i> traces the fixed lines back to the commit that introduced the bug (SZZ algorithm).</li>
+      <li><b>Gradient boosting, written from scratch</b> in NumPy: each round computes every commit's gradient and hessian, grows a tree with histogram splits, and sets each leaf to the Newton step −G/(H+λ).</li>
+      <li><b>Explanations for free</b>: each tree split hands its change in risk to the feature it used, so every score comes with its reasons.</li>
+    </ol>
+    <div class="meta" id="engine"></div>
+  </section>
+
+  <footer id="foot"></footer>
+</div>
+
+<script>
+const $ = (s) => document.querySelector(s);
+const pct = (x, d = 0) => (x * 100).toFixed(d) + "%";
+const esc = (s) => String(s ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const level = (r) => (r >= 0.6 ? "hi" : r >= 0.3 ? "mid" : "lo");
+const fmtVal = (f, v) => {
+  if (f === "fix") return v ? "yes" : "no";
+  if (f === "ent") return v.toFixed(2);
+  if (f === "age") return v.toFixed(1);
+  if (["ndev", "nuc", "arexp", "asexp"].includes(f)) return v >= 100 ? Math.round(v).toLocaleString() : (+v.toFixed(1)).toString();
+  return Math.round(v).toLocaleString();
+};
+
+function bar(label, value, cls = "") {
+  return `<div class="brow"><div class="top"><span>${label}</span><b>${pct(value)}</b></div>
+    <div class="track"><div class="fill ${cls}" style="width:${Math.max(2, value * 100)}%"></div></div></div>`;
+}
+
+function render(d) {
+  const m = d.models, c = d.counts;
+  $("#headline").innerHTML = `
+    <h2>The result</h2>
+    <p class="sub">If reviewers look only at the riskiest 20% of commits…</p>
+    <div class="hero"><div class="big">${pct(m.ours.recall_top20)}</div>
+      <div class="txt">of all <b>bug-causing commits</b> are caught, out of ${c.test.toLocaleString()} real commits (${c.test_buggy.toLocaleString()} buggy).</div></div>
+    <div class="bars">
+      ${bar("Commit X-ray (this model)", m.ours.recall_top20, "ours")}
+      ${bar("Rule: biggest commits first", m.lines_added_rule.recall_top20)}
+      ${bar("Random 20%", m.random.recall_top20)}
+    </div>
+    <div class="meta"><span class="chip">AUC ${m.ours.auc.toFixed(3)}</span>
+      <span class="chip">rule AUC ${m.lines_added_rule.auc.toFixed(3)}</span>
+      <span class="chip">${c.projects} Apache projects</span>
+      <span class="chip">trained ${d.split.train}, tested ${d.split.test}</span></div>`;
+
+  $("#trust").innerHTML = `
+    <h2>Does the risk score mean anything?</h2>
+    <p class="sub">Commits grouped by the risk the model gave them → how many really turned out buggy:</p>
+    <div class="buckets">${d.buckets.map((b) => `
+      <div class="bk"><span class="lbl">${b.range}</span>
+        <div class="track"><div class="fill ${b.actually_buggy >= .5 ? "ours" : ""}" style="width:${Math.max(2, b.actually_buggy * 100)}%"></div></div>
+        <span class="val">${pct(b.actually_buggy)}</span></div>`).join("")}</div>
+    <p class="sub" style="margin:12px 0 0">Higher score → really more bugs. Commits it calls safe are almost always safe.</p>`;
+
+  $("#commits").innerHTML = d.commits.map((x, i) => {
+    const reasons = x.reasons.filter((r) => Math.abs(r.effect_pts) >= 0.5).slice(0, 4);
+    const correct = (x.risk >= 0.5) === x.buggy;
+    return `<div class="commit" data-i="${i}">
+      <div class="row"><div class="pill ${level(x.risk)}">${pct(x.risk)}</div>
+        <div><div class="t">${esc(x.title)}</div>
+        <div class="p">${esc(x.project.replace("apache/", ""))} · ${x.date} · +${x.la} −${x.ld} lines · ${x.nf} file${x.nf === 1 ? "" : "s"}</div></div></div>
+      <div class="detail">
+        <div style="font-size:13px;color:var(--muted)">Predicted bug risk</div>
+        <div class="gauge"><i style="left:${x.risk * 100}%"></i></div>
+        <div class="scale"><span>safe</span><span>risky</span></div>
+        <div class="why">${reasons.map((r) => `
+          <div class="r"><span>${esc(r.label)} <small>(${fmtVal(r.feature, r.value)})</small></span>
+            <span class="w ${r.effect_pts > 0 ? "up" : "down"}">${r.effect_pts > 0 ? "+" : ""}${r.effect_pts.toFixed(1)}</span></div>`).join("")}
+          <div class="verdict">Numbers = how many risk points each factor adds or removes.</div></div>
+        <button class="btn" type="button">Reveal what really happened</button>
+        <div class="truth ${x.buggy ? "bug" : "clean"}">
+          ${x.buggy ? "<b>🐞 This commit introduced a bug.</b> A later fix was traced back to it." : "<b>✓ This commit stayed clean.</b> No later fix was traced back to it."}
+          <div class="verdict">${correct ? "The model got this one right." : (x.buggy ? "The model missed this one." : "False alarm: the model was too cautious here.")}
+          · <a href="https://github.com/${esc(x.project)}/commit/${esc(x.sha)}" target="_blank" rel="noopener">see the real commit ↗</a></div>
+        </div>
+      </div></div>`;
+  }).join("");
+  document.querySelectorAll(".commit").forEach((el) => {
+    el.addEventListener("click", (e) => {
+      if (e.target.closest("a")) return;
+      if (e.target.closest(".btn")) { el.querySelector(".truth").classList.add("show"); e.target.style.display = "none"; return; }
+      if (e.target.closest(".detail")) return;
+      el.classList.toggle("open");
+    });
+  });
+
+  // Delay chart
+  const ys = d.bug_rate_by_year, W = 600, H = 250, pad = 6, bw = (W - pad * 2) / ys.length;
+  const max = Math.max(...ys.map((y) => y.rate)) * 1.15;
+  const bars = ys.map((y, i) => {
+    const h = (y.rate / max) * (H - 80), x = pad + i * bw + bw * 0.18, w = bw * 0.64, late = y.year >= 2018;
+    return `<rect x="${x}" y="${H - 30 - h}" width="${w}" height="${h}" rx="4" fill="${late ? "var(--risk)" : "var(--bar)"}"/>
+      <text x="${x + w / 2}" y="${H - 38 - h}" text-anchor="middle">${Math.round(y.rate * 100)}%</text>
+      <text x="${x + w / 2}" y="${H - 4}" text-anchor="middle">'${String(y.year).slice(2)}</text>`;
+  }).join("");
+  $("#delay").innerHTML = `
+    <h2>The problem I'm solving next</h2>
+    <p class="sub">Share of commits labelled "bug-causing", by year. Did developers suddenly get better in 2019?</p>
+    <svg viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="Bug rate by year">${bars}</svg>
+    <p class="sub" style="margin:8px 0 12px"><b style="color:var(--ink)">No. Their bugs just hadn't been found yet.</b> Bugs surface weeks or months after the commit, so recent commits look falsely clean, and every model retrained today learns from wrong labels. Research calls this <i>verification latency</i>; current boosting models ignore it.</p>
+    <p class="sub" style="margin:0 0 8px">My fix: a delay-aware boosting objective. For a commit with no bug found yet (risk p, chance a bug would have surfaced by now q):</p>
+    <div class="formula">loss = −log(1 − p·q)
+
+standard hessian:
+ p(1−p)·q·(1−2p+p²q) / (1−p·q)²
+ → can go NEGATIVE: breaks the Newton step
+
+my fix (Fisher, always positive):
+ q·p·(1−p)² / (1−p·q)
+ → = p(1−p) when q = 1, i.e. plain XGBoost</div>`;
+
+  const eng = d.models.sklearn_hgb_reference;
+  $("#engine").innerHTML = `<span class="chip">from-scratch engine AUC ${m.ours.auc.toFixed(4)}</span>
+    ${eng ? `<span class="chip">scikit-learn reference ${eng.auc.toFixed(4)}</span>` : ""}
+    <span class="chip">${d.trees} trees</span><span class="chip">trains in ${d.seconds}s on CPU</span><span class="chip">no GPU · no LLM</span>`;
+
+  $("#foot").innerHTML = `Data: <a href="https://arxiv.org/abs/2203.00101">ApacheJIT</a>, ${(c.train + c.validation + c.test).toLocaleString()} real commits from ${c.projects} Apache projects, labelled with SZZ (known to be somewhat noisy).
+    Time split: train ${d.split.train}, early-stopping ${d.split.validation}, test ${d.split.test}. Example commits are a fair mix of hits, misses and false alarms.
+    v0 uses the standard log-loss; the delay-aware objective is next. Built by Hari · <a href="https://github.com/Harimhs/boostree-model">source</a>`;
+}
+
+fetch("data.json").then((r) => r.json()).then(render).catch(() => {
+  document.querySelector(".wrap").insertAdjacentHTML("beforeend", '<p class="card">Could not load data.json.</p>');
+});
+</script>
+</body>
+</html>

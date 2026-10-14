@@ -1,0 +1,1133 @@
+{
+ "generated_at": "2026-10-14T20:26:34+00:00",
+ "dataset": "ApacheJIT (14 Apache projects, real commits, SZZ labels)",
+ "split": {
+  "train": "2003-2015",
+  "validation": "2016",
+  "test": "2017-2019"
+ },
+ "counts": {
+  "train": 65957,
+  "validation": 10606,
+  "test": 30111,
+  "test_buggy": 5818,
+  "projects": 15
+ },
+ "trees": 108,
+ "models": {
+  "ours": {
+   "auc": 0.8647,
+   "recall_top20": 0.6258,
+   "precision_top20": 0.6046
+  },
+  "lines_added_rule": {
+   "auc": 0.7813,
+   "recall_top20": 0.473,
+   "precision_top20": 0.457
+  },
+  "random": {
+   "auc": 0.5,
+   "recall_top20": 0.2,
+   "precision_top20": 0.1932
+  },
+  "sklearn_hgb_reference": {
+   "auc": 0.8635,
+   "recall_top20": 0.6184,
+   "precision_top20": 0.5975
+  }
+ },
+ "buckets": [
+  {
+   "range": "0\u201320%",
+   "commits": 15228,
+   "actually_buggy": 0.042
+  },
+  {
+   "range": "20\u201340%",
+   "commits": 5913,
+   "actually_buggy": 0.136
+  },
+  {
+   "range": "40\u201360%",
+   "commits": 3782,
+   "actually_buggy": 0.269
+  },
+  {
+   "range": "60\u201380%",
+   "commits": 3071,
+   "actually_buggy": 0.481
+  },
+  {
+   "range": "80\u2013100%",
+   "commits": 2117,
+   "actually_buggy": 0.892
+  }
+ ],
+ "commits": [
+  {
+   "sha": "ea814d78690940827e90950282f40a74ca45eb0f",
+   "project": "apache/kafka",
+   "date": "2019-07-13",
+   "risk": 0.965,
+   "buggy": true,
+   "group": "high risk, really buggy",
+   "reasons": [
+    {
+     "feature": "fix",
+     "label": "is a bug-fix commit",
+     "value": 1.0,
+     "effect_pts": 36.5
+    },
+    {
+     "feature": "ld",
+     "label": "lines deleted",
+     "value": 17.0,
+     "effect_pts": 15.3
+    },
+    {
+     "feature": "la",
+     "label": "lines added",
+     "value": 17.0,
+     "effect_pts": -1.9
+    },
+    {
+     "feature": "nuc",
+     "label": "past changes to these files",
+     "value": 32.8333333333333,
+     "effect_pts": 0.4
+    },
+    {
+     "feature": "nf",
+     "label": "files touched",
+     "value": 6.0,
+     "effect_pts": 0.2
+    }
+   ],
+   "la": 17,
+   "ld": 17,
+   "nf": 6,
+   "title": "KAFKA-8614; Consistent naming for IncrementalAlterConfig and AlterConfig responses (#7022)"
+  },
+  {
+   "sha": "a4bd64e724cbe2ef639c984ddfe2da3baf170a96",
+   "project": "apache/hadoop",
+   "date": "2019-01-24",
+   "risk": 0.642,
+   "buggy": false,
+   "group": "false alarm: high risk but clean",
+   "reasons": [
+    {
+     "feature": "la",
+     "label": "lines added",
+     "value": 483.0,
+     "effect_pts": 32.6
+    },
+    {
+     "feature": "fix",
+     "label": "is a bug-fix commit",
+     "value": 0.0,
+     "effect_pts": -6.0
+    },
+    {
+     "feature": "age",
+     "label": "days since these files last changed",
+     "value": 60.0,
+     "effect_pts": 4.1
+    },
+    {
+     "feature": "ns",
+     "label": "subsystems touched",
+     "value": 1.0,
+     "effect_pts": -3.9
+    },
+    {
+     "feature": "nuc",
+     "label": "past changes to these files",
+     "value": 36.8333333333333,
+     "effect_pts": 3.8
+    }
+   ],
+   "la": 483,
+   "ld": 260,
+   "nf": 12,
+   "title": "YARN-9116. Capacity Scheduler: implements queue level maximum-allocation inheritance"
+  },
+  {
+   "sha": "3b1524c5dfd2a94f3fb919dad0de70984963772b",
+   "project": "apache/kafka",
+   "date": "2019-04-16",
+   "risk": 0.754,
+   "buggy": true,
+   "group": "high risk, really buggy",
+   "reasons": [
+    {
+     "feature": "la",
+     "label": "lines added",
+     "value": 1023.0,
+     "effect_pts": 32.9
+    },
+    {
+     "feature": "ns",
+     "label": "subsystems touched",
+     "value": 3.0,
+     "effect_pts": 10.3
+    },
+    {
+     "feature": "fix",
+     "label": "is a bug-fix commit",
+     "value": 0.0,
+     "effect_pts": -4.6
+    },
+    {
+     "feature": "nf",
+     "label": "files touched",
+     "value": 23.0,
+     "effect_pts": 4.3
+    },
+    {
+     "feature": "age",
+     "label": "days since these files last changed",
+     "value": 18.0869565217391,
+     "effect_pts": 2.8
+    }
+   ],
+   "la": 1023,
+   "ld": 68,
+   "nf": 23,
+   "title": "KAFKA-7466: Add IncrementalAlterConfigs API (KIP-339) (#6247)"
+  },
+  {
+   "sha": "30f0582f2b8bdf2e9368e84078f5a7aba033f9ff",
+   "project": "apache/hadoop",
+   "date": "2018-06-06",
+   "risk": 0.112,
+   "buggy": false,
+   "group": "low risk, really clean",
+   "reasons": [
+    {
+     "feature": "la",
+     "label": "lines added",
+     "value": 7.0,
+     "effect_pts": -12.9
+    },
+    {
+     "feature": "fix",
+     "label": "is a bug-fix commit",
+     "value": 0.0,
+     "effect_pts": -3.6
+    },
+    {
+     "feature": "nuc",
+     "label": "past changes to these files",
+     "value": 3.0,
+     "effect_pts": -3.2
+    },
+    {
+     "feature": "asexp",
+     "label": "author's commits in this subsystem",
+     "value": 7.3556449733463365e-87,
+     "effect_pts": 2.5
+    },
+    {
+     "feature": "ld",
+     "label": "lines deleted",
+     "value": 1.0,
+     "effect_pts": -1.1
+    }
+   ],
+   "la": 7,
+   "ld": 1,
+   "nf": 3,
+   "title": "HDDS-107. TestOzoneConfigurationFields is failing"
+  },
+  {
+   "sha": "ed51b2cdf5bdac210a6904bead1a2ca6e8411406",
+   "project": "apache/kafka",
+   "date": "2018-04-23",
+   "risk": 0.836,
+   "buggy": true,
+   "group": "high risk, really buggy",
+   "reasons": [
+    {
+     "feature": "la",
+     "label": "lines added",
+     "value": 1462.0,
+     "effect_pts": 29.2
+    },
+    {
+     "feature": "ns",
+     "label": "subsystems touched",
+     "value": 3.0,
+     "effect_pts": 8.1
+    },
+    {
+     "feature": "fix",
+     "label": "is a bug-fix commit",
+     "value": 0.0,
+     "effect_pts": -3.3
+    },
+    {
+     "feature": "nuc",
+     "label": "past changes to these files",
+     "value": 21.7916666666667,
+     "effect_pts": 2.9
+    },
+    {
+     "feature": "ndev",
+     "label": "developers who touched these files",
+     "value": 1.65277777777778,
+     "effect_pts": 2.1
+    }
+   ],
+   "la": 1462,
+   "ld": 565,
+   "nf": 72,
+   "title": "KAFKA-6376; refactor skip metrics in Kafka Streams"
+  },
+  {
+   "sha": "0417cef9d5748ed12f5a29dd5d59486ef2e20311",
+   "project": "apache/hive",
+   "date": "2018-09-29",
+   "risk": 0.979,
+   "buggy": true,
+   "group": "high risk, really buggy",
+   "reasons": [
+    {
+     "feature": "fix",
+     "label": "is a bug-fix commit",
+     "value": 1.0,
+     "effect_pts": 23.4
+    },
+    {
+     "feature": "ld",
+     "label": "lines deleted",
+     "value": 25.0,
+     "effect_pts": 5.1
+    },
+    {
+     "feature": "la",
+     "label": "lines added",
+     "value": 63.0,
+     "effect_pts": 0.9
+    },
+    {
+     "feature": "asexp",
+     "label": "author's commits in this subsystem",
+     "value": 0.577864626142072,
+     "effect_pts": 0.2
+    },
+    {
+     "feature": "nf",
+     "label": "files touched",
+     "value": 5.0,
+     "effect_pts": 0.1
+    }
+   ],
+   "la": 63,
+   "ld": 25,
+   "nf": 5,
+   "title": "HIVE-20629: Hive incremental replication fails with events missing error if database is kept idle for more than an hour"
+  },
+  {
+   "sha": "ce03a93f78c4d97ccb48a3906fcd77ad0ac756be",
+   "project": "apache/hadoop",
+   "date": "2018-08-08",
+   "risk": 0.733,
+   "buggy": false,
+   "group": "false alarm: high risk but clean",
+   "reasons": [
+    {
+     "feature": "la",
+     "label": "lines added",
+     "value": 1987.0,
+     "effect_pts": 39.4
+    },
+    {
+     "feature": "nuc",
+     "label": "past changes to these files",
+     "value": 4.625,
+     "effect_pts": -5.0
+    },
+    {
+     "feature": "fix",
+     "label": "is a bug-fix commit",
+     "value": 0.0,
+     "effect_pts": -4.9
+    },
+    {
+     "feature": "nf",
+     "label": "files touched",
+     "value": 88.0,
+     "effect_pts": 3.7
+    },
+    {
+     "feature": "age",
+     "label": "days since these files last changed",
+     "value": 90.5568181818182,
+     "effect_pts": 3.0
+    }
+   ],
+   "la": 1987,
+   "ld": 1488,
+   "nf": 88,
+   "title": "HADOOP-15446. ABFS: tune imports & javadocs; stabilise tests"
+  },
+  {
+   "sha": "1ee309d7f54e9de130b735b27a7464de1c522096",
+   "project": "apache/flink",
+   "date": "2019-12-12",
+   "risk": 0.149,
+   "buggy": true,
+   "group": "missed: low risk but buggy",
+   "reasons": [
+    {
+     "feature": "la",
+     "label": "lines added",
+     "value": 11.0,
+     "effect_pts": -12.0
+    },
+    {
+     "feature": "fix",
+     "label": "is a bug-fix commit",
+     "value": 0.0,
+     "effect_pts": -4.6
+    },
+    {
+     "feature": "nuc",
+     "label": "past changes to these files",
+     "value": 6.0,
+     "effect_pts": -3.6
+    },
+    {
+     "feature": "asexp",
+     "label": "author's commits in this subsystem",
+     "value": 0.127197265625,
+     "effect_pts": 3.6
+    },
+    {
+     "feature": "age",
+     "label": "days since these files last changed",
+     "value": 13.0,
+     "effect_pts": 1.2
+    }
+   ],
+   "la": 11,
+   "ld": 7,
+   "nf": 2,
+   "title": "[hotfix][config] Document enhancement: reminding users that shuffle data compression is experimental currently"
+  },
+  {
+   "sha": "ee81101986eaacd709c3a218ad7e25bc6918cf48",
+   "project": "apache/hive",
+   "date": "2017-02-03",
+   "risk": 0.982,
+   "buggy": true,
+   "group": "high risk, really buggy",
+   "reasons": [
+    {
+     "feature": "fix",
+     "label": "is a bug-fix commit",
+     "value": 1.0,
+     "effect_pts": 22.1
+    },
+    {
+     "feature": "ld",
+     "label": "lines deleted",
+     "value": 37.0,
+     "effect_pts": 2.8
+    },
+    {
+     "feature": "la",
+     "label": "lines added",
+     "value": 114.0,
+     "effect_pts": 2.2
+    },
+    {
+     "feature": "nuc",
+     "label": "past changes to these files",
+     "value": 40.8181818181818,
+     "effect_pts": 0.2
+    },
+    {
+     "feature": "asexp",
+     "label": "author's commits in this subsystem",
+     "value": 0.3323567708185539,
+     "effect_pts": 0.2
+    }
+   ],
+   "la": 114,
+   "ld": 37,
+   "nf": 11,
+   "title": "HIVE-15777 : propagate LLAP app ID to ATS and log it"
+  },
+  {
+   "sha": "7af4fab420ed42edbe9f97c1c4d63823ff321c2d",
+   "project": "apache/zeppelin",
+   "date": "2018-01-12",
+   "risk": 0.153,
+   "buggy": true,
+   "group": "missed: low risk but buggy",
+   "reasons": [
+    {
+     "feature": "la",
+     "label": "lines added",
+     "value": 13.0,
+     "effect_pts": -11.5
+    },
+    {
+     "feature": "fix",
+     "label": "is a bug-fix commit",
+     "value": 0.0,
+     "effect_pts": -4.6
+    },
+    {
+     "feature": "nuc",
+     "label": "past changes to these files",
+     "value": 5.33333333333333,
+     "effect_pts": -4.1
+    },
+    {
+     "feature": "asexp",
+     "label": "author's commits in this subsystem",
+     "value": 0.0768928774926109,
+     "effect_pts": 3.5
+    },
+    {
+     "feature": "age",
+     "label": "days since these files last changed",
+     "value": 65.0,
+     "effect_pts": 1.4
+    }
+   ],
+   "la": 13,
+   "ld": 8,
+   "nf": 3,
+   "title": "ZEPPELIN-3136. IPython Code Completion Improvement"
+  },
+  {
+   "sha": "60f98df63cb2ec2533e4eee1969a6d7917ac1521",
+   "project": "apache/flink",
+   "date": "2018-01-15",
+   "risk": 0.119,
+   "buggy": false,
+   "group": "low risk, really clean",
+   "reasons": [
+    {
+     "feature": "la",
+     "label": "lines added",
+     "value": 17.0,
+     "effect_pts": -6.7
+    },
+    {
+     "feature": "fix",
+     "label": "is a bug-fix commit",
+     "value": 0.0,
+     "effect_pts": -3.9
+    },
+    {
+     "feature": "ndev",
+     "label": "developers who touched these files",
+     "value": 11.0,
+     "effect_pts": -3.6
+    },
+    {
+     "feature": "nuc",
+     "label": "past changes to these files",
+     "value": 22.0,
+     "effect_pts": 1.0
+    },
+    {
+     "feature": "ld",
+     "label": "lines deleted",
+     "value": 23.0,
+     "effect_pts": 0.8
+    }
+   ],
+   "la": 17,
+   "ld": 23,
+   "nf": 1,
+   "title": "[hotfix] Fix checkstyle violations in ZooKeeperUtils"
+  },
+  {
+   "sha": "6a383d8bc4555665fad502bb9b6e6c97657d996a",
+   "project": "apache/kafka",
+   "date": "2018-03-08",
+   "risk": 0.21,
+   "buggy": true,
+   "group": "missed: low risk but buggy",
+   "reasons": [
+    {
+     "feature": "ld",
+     "label": "lines deleted",
+     "value": 1.0,
+     "effect_pts": -5.5
+    },
+    {
+     "feature": "fix",
+     "label": "is a bug-fix commit",
+     "value": 0.0,
+     "effect_pts": -5.3
+    },
+    {
+     "feature": "nuc",
+     "label": "past changes to these files",
+     "value": 3.5,
+     "effect_pts": -4.1
+    },
+    {
+     "feature": "asexp",
+     "label": "author's commits in this subsystem",
+     "value": 0.0,
+     "effect_pts": 4.0
+    },
+    {
+     "feature": "age",
+     "label": "days since these files last changed",
+     "value": 27.0,
+     "effect_pts": 3.0
+    }
+   ],
+   "la": 62,
+   "ld": 1,
+   "nf": 2,
+   "title": "MINOR: clean stateDirectory in TopologyTestDriver (#4655)"
+  },
+  {
+   "sha": "05b774a1b05374618300f657c9c91b0d5c6ddf71",
+   "project": "apache/zookeeper",
+   "date": "2018-12-20",
+   "risk": 0.735,
+   "buggy": true,
+   "group": "high risk, really buggy",
+   "reasons": [
+    {
+     "feature": "la",
+     "label": "lines added",
+     "value": 948.0,
+     "effect_pts": 35.9
+    },
+    {
+     "feature": "ns",
+     "label": "subsystems touched",
+     "value": 8.0,
+     "effect_pts": 12.5
+    },
+    {
+     "feature": "nuc",
+     "label": "past changes to these files",
+     "value": 1.69565217391304,
+     "effect_pts": -8.5
+    },
+    {
+     "feature": "fix",
+     "label": "is a bug-fix commit",
+     "value": 0.0,
+     "effect_pts": -4.8
+    },
+    {
+     "feature": "nf",
+     "label": "files touched",
+     "value": 23.0,
+     "effect_pts": 4.2
+    }
+   ],
+   "la": 948,
+   "ld": 21,
+   "nf": 23,
+   "title": "ZOOKEEPER-3029: add pom.xml for jute, client and server"
+  },
+  {
+   "sha": "e26d0d760466c3da6189637a7de69eb5509e7b51",
+   "project": "apache/kafka",
+   "date": "2018-02-23",
+   "risk": 0.641,
+   "buggy": false,
+   "group": "false alarm: high risk but clean",
+   "reasons": [
+    {
+     "feature": "la",
+     "label": "lines added",
+     "value": 309.0,
+     "effect_pts": 27.9
+    },
+    {
+     "feature": "fix",
+     "label": "is a bug-fix commit",
+     "value": 0.0,
+     "effect_pts": -5.9
+    },
+    {
+     "feature": "age",
+     "label": "days since these files last changed",
+     "value": 31.3333333333333,
+     "effect_pts": 3.2
+    },
+    {
+     "feature": "asexp",
+     "label": "author's commits in this subsystem",
+     "value": 0.226408944555936,
+     "effect_pts": 3.1
+    },
+    {
+     "feature": "nuc",
+     "label": "past changes to these files",
+     "value": 15.666666666666698,
+     "effect_pts": 2.8
+    }
+   ],
+   "la": 309,
+   "ld": 428,
+   "nf": 6,
+   "title": "MINOR: Revert incompatible behavior change to consumer reset tool (#4611)"
+  },
+  {
+   "sha": "5f6940ffe45a23749cca9a1f55136bbf6a1423e3",
+   "project": "apache/camel",
+   "date": "2017-10-18",
+   "risk": 0.149,
+   "buggy": false,
+   "group": "low risk, really clean",
+   "reasons": [
+    {
+     "feature": "fix",
+     "label": "is a bug-fix commit",
+     "value": 0.0,
+     "effect_pts": -4.2
+    },
+    {
+     "feature": "ld",
+     "label": "lines deleted",
+     "value": 3.0,
+     "effect_pts": -2.6
+    },
+    {
+     "feature": "nuc",
+     "label": "past changes to these files",
+     "value": 5.0,
+     "effect_pts": -2.6
+    },
+    {
+     "feature": "age",
+     "label": "days since these files last changed",
+     "value": 467.75,
+     "effect_pts": -2.5
+    },
+    {
+     "feature": "asexp",
+     "label": "author's commits in this subsystem",
+     "value": 67.0,
+     "effect_pts": -1.1
+    }
+   ],
+   "la": 51,
+   "ld": 3,
+   "nf": 4,
+   "title": "CAMEL-11891 - incase of emptybody unmarshalling needed"
+  },
+  {
+   "sha": "2f1923a8233b0c999494cd4b33f85b70dc5d7b12",
+   "project": "apache/hbase",
+   "date": "2017-05-25",
+   "risk": 0.852,
+   "buggy": true,
+   "group": "high risk, really buggy",
+   "reasons": [
+    {
+     "feature": "la",
+     "label": "lines added",
+     "value": 2422.0,
+     "effect_pts": 28.1
+    },
+    {
+     "feature": "ns",
+     "label": "subsystems touched",
+     "value": 4.0,
+     "effect_pts": 9.3
+    },
+    {
+     "feature": "nuc",
+     "label": "past changes to these files",
+     "value": 46.25,
+     "effect_pts": 3.7
+    },
+    {
+     "feature": "fix",
+     "label": "is a bug-fix commit",
+     "value": 0.0,
+     "effect_pts": -3.0
+    },
+    {
+     "feature": "nf",
+     "label": "files touched",
+     "value": 16.0,
+     "effect_pts": 2.7
+    }
+   ],
+   "la": 2422,
+   "ld": 319,
+   "nf": 16,
+   "title": "HBASE-15576 Scanning cursor to prevent blocking long time on ResultScanner.next()"
+  },
+  {
+   "sha": "c131546eaadd07baf950bd6a44d07ee42d109e4c",
+   "project": "apache/flink",
+   "date": "2018-02-15",
+   "risk": 0.193,
+   "buggy": true,
+   "group": "missed: low risk but buggy",
+   "reasons": [
+    {
+     "feature": "la",
+     "label": "lines added",
+     "value": 17.0,
+     "effect_pts": -9.9
+    },
+    {
+     "feature": "fix",
+     "label": "is a bug-fix commit",
+     "value": 0.0,
+     "effect_pts": -5.6
+    },
+    {
+     "feature": "ndev",
+     "label": "developers who touched these files",
+     "value": 1.81818181818182,
+     "effect_pts": 2.1
+    },
+    {
+     "feature": "age",
+     "label": "days since these files last changed",
+     "value": 13.6363636363636,
+     "effect_pts": 1.3
+    },
+    {
+     "feature": "asexp",
+     "label": "author's commits in this subsystem",
+     "value": 500.0,
+     "effect_pts": -1.3
+    }
+   ],
+   "la": 17,
+   "ld": 17,
+   "nf": 11,
+   "title": "[FLINK-8664] [rest] Change RpcEndpoint#TerminationFuture value type to Void"
+  },
+  {
+   "sha": "5ba634aa665416743d2f63cbb12f601fe408fe9a",
+   "project": "apache/hive",
+   "date": "2018-06-16",
+   "risk": 0.877,
+   "buggy": true,
+   "group": "high risk, really buggy",
+   "reasons": [
+    {
+     "feature": "fix",
+     "label": "is a bug-fix commit",
+     "value": 1.0,
+     "effect_pts": 55.0
+    },
+    {
+     "feature": "ld",
+     "label": "lines deleted",
+     "value": 4.0,
+     "effect_pts": 25.8
+    },
+    {
+     "feature": "la",
+     "label": "lines added",
+     "value": 6.0,
+     "effect_pts": -8.3
+    },
+    {
+     "feature": "nf",
+     "label": "files touched",
+     "value": 1.0,
+     "effect_pts": -2.3
+    },
+    {
+     "feature": "nuc",
+     "label": "past changes to these files",
+     "value": 85.0,
+     "effect_pts": 2.3
+    }
+   ],
+   "la": 6,
+   "ld": 4,
+   "nf": 1,
+   "title": "HIVE-19810: StorageHandler fail to ship jars in Tez intermittently"
+  },
+  {
+   "sha": "383beb02339a7aa74c2b16e171a4e0c1afe2bdcd",
+   "project": "apache/flink",
+   "date": "2019-12-05",
+   "risk": 0.749,
+   "buggy": false,
+   "group": "false alarm: high risk but clean",
+   "reasons": [
+    {
+     "feature": "la",
+     "label": "lines added",
+     "value": 583.0,
+     "effect_pts": 33.4
+    },
+    {
+     "feature": "fix",
+     "label": "is a bug-fix commit",
+     "value": 0.0,
+     "effect_pts": -4.7
+    },
+    {
+     "feature": "nf",
+     "label": "files touched",
+     "value": 20.0,
+     "effect_pts": 3.9
+    },
+    {
+     "feature": "age",
+     "label": "days since these files last changed",
+     "value": 8.4,
+     "effect_pts": 3.0
+    },
+    {
+     "feature": "ndev",
+     "label": "developers who touched these files",
+     "value": 1.05,
+     "effect_pts": 2.6
+    }
+   ],
+   "la": 583,
+   "ld": 86,
+   "nf": 20,
+   "title": "[FLINK-14911] [table] register and drop temp catalog functions from DDL to FunctionCatalog"
+  },
+  {
+   "sha": "f15cdbc91b240e656d9a2aeb6877e94624b21f8d",
+   "project": "apache/kafka",
+   "date": "2017-07-26",
+   "risk": 0.652,
+   "buggy": true,
+   "group": "high risk, really buggy",
+   "reasons": [
+    {
+     "feature": "la",
+     "label": "lines added",
+     "value": 151.0,
+     "effect_pts": 13.7
+    },
+    {
+     "feature": "ns",
+     "label": "subsystems touched",
+     "value": 3.0,
+     "effect_pts": 10.2
+    },
+    {
+     "feature": "fix",
+     "label": "is a bug-fix commit",
+     "value": 0.0,
+     "effect_pts": -5.8
+    },
+    {
+     "feature": "nuc",
+     "label": "past changes to these files",
+     "value": 51.26315789473679,
+     "effect_pts": 5.3
+    },
+    {
+     "feature": "nf",
+     "label": "files touched",
+     "value": 19.0,
+     "effect_pts": 3.6
+    }
+   ],
+   "la": 151,
+   "ld": 181,
+   "nf": 19,
+   "title": "KAFKA-5627; Reduce classes needed for LeaderAndIsrPartitionState and MetadataPartitionState"
+  },
+  {
+   "sha": "709bf82555b64a50218e06e8c1255fa87f053d9d",
+   "project": "apache/groovy",
+   "date": "2017-11-19",
+   "risk": 0.006,
+   "buggy": false,
+   "group": "low risk, really clean",
+   "reasons": [
+    {
+     "feature": "la",
+     "label": "lines added",
+     "value": 0.0,
+     "effect_pts": -19.8
+    },
+    {
+     "feature": "fix",
+     "label": "is a bug-fix commit",
+     "value": 0.0,
+     "effect_pts": -0.2
+    },
+    {
+     "feature": "ld",
+     "label": "lines deleted",
+     "value": 3.0,
+     "effect_pts": -0.0
+    },
+    {
+     "feature": "nf",
+     "label": "files touched",
+     "value": 1.0,
+     "effect_pts": -0.0
+    },
+    {
+     "feature": "nd",
+     "label": "directories touched",
+     "value": 1.0,
+     "effect_pts": 0.0
+    }
+   ],
+   "la": 0,
+   "ld": 3,
+   "nf": 1,
+   "title": "trivial refactor (closes #638)"
+  },
+  {
+   "sha": "3e8774dd5c0dc2a968e0984cb7646d451b471a57",
+   "project": "apache/flink",
+   "date": "2019-07-10",
+   "risk": 0.055,
+   "buggy": false,
+   "group": "low risk, really clean",
+   "reasons": [
+    {
+     "feature": "la",
+     "label": "lines added",
+     "value": 3.0,
+     "effect_pts": -12.1
+    },
+    {
+     "feature": "fix",
+     "label": "is a bug-fix commit",
+     "value": 0.0,
+     "effect_pts": -1.9
+    },
+    {
+     "feature": "nuc",
+     "label": "past changes to these files",
+     "value": 3.0,
+     "effect_pts": -0.9
+    },
+    {
+     "feature": "aexp",
+     "label": "author's past commits",
+     "value": 290.0,
+     "effect_pts": -0.3
+    },
+    {
+     "feature": "ld",
+     "label": "lines deleted",
+     "value": 1.0,
+     "effect_pts": -0.2
+    }
+   ],
+   "la": 3,
+   "ld": 1,
+   "nf": 1,
+   "title": "[hotfix][tests] let MeterViewTest extend from TestLogger"
+  },
+  {
+   "sha": "b5ade568b0a64666cf0635f8bb1973f7d825a85d",
+   "project": "apache/camel",
+   "date": "2019-04-11",
+   "risk": 0.094,
+   "buggy": false,
+   "group": "low risk, really clean",
+   "reasons": [
+    {
+     "feature": "arexp",
+     "label": "author's recent activity",
+     "value": 3607.16666666686,
+     "effect_pts": -5.2
+    },
+    {
+     "feature": "ld",
+     "label": "lines deleted",
+     "value": 1.0,
+     "effect_pts": -4.1
+    },
+    {
+     "feature": "fix",
+     "label": "is a bug-fix commit",
+     "value": 0.0,
+     "effect_pts": -2.9
+    },
+    {
+     "feature": "nuc",
+     "label": "past changes to these files",
+     "value": 1.5,
+     "effect_pts": -2.5
+    },
+    {
+     "feature": "aexp",
+     "label": "author's past commits",
+     "value": 5743.0,
+     "effect_pts": 1.2
+    }
+   ],
+   "la": 51,
+   "ld": 1,
+   "nf": 2,
+   "title": "CAMEL-13398 - Camel-AWS-*: Lets adopt the same approach as CAMEL-12936 for all the components, camel-aws-msk"
+  }
+ ],
+ "seconds": 11.1,
+ "bug_rate_by_year": [
+  {
+   "year": 2010,
+   "rate": 0.402,
+   "commits": 4973
+  },
+  {
+   "year": 2011,
+   "rate": 0.322,
+   "commits": 7117
+  },
+  {
+   "year": 2012,
+   "rate": 0.33,
+   "commits": 6923
+  },
+  {
+   "year": 2013,
+   "rate": 0.373,
+   "commits": 7001
+  },
+  {
+   "year": 2014,
+   "rate": 0.273,
+   "commits": 12319
+  },
+  {
+   "year": 2015,
+   "rate": 0.301,
+   "commits": 13824
+  },
+  {
+   "year": 2016,
+   "rate": 0.291,
+   "commits": 10606
+  },
+  {
+   "year": 2017,
+   "rate": 0.272,
+   "commits": 10187
+  },
+  {
+   "year": 2018,
+   "rate": 0.21,
+   "commits": 9365
+  },
+  {
+   "year": 2019,
+   "rate": 0.102,
+   "commits": 10559
+  }
+ ]
+}
