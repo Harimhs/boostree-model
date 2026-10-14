@@ -1,14 +1,14 @@
 # Data summary
 
-_Generated 2026-10-14T08:41:10+00:00 from GH Archive hours: 2026-10-14-6_
+_Generated 2026-10-14T09:40:11+00:00 from GH Archive hours: 2026-10-14-7_
 
 ## Pull
 
 | Metric | Value |
 |---|---|
-| All events scanned | 86,590 |
-| Issue events | 514 |
-| Issue events with labels | 388 |
+| All events scanned | 87,836 |
+| Issue events | 428 |
+| Issue events with labels | 345 |
 | Issue events missing issue details | 0 |
 | Hours not yet published / failed | 0 / 0 |
 
@@ -16,12 +16,12 @@ _Generated 2026-10-14T08:41:10+00:00 from GH Archive hours: 2026-10-14-6_
 
 | Metric | Value |
 |---|---|
-| Unique labeled issues | 373 |
-| Repos | 288 |
-| Repos with 5+ labeled issues | 6 |
-| Distinct label names | 521 |
-| Avg labels per issue | 2.43 |
-| Issues with a description | 368 |
+| Unique labeled issues | 340 |
+| Repos | 261 |
+| Repos with 5+ labeled issues | 1 |
+| Distinct label names | 489 |
+| Avg labels per issue | 2.56 |
+| Issues with a description | 340 |
 
 ## Same idea, different names
 
@@ -29,53 +29,53 @@ How many different label names repos use for each kind of label. This is the var
 
 | Family | Distinct names | Most common names |
 |---|---|---|
-| bug | 15 | `bug` (52), `type:bug` (9), `type/bug` (2), `kind/bug` (1), `🐞 bug` (1) |
-| docs | 2 | `documentation` (9), `Area: Documentation :page_facing_up:` (1) |
-| duplicate | 1 | `Duplicate` (2) |
-| feature | 16 | `enhancement` (45), `feature` (7), `type:feature` (3), `type: feature` (2), `🌟 feature` (1) |
-| other | 483 | `ready-for-agent` (24), `priority:high` (8), `decision` (8), `frontend` (8), `needs-triage` (7) |
-| question | 2 | `question` (4), `type/design-question` (1) |
-| wontfix | 2 | `wontfix` (3), `Invalid` (1) |
+| bug | 9 | `bug` (59), `type:bug` (4), `Bug` (2), `kind/bug` (1), `module: crash` (1) |
+| docs | 8 | `documentation` (8), `area:docs` (2), `area/docs` (1), `type: docs` (1), `Type : Documentation` (1) |
+| duplicate | 2 | `Duplicate` (1), `duplicate` (1) |
+| feature | 13 | `enhancement` (51), `feature` (11), `type:feature` (8), `Feature` (1), `type: enhancement` (1) |
+| other | 454 | `ready-for-agent` (15), `area: admin` (15), `qa: test-case` (14), `priority: high` (12), `page: reports` (10) |
+| question | 1 | `question` (2) |
+| wontfix | 2 | `Invalid` (1), `wontfix` (1) |
 
 ## Top labels
 
 | Label | Issues |
 |---|---|
-| `bug` | 52 |
-| `enhancement` | 45 |
-| `ready-for-agent` | 24 |
-| `documentation` | 9 |
-| `type:bug` | 9 |
-| `priority:high` | 8 |
-| `decision` | 8 |
-| `frontend` | 8 |
-| `feature` | 7 |
-| `needs-triage` | 7 |
-| `activities` | 7 |
-| `Flow` | 7 |
-| `security` | 6 |
-| `priority:medium` | 6 |
-| `priority: high` | 6 |
+| `bug` | 59 |
+| `enhancement` | 51 |
+| `ready-for-agent` | 15 |
+| `area: admin` | 15 |
+| `qa: test-case` | 14 |
+| `priority: high` | 12 |
+| `feature` | 11 |
+| `page: reports` | 10 |
+| `qa: functional` | 9 |
+| `documentation` | 8 |
+| `priority: medium` | 8 |
+| `type:feature` | 8 |
+| `Stellar Wave` | 7 |
+| `roadmap` | 5 |
+| `needs-triage` | 5 |
 
 ## Top repos
 
 | Repo | Labeled issues |
 |---|---|
-| adklikha-tech/KORA | 7 |
-| hyron-fr/hermes-workflow | 7 |
-| PresetyX/PI_IV-Time-5 | 6 |
-| Fidelis900/soroban-starter-kit | 6 |
-| LucaNerlich/m10z | 5 |
-| Ethereal-Future/FuTuRe | 5 |
-| Ledningssystemet/ledningssystemet | 4 |
-| Vortiago/textscene-inspector | 4 |
-| virtual-labs/bugs-virtual-labs | 4 |
-| steveash/hitchhikers-guide-to-ai-native-engineering | 4 |
+| UA-5341-TAQC/selenium_java | 24 |
+| hyron-fr/hermes-workflow | 4 |
+| adklikha-tech/KORA | 4 |
+| CMPUT301F26-lambdaBBB/lambda_BBB-events | 4 |
+| joshuauaua/Placer | 3 |
+| dent-ist/MatterFlow | 3 |
+| bnsd55/open-scion | 3 |
+| SO4-Markets/so4-oracle | 3 |
+| IA-P1-BCN/g1-python-crud-api | 3 |
+| tvolodi-org/letflow | 3 |
 
 ## Examples
 
-- **Xalarian-Dev/PokeTracker#7**: README : mettre à jour les parties fausses ou incomplètes → `documentation`, `ai-suggestion`, `source:analyste`, `prio:basse`
-- **PetroSa2/petrosa-tradeengine#795**: [AUTOSRE] trading-silence: 0 orders executed in 6h (6.0h since last order) — tradeengine_msgs → `autosre-audit`, `priority:high`, `trading-silence`
-- **mastra-ai/mastra#26974**: Durable agent turns build extra ToolStream writers again; agent-turn-tool-stream test fails on main → `status: needs triage`
-- **delinoio/oss#3763**: bundlewhy: avoid false stale warnings for transformed PNG assets → `bug`
-- **eh-homelab/ScadBuddy#3329**: [PR #3011 feedback] (non-blocking) agent flow tests: migration coverage scan and deterministic wait → `pr-feedback`
+- **laurigates/claude-plugins#3073**: [Bug] evaluate-plugin: drift probe walks session cwd unguarded → `bug`
+- **Graphene-Lab/AgentBridge#100**: OfficeManager improvement → `enhancement`
+- **ifahrentholz/beton#167**: M2 · WP-44 · Usage-API, Subscription-Usage & `beton usage` → `type:work-package`, `needs-vendor-cli`, `area:server`, `area:harness`, `area:cli`
+- **adklikha-tech/KORA#70**: [Flow] [Activities] [Files, folders, environment, and processes] [Browse for File] → `activities`, `Flow`, `MVP1`
+- **joshuauaua/Placer#171**: need to be able to edit tools (inclduign start date) bug → `question`
