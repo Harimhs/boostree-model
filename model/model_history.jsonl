@@ -2,3 +2,4 @@
 {"time": "2026-10-14T06:43:39+00:00", "status": "ok", "usable": 650, "train": 520, "test": 130, "tfidf_macro_f1": 0.7993, "minilm_macro_f1": 0.6952, "tfidf_accuracy": 0.8154, "minilm_accuracy": 0.7769}
 {"time": "2026-10-14T06:50:43+00:00", "status": "ok", "usable": 650, "train": 520, "test": 130, "tfidf_macro_f1": 0.7993, "minilm_macro_f1": 0.6952, "tfidf_accuracy": 0.8154, "minilm_accuracy": 0.7769}
 {"time": "2026-10-14T07:51:55+00:00", "status": "ok", "usable": 820, "train": 656, "test": 164, "tfidf_macro_f1": 0.6975, "minilm_macro_f1": 0.5628, "tfidf_accuracy": 0.7683, "minilm_accuracy": 0.7134}
+{"time": "2026-10-14T09:40:55+00:00", "status": "ok", "usable": 1137, "train": 909, "test": 228, "tfidf_macro_f1": 0.4138, "minilm_macro_f1": 0.5257, "tfidf_accuracy": 0.7018, "minilm_accuracy": 0.7149}

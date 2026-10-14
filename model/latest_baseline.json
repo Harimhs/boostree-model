@@ -1,233 +1,260 @@
 {
-  "generated_at": "2026-10-14T07:51:55+00:00",
-  "task": "issue family: bug / docs / feature",
+  "generated_at": "2026-10-14T09:40:55+00:00",
+  "task": "issue family: bug / docs / feature / question",
   "data": {
-    "issues_total": 2092,
-    "usable": 820,
-    "repos": 619,
+    "issues_total": 2798,
+    "usable": 1137,
+    "repos": 852,
     "classes": {
-      "feature": 413,
-      "bug": 361,
-      "docs": 46
+      "feature": 555,
+      "bug": 502,
+      "docs": 65,
+      "question": 15
     },
-    "train": 656,
-    "test": 164
+    "train": 909,
+    "test": 228
   },
   "models": {
     "tfidf": {
-      "accuracy": 0.7683,
-      "macro_f1": 0.6975,
+      "accuracy": 0.7018,
+      "macro_f1": 0.4138,
       "per_class": {
         "bug": {
-          "precision": 0.831,
-          "recall": 0.7375,
-          "f1": 0.7815,
-          "support": 80
+          "precision": 0.7477,
+          "recall": 0.7547,
+          "f1": 0.7512,
+          "support": 106
         },
         "docs": {
-          "precision": 0.5714,
-          "recall": 0.5,
-          "f1": 0.5333,
-          "support": 8
+          "precision": 0.25,
+          "recall": 0.1429,
+          "f1": 0.1818,
+          "support": 14
         },
         "feature": {
-          "precision": 0.7326,
-          "recall": 0.8289,
-          "f1": 0.7778,
-          "support": 76
+          "precision": 0.6903,
+          "recall": 0.7573,
+          "f1": 0.7222,
+          "support": 103
+        },
+        "question": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 5
         }
       },
-      "seconds": 1.5,
+      "seconds": 1.2,
       "top_terms": {
         "bug": [
           "bug",
           "failed",
-          "fix",
           "expected",
+          "fix",
+          "error",
+          "not",
           "found",
-          "reproduce",
-          "was",
-          "after",
-          "to reproduce",
           "its",
-          "then",
-          "pumpkin"
+          "after",
+          "src",
+          "failure",
+          "reproduce"
         ],
         "docs": [
-          "docs",
           "md",
+          "docs",
           "readme",
           "readme md",
+          "points",
+          "links",
+          "agents",
+          "define",
           "license",
           "docs and",
-          "development",
-          "define",
-          "handling and",
-          "links",
-          "sprint",
-          "handling"
+          "deployment",
+          "architecture"
         ],
         "feature": [
           "feature",
-          "de",
           "feat",
-          "per",
+          "each",
           "one",
           "show",
-          "needs",
           "tools",
-          "it",
+          "needs",
           "proposal",
-          "add",
-          "https developer"
+          "implement",
+          "size",
+          "de",
+          "add"
+        ],
+        "question": [
+          "currently",
+          "alternative",
+          "video audio",
+          "per person",
+          "support",
+          "pure",
+          "converting",
+          "ffmpeg",
+          "min",
+          "triage",
+          "includes",
+          "person"
         ]
       },
       "examples": {
         "right": [
           {
-            "repo": "derrring/MFGArchon",
-            "number": 2651,
-            "title": "from mfgarchon import * raises AttributeError: three __all__ lists name functions their module does not bind",
+            "repo": "larchanka-training/dmc-1-t2-notebook-mono",
+            "number": 259,
+            "title": "fix(api): pin SQLAlchemy <2.1 / use uv.lock in Dockerfile and update default postgresql+psycopg2 driver scheme",
             "true": "bug",
             "predicted": "bug"
           },
           {
-            "repo": "devexhq/dovo",
-            "number": 848,
-            "title": "Invoke Claude Code headlessly in bare mode",
-            "true": "feature",
-            "predicted": "feature"
+            "repo": "xperiaroco2/prime-game",
+            "number": 977,
+            "title": "docs: the skill-listing ADR records the engineer's account decision (#562)",
+            "true": "docs",
+            "predicted": "docs"
           },
           {
-            "repo": "pistisAI/pistisai-app",
-            "number": 289,
-            "title": "EPIC: Pi Agent Integration \u2014 Harness, Watcher, Subagent",
-            "true": "feature",
-            "predicted": "feature"
-          },
-          {
-            "repo": "Quantum-Light-Matter-Cooperative-QLMC/pyrite",
-            "number": 489,
-            "title": "Runs fail after interruption when profile is changed",
+            "repo": "MrityunjayBhardwaj/TheBasher",
+            "number": 1633,
+            "title": "A walk generated along a path stops short on a character whose rig sits under a scaled group",
             "true": "bug",
             "predicted": "bug"
+          },
+          {
+            "repo": "SruthiVejju/SE_MiniProject",
+            "number": 16,
+            "title": "NFR-4: Support 5,000 Student Accounts",
+            "true": "feature",
+            "predicted": "feature"
           }
         ],
         "wrong": [
           {
-            "repo": "codefuturist/email-mcp",
-            "number": 103,
-            "title": "reply_email and forward_email stack \"Re:\"/\"Fwd:\" prefixes because the existing-prefix check is case-sensitive",
+            "repo": "AbdelrhmanAh7/FlowLine_Web",
+            "number": 180,
+            "title": "Improve client-side error display for /admin/copy",
             "true": "bug",
             "predicted": "feature"
           },
           {
-            "repo": "open-astro/AlpacaBridge",
-            "number": 437,
-            "title": "Sky-Watcher direct driver: no backlash compensation, unlike indi-eqmod",
-            "true": "feature",
-            "predicted": "bug"
+            "repo": "tki-creator/Lab3_Project",
+            "number": 2,
+            "title": "2.\u5404\u30e2\u30b8\u30e5\u30fc\u30eb\u30d5\u30a1\u30a4\u30eb \u4f5c\u6210",
+            "true": "docs",
+            "predicted": "feature"
           },
           {
-            "repo": "LUNARKN1GHT/CampusFlow",
-            "number": 108,
-            "title": "[X001] \u5b9a\u4e49\u5019\u9009\u4e8b\u9879\u4e0e\u5b57\u6bb5\u8bc1\u636e\u6a21\u578b",
-            "true": "feature",
-            "predicted": "docs"
+            "repo": "swisspost/design-system",
+            "number": 4021,
+            "title": "Browser support: baseline",
+            "true": "question",
+            "predicted": "feature"
           },
           {
-            "repo": "open-astro/AlpacaBridge",
-            "number": 1071,
-            "title": "Full-fake stress cases: assert a connect succeeded during the storm, and use a fresh fake per destruction iteration",
-            "true": "feature",
+            "repo": "glw907/drafter",
+            "number": 35,
+            "title": "Revisit EACCES reads on a read-only state directory",
+            "true": "question",
             "predicted": "bug"
           }
         ]
       }
     },
     "minilm": {
-      "accuracy": 0.7134,
-      "macro_f1": 0.5628,
+      "accuracy": 0.7149,
+      "macro_f1": 0.5257,
       "per_class": {
         "bug": {
-          "precision": 0.8,
-          "recall": 0.75,
-          "f1": 0.7742,
-          "support": 80
+          "precision": 0.785,
+          "recall": 0.7925,
+          "f1": 0.7887,
+          "support": 106
         },
         "docs": {
-          "precision": 0.1538,
-          "recall": 0.25,
-          "f1": 0.1905,
-          "support": 8
+          "precision": 0.2778,
+          "recall": 0.3571,
+          "f1": 0.3125,
+          "support": 14
         },
         "feature": {
-          "precision": 0.7237,
-          "recall": 0.7237,
-          "f1": 0.7237,
-          "support": 76
+          "precision": 0.7228,
+          "recall": 0.7087,
+          "f1": 0.7157,
+          "support": 103
+        },
+        "question": {
+          "precision": 0.5,
+          "recall": 0.2,
+          "f1": 0.2857,
+          "support": 5
         }
       },
-      "seconds": 37.0,
+      "seconds": 53.7,
       "encoder": "sentence-transformers/all-MiniLM-L6-v2",
       "examples": {
         "right": [
           {
-            "repo": "derrring/MFGArchon",
-            "number": 2651,
-            "title": "from mfgarchon import * raises AttributeError: three __all__ lists name functions their module does not bind",
+            "repo": "larchanka-training/dmc-1-t2-notebook-mono",
+            "number": 259,
+            "title": "fix(api): pin SQLAlchemy <2.1 / use uv.lock in Dockerfile and update default postgresql+psycopg2 driver scheme",
             "true": "bug",
             "predicted": "bug"
           },
           {
-            "repo": "devexhq/dovo",
-            "number": 848,
-            "title": "Invoke Claude Code headlessly in bare mode",
+            "repo": "MrityunjayBhardwaj/TheBasher",
+            "number": 1633,
+            "title": "A walk generated along a path stops short on a character whose rig sits under a scaled group",
+            "true": "bug",
+            "predicted": "bug"
+          },
+          {
+            "repo": "SruthiVejju/SE_MiniProject",
+            "number": 16,
+            "title": "NFR-4: Support 5,000 Student Accounts",
             "true": "feature",
             "predicted": "feature"
           },
           {
-            "repo": "pistisAI/pistisai-app",
-            "number": 289,
-            "title": "EPIC: Pi Agent Integration \u2014 Harness, Watcher, Subagent",
-            "true": "feature",
-            "predicted": "feature"
-          },
-          {
-            "repo": "Quantum-Light-Matter-Cooperative-QLMC/pyrite",
-            "number": 489,
-            "title": "Runs fail after interruption when profile is changed",
+            "repo": "NousResearch/hermes-agent",
+            "number": 138237,
+            "title": "[Bug][Desktop]: a fully-typed slash command commits as a pill and skips its argument step (completer's trailing space de",
             "true": "bug",
             "predicted": "bug"
           }
         ],
         "wrong": [
           {
-            "repo": "thinkingreed-inc/F-RevoCRM",
-            "number": 1908,
-            "title": "[\u4e0d\u5177\u5408] #1469 \u5bfe\u5fdc\u5f8c\u3001\u65b0\u898f\u30a4\u30f3\u30b9\u30c8\u30fc\u30eb\u6642\u306b\u30b7\u30b9\u30c6\u30e0\u5909\u6570\u306e\u4fdd\u5b58\u304c\u5931\u6557\u3057\u30a4\u30f3\u30b9\u30c8\u30fc\u30eb\u304c\u4e2d\u65ad\u3059\u308b",
+            "repo": "xperiaroco2/prime-game",
+            "number": 977,
+            "title": "docs: the skill-listing ADR records the engineer's account decision (#562)",
+            "true": "docs",
+            "predicted": "feature"
+          },
+          {
+            "repo": "AbdelrhmanAh7/FlowLine_Web",
+            "number": 180,
+            "title": "Improve client-side error display for /admin/copy",
             "true": "bug",
             "predicted": "feature"
           },
           {
-            "repo": "akshat-OwO/contingency",
-            "number": 488,
-            "title": "Teach and run an Android private login for #457",
-            "true": "feature",
-            "predicted": "docs"
+            "repo": "tki-creator/Lab3_Project",
+            "number": 2,
+            "title": "2.\u5404\u30e2\u30b8\u30e5\u30fc\u30eb\u30d5\u30a1\u30a4\u30eb \u4f5c\u6210",
+            "true": "docs",
+            "predicted": "feature"
           },
           {
-            "repo": "LUNARKN1GHT/CampusFlow",
-            "number": 108,
-            "title": "[X001] \u5b9a\u4e49\u5019\u9009\u4e8b\u9879\u4e0e\u5b57\u6bb5\u8bc1\u636e\u6a21\u578b",
-            "true": "feature",
-            "predicted": "docs"
-          },
-          {
-            "repo": "open-astro/AlpacaBridge",
-            "number": 1071,
-            "title": "Full-fake stress cases: assert a connect succeeded during the storm, and use a fresh fake per destruction iteration",
-            "true": "feature",
+            "repo": "glw907/drafter",
+            "number": 35,
+            "title": "Revisit EACCES reads on a read-only state directory",
+            "true": "question",
             "predicted": "bug"
           }
         ]
