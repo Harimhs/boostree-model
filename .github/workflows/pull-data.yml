@@ -1,0 +1,78 @@
+name: Pull data
+
+# Step 1: pull real labeled GitHub issues from GH Archive and write a summary.
+# Run it from your phone: Actions tab -> "Pull data" -> Run workflow.
+on:
+  workflow_dispatch:
+    inputs:
+      hours:
+        description: "How many recent hours of GH Archive to scan"
+        default: "6"
+        required: true
+
+permissions:
+  contents: write
+
+concurrency:
+  group: pull-data
+  cancel-in-progress: false
+
+jobs:
+  pull:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    env:
+      PYTHONPATH: src
+      HF_TOKEN: ${{ secrets.HF_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: Install
+        run: pip install -r requirements.txt
+
+      - name: Tests
+        run: python -m pytest -q tests
+
+      - name: Pull labeled issues
+        run: |
+          mkdir -p data
+          python -m boostree.data.pull_gharchive \
+            --hours "${{ inputs.hours }}" \
+            --out data/issues.parquet \
+            --stats-out data/pull_stats.json
+
+      - name: Summarize
+        run: |
+          mkdir -p reports
+          python -m boostree.data.summarize \
+            --data data/issues.parquet --stats data/pull_stats.json \
+            --out-md reports/data_summary.md --out-json reports/data_summary.json
+          cat reports/data_summary.md >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Save data to Hugging Face
+        if: env.HF_TOKEN != ''
+        run: python -m boostree.data.push_hf --file data/issues.parquet
+
+      - name: Keep a copy as a run artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: issues-${{ github.run_id }}
+          path: data/
+          retention-days: 14
+
+      - name: Commit the summary report
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add reports/
+          if git diff --cached --quiet; then
+            echo "No report changes"
+          else
+            git commit -m "Update data summary (run ${{ github.run_number }})"
+            git push
+          fi
