@@ -4,3 +4,4 @@
 {"time": "2026-10-14T07:51:55+00:00", "status": "ok", "usable": 820, "train": 656, "test": 164, "tfidf_macro_f1": 0.6975, "minilm_macro_f1": 0.5628, "tfidf_accuracy": 0.7683, "minilm_accuracy": 0.7134}
 {"time": "2026-10-14T09:40:55+00:00", "status": "ok", "usable": 1137, "train": 909, "test": 228, "tfidf_macro_f1": 0.4138, "minilm_macro_f1": 0.5257, "tfidf_accuracy": 0.7018, "minilm_accuracy": 0.7149}
 {"time": "2026-10-14T10:41:40+00:00", "status": "ok", "usable": 1249, "train": 999, "test": 250, "tfidf_macro_f1": 0.4876, "minilm_macro_f1": 0.3974, "tfidf_accuracy": 0.772, "minilm_accuracy": 0.644}
+{"time": "2026-10-14T11:39:05+00:00", "status": "ok", "usable": 1367, "train": 1093, "test": 274, "tfidf_macro_f1": 0.5403, "minilm_macro_f1": 0.4444, "tfidf_accuracy": 0.7993, "minilm_accuracy": 0.6642}

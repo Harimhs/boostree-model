@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-14T10:42:48+00:00",
+  "generated_at": "2026-10-14T11:41:12+00:00",
   "encoder": "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2",
   "features": [
     "title starts with a tag like [X] or feat:",
@@ -14,13 +14,13 @@
     "meaning axis 4"
   ],
   "data": {
-    "usable": 1249,
-    "train": 999,
-    "test": 250,
+    "usable": 1367,
+    "train": 1093,
+    "test": 274,
     "classes": {
-      "feature": 619,
-      "bug": 541,
-      "docs": 74,
+      "feature": 678,
+      "bug": 595,
+      "docs": 79,
       "question": 15
     }
   },
@@ -28,195 +28,40 @@
     {
       "round": 1,
       "signal": {
-        "layer 1 attention": 0.246814,
-        "layer 1 feed-forward": 0.305038,
-        "layer 2 attention": 0.24544,
-        "layer 2 feed-forward": 0.290551,
-        "layer 3 attention": 0.230096,
-        "layer 3 feed-forward": 0.286496,
-        "layer 4 attention": 0.227356,
-        "layer 4 feed-forward": 0.304376,
-        "layer 5 attention": 0.224246,
-        "layer 5 feed-forward": 0.30977,
-        "layer 6 attention": 0.267695,
-        "layer 6 feed-forward": 0.296925,
-        "layer 7 attention": 0.230585,
-        "layer 7 feed-forward": 0.345647,
-        "layer 8 attention": 0.297443,
-        "layer 8 feed-forward": 0.387264,
-        "layer 9 attention": 0.260037,
-        "layer 9 feed-forward": 0.428529,
-        "layer 10 attention": 0.333824,
-        "layer 10 feed-forward": 0.438657,
-        "layer 11 attention": 0.333416,
-        "layer 11 feed-forward": 0.526732,
-        "layer 12 attention": 0.405882,
-        "layer 12 feed-forward": 0.578817
+        "layer 1 attention": 0.197161,
+        "layer 1 feed-forward": 0.230135,
+        "layer 2 attention": 0.201347,
+        "layer 2 feed-forward": 0.225583,
+        "layer 3 attention": 0.185505,
+        "layer 3 feed-forward": 0.236303,
+        "layer 4 attention": 0.19777,
+        "layer 4 feed-forward": 0.264607,
+        "layer 5 attention": 0.194444,
+        "layer 5 feed-forward": 0.298449,
+        "layer 6 attention": 0.244257,
+        "layer 6 feed-forward": 0.284078,
+        "layer 7 attention": 0.222155,
+        "layer 7 feed-forward": 0.352173,
+        "layer 8 attention": 0.306936,
+        "layer 8 feed-forward": 0.39151,
+        "layer 9 attention": 0.271447,
+        "layer 9 feed-forward": 0.436066,
+        "layer 10 attention": 0.344807,
+        "layer 10 feed-forward": 0.46411,
+        "layer 11 attention": 0.350561,
+        "layer 11 feed-forward": 0.535984,
+        "layer 12 attention": 0.458445,
+        "layer 12 feed-forward": 0.605013
       },
       "gains": {
-        "layer 12 feed-forward": 7.63839,
-        "layer 11 feed-forward": 7.56641,
-        "layer 10 feed-forward": 6.66789,
-        "layer 9 feed-forward": 6.48891,
-        "layer 12 attention": 12.06049,
-        "layer 8 feed-forward": 6.25282
+        "layer 12 feed-forward": 4.76536,
+        "layer 11 feed-forward": 4.56714,
+        "layer 10 feed-forward": 4.44267,
+        "layer 12 attention": 7.26179,
+        "layer 9 feed-forward": 4.35592,
+        "layer 8 feed-forward": 4.35542
       },
-      "sample_loss_before": 0.4205291385344104,
-      "module": "layer 12 attention",
-      "gain": 12.06049,
-      "t": 3.97,
-      "leaves": [
-        {
-          "rule": "all issues",
-          "issues": 256,
-          "weight": -0.0572
-        }
-      ],
-      "sample_loss_after": 0.4011273300525496,
-      "test_macro_f1": 0.4433
-    },
-    {
-      "round": 2,
-      "signal": {
-        "layer 1 attention": 0.146761,
-        "layer 1 feed-forward": 0.206061,
-        "layer 2 attention": 0.154525,
-        "layer 2 feed-forward": 0.160663,
-        "layer 3 attention": 0.125929,
-        "layer 3 feed-forward": 0.154691,
-        "layer 4 attention": 0.125389,
-        "layer 4 feed-forward": 0.166805,
-        "layer 5 attention": 0.121249,
-        "layer 5 feed-forward": 0.165558,
-        "layer 6 attention": 0.131651,
-        "layer 6 feed-forward": 0.133919,
-        "layer 7 attention": 0.106078,
-        "layer 7 feed-forward": 0.159198,
-        "layer 8 attention": 0.129,
-        "layer 8 feed-forward": 0.153108,
-        "layer 9 attention": 0.10653,
-        "layer 9 feed-forward": 0.166998,
-        "layer 10 attention": 0.136793,
-        "layer 10 feed-forward": 0.186511,
-        "layer 11 attention": 0.232199,
-        "layer 11 feed-forward": 0.220869,
-        "layer 12 attention": 0.342886,
-        "layer 12 feed-forward": 0.248304
-      },
-      "gains": {
-        "layer 12 attention": 12.78258,
-        "layer 12 feed-forward": 6.73684,
-        "layer 11 attention": 8.44506,
-        "layer 11 feed-forward": 6.14574,
-        "layer 1 feed-forward": 4.27406,
-        "layer 10 feed-forward": 5.18455
-      },
-      "sample_loss_before": 0.39417889038622134,
-      "module": "layer 12 attention",
-      "gain": 12.78258,
-      "t": 3.0,
-      "leaves": [
-        {
-          "rule": "meaning axis 2 \u2264 -0.145",
-          "issues": 47,
-          "weight": -0.0173
-        },
-        {
-          "rule": "meaning axis 2 > -0.145",
-          "issues": 209,
-          "weight": -0.0781
-        }
-      ],
-      "sample_loss_after": 0.37170059555812845,
-      "test_macro_f1": 0.4408
-    },
-    {
-      "round": 3,
-      "signal": {
-        "layer 1 attention": 0.153183,
-        "layer 1 feed-forward": 0.201315,
-        "layer 2 attention": 0.153742,
-        "layer 2 feed-forward": 0.187762,
-        "layer 3 attention": 0.145752,
-        "layer 3 feed-forward": 0.171619,
-        "layer 4 attention": 0.144277,
-        "layer 4 feed-forward": 0.178182,
-        "layer 5 attention": 0.142531,
-        "layer 5 feed-forward": 0.189456,
-        "layer 6 attention": 0.174898,
-        "layer 6 feed-forward": 0.179123,
-        "layer 7 attention": 0.141303,
-        "layer 7 feed-forward": 0.215155,
-        "layer 8 attention": 0.181558,
-        "layer 8 feed-forward": 0.221307,
-        "layer 9 attention": 0.156163,
-        "layer 9 feed-forward": 0.265337,
-        "layer 10 attention": 0.195896,
-        "layer 10 feed-forward": 0.246451,
-        "layer 11 attention": 0.232809,
-        "layer 11 feed-forward": 0.285898,
-        "layer 12 attention": 0.311406,
-        "layer 12 feed-forward": 0.323037
-      },
-      "gains": {
-        "layer 12 feed-forward": 2.96866,
-        "layer 12 attention": 8.08882,
-        "layer 11 feed-forward": 2.39854,
-        "layer 9 feed-forward": 2.75299,
-        "layer 10 feed-forward": 2.15818,
-        "layer 11 attention": 5.62999
-      },
-      "sample_loss_before": 0.33975447206841025,
-      "module": "layer 12 attention",
-      "gain": 8.08882,
-      "t": 2.37,
-      "leaves": [
-        {
-          "rule": "all issues",
-          "issues": 256,
-          "weight": -0.0497
-        }
-      ],
-      "sample_loss_after": 0.32667573786304754,
-      "test_macro_f1": 0.4461
-    },
-    {
-      "round": 4,
-      "signal": {
-        "layer 1 attention": 0.207002,
-        "layer 1 feed-forward": 0.260495,
-        "layer 2 attention": 0.205857,
-        "layer 2 feed-forward": 0.255305,
-        "layer 3 attention": 0.186076,
-        "layer 3 feed-forward": 0.235868,
-        "layer 4 attention": 0.181133,
-        "layer 4 feed-forward": 0.246247,
-        "layer 5 attention": 0.163921,
-        "layer 5 feed-forward": 0.263873,
-        "layer 6 attention": 0.196194,
-        "layer 6 feed-forward": 0.244352,
-        "layer 7 attention": 0.162728,
-        "layer 7 feed-forward": 0.266561,
-        "layer 8 attention": 0.197956,
-        "layer 8 feed-forward": 0.264449,
-        "layer 9 attention": 0.169316,
-        "layer 9 feed-forward": 0.260049,
-        "layer 10 attention": 0.223492,
-        "layer 10 feed-forward": 0.301006,
-        "layer 11 attention": 0.431198,
-        "layer 11 feed-forward": 0.362115,
-        "layer 12 attention": 0.590368,
-        "layer 12 feed-forward": 0.388182
-      },
-      "gains": {
-        "layer 12 attention": 10.85923,
-        "layer 11 attention": 8.95658,
-        "layer 12 feed-forward": 3.78242,
-        "layer 11 feed-forward": 4.86407,
-        "layer 10 feed-forward": 4.08224,
-        "layer 7 feed-forward": 4.08244
-      },
-      "sample_loss_before": 0.41167942244483535,
+      "sample_loss_before": 0.3228470994580443,
       "stopped": "no layer's gain is beyond its noise (all |t| < 2.0)"
     }
   ],
@@ -244,26 +89,26 @@
     "seed": 0
   },
   "start": {
-    "accuracy": 0.684,
-    "macro_f1": 0.445,
+    "accuracy": 0.6715,
+    "macro_f1": 0.427,
     "per_class": {
       "bug": {
-        "precision": 0.7407,
-        "recall": 0.7843,
-        "f1": 0.7619,
-        "support": 102
+        "precision": 0.7217,
+        "recall": 0.7545,
+        "f1": 0.7378,
+        "support": 110
       },
       "docs": {
-        "precision": 0.2593,
-        "recall": 0.4118,
-        "f1": 0.3182,
+        "precision": 0.2143,
+        "recall": 0.3529,
+        "f1": 0.2667,
         "support": 17
       },
       "feature": {
-        "precision": 0.7706,
-        "recall": 0.6412,
-        "f1": 0.7,
-        "support": 131
+        "precision": 0.7724,
+        "recall": 0.6463,
+        "f1": 0.7037,
+        "support": 147
       },
       "question": {
         "precision": 0.0,
@@ -274,26 +119,26 @@
     }
   },
   "final": {
-    "accuracy": 0.692,
-    "macro_f1": 0.4461,
+    "accuracy": 0.6715,
+    "macro_f1": 0.427,
     "per_class": {
       "bug": {
-        "precision": 0.7431,
-        "recall": 0.7941,
-        "f1": 0.7678,
-        "support": 102
+        "precision": 0.7217,
+        "recall": 0.7545,
+        "f1": 0.7378,
+        "support": 110
       },
       "docs": {
-        "precision": 0.25,
-        "recall": 0.4118,
-        "f1": 0.3111,
+        "precision": 0.2143,
+        "recall": 0.3529,
+        "f1": 0.2667,
         "support": 17
       },
       "feature": {
-        "precision": 0.7727,
-        "recall": 0.6489,
-        "f1": 0.7054,
-        "support": 131
+        "precision": 0.7724,
+        "recall": 0.6463,
+        "f1": 0.7037,
+        "support": 147
       },
       "question": {
         "precision": 0.0,
@@ -303,7 +148,7 @@
       }
     }
   },
-  "boosters": 3,
+  "boosters": 0,
   "stopped_because": "no layer's gain is beyond its noise (all |t| < 2.0)",
   "modules": [
     "layer 1 attention",
@@ -331,5 +176,5 @@
     "layer 12 attention",
     "layer 12 feed-forward"
   ],
-  "seconds": 328.7
+  "seconds": 272.4
 }

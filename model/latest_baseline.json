@@ -1,41 +1,41 @@
 {
-  "generated_at": "2026-10-14T10:41:40+00:00",
+  "generated_at": "2026-10-14T11:39:05+00:00",
   "task": "issue family: bug / docs / feature / question",
   "data": {
-    "issues_total": 3052,
-    "usable": 1249,
-    "repos": 923,
+    "issues_total": 3294,
+    "usable": 1367,
+    "repos": 1013,
     "classes": {
-      "feature": 619,
-      "bug": 541,
-      "docs": 74,
+      "feature": 678,
+      "bug": 595,
+      "docs": 79,
       "question": 15
     },
-    "train": 999,
-    "test": 250
+    "train": 1093,
+    "test": 274
   },
   "models": {
     "tfidf": {
-      "accuracy": 0.772,
-      "macro_f1": 0.4876,
+      "accuracy": 0.7993,
+      "macro_f1": 0.5403,
       "per_class": {
         "bug": {
-          "precision": 0.7355,
-          "recall": 0.8725,
-          "f1": 0.7982,
-          "support": 102
+          "precision": 0.7442,
+          "recall": 0.8727,
+          "f1": 0.8033,
+          "support": 110
         },
         "docs": {
-          "precision": 0.4545,
-          "recall": 0.2941,
-          "f1": 0.3571,
+          "precision": 0.6154,
+          "recall": 0.4706,
+          "f1": 0.5333,
           "support": 17
         },
         "feature": {
-          "precision": 0.839,
-          "recall": 0.7557,
-          "f1": 0.7952,
-          "support": 131
+          "precision": 0.8712,
+          "recall": 0.7823,
+          "f1": 0.8244,
+          "support": 147
         },
         "question": {
           "precision": 0.0,
@@ -44,21 +44,21 @@
           "support": 0
         }
       },
-      "seconds": 2.0,
+      "seconds": 2.3,
       "top_terms": {
         "bug": [
           "bug",
           "expected",
-          "fix",
           "failed",
-          "found",
+          "fix",
           "after",
           "error",
+          "found",
           "its",
           "not",
           "reproduce",
-          "src",
-          "the"
+          "cause",
+          "on"
         ],
         "docs": [
           "readme",
@@ -66,127 +66,127 @@
           "md",
           "readme md",
           "skills",
-          "points",
-          "agents",
-          "reference",
-          "links",
-          "says",
           "guide",
-          "license"
+          "agents",
+          "links",
+          "points",
+          "says",
+          "documentation",
+          "reference"
         ],
         "feature": [
-          "feat",
           "feature",
-          "each",
-          "one",
+          "feat",
           "add",
-          "show",
+          "one",
           "proposal",
+          "each",
+          "api",
+          "show",
           "implement",
-          "ui",
+          "json",
           "de",
-          "size",
-          "and"
+          "ui"
         ],
         "question": [
           "support",
-          "refs",
           "triage",
+          "refs",
           "video audio",
           "currently",
-          "media",
           "alternative",
-          "could",
           "converting",
-          "ffmpeg",
-          "js",
-          "pure"
+          "media",
+          "pure",
+          "repository",
+          "could",
+          "per person"
         ]
       },
       "examples": {
         "right": [
           {
-            "repo": "calebn/sharecut-studio",
-            "number": 1471,
-            "title": "fix(tighten): propose-edits deadlocks when a gated track needs peer copy lags",
+            "repo": "ai-pipestream/turboembed",
+            "number": 386,
+            "title": "analysis: complex-script word breaking (Thai, Lao, Khmer, Burmese) from ICU4X data",
+            "true": "feature",
+            "predicted": "feature"
+          },
+          {
+            "repo": "legend-esc/carbonchain",
+            "number": 1182,
+            "title": "Add Webhook Delivery History with Filtering",
+            "true": "feature",
+            "predicted": "feature"
+          },
+          {
+            "repo": "Books-Vocab/Books-Vocab",
+            "number": 3719,
+            "title": "ReaderViewState.swift:210-217,252-258: same-resource anchored jump can report success before scroll lands (stale current",
             "true": "bug",
             "predicted": "bug"
           },
           {
-            "repo": "omnigent-ai/omnigent",
-            "number": 9970,
-            "title": "[Bug] Codex model and effort picks are rolled back after its idle terminal is reaped",
-            "true": "bug",
-            "predicted": "bug"
-          },
-          {
-            "repo": "joromi1/splitvault-contracts",
-            "number": 15,
-            "title": "Fee and Tax Bypass in Graduated Tranche Distributions (`release_tranche`)",
-            "true": "bug",
-            "predicted": "bug"
-          },
-          {
-            "repo": "SO4-Markets/so4-oracle",
-            "number": 1291,
-            "title": "The band's min is clamped to 0, which the oracle contract rejects as InvalidPrice, and one invalid entry reverts the who",
-            "true": "bug",
-            "predicted": "bug"
+            "repo": "vkyphong/mid_term_web_application",
+            "number": 2,
+            "title": "[F02] X\u00e1c th\u1ef1c khi handshake WebSocket",
+            "true": "feature",
+            "predicted": "feature"
           }
         ],
         "wrong": [
           {
-            "repo": "wp-media/wp-rocket",
-            "number": 9007,
-            "title": "Log failures when fetching sitemaps during preload",
-            "true": "feature",
-            "predicted": "bug"
-          },
-          {
-            "repo": "franckalbinet/marisco",
-            "number": 76,
-            "title": "Review the api notebooks with `nbreview`",
+            "repo": "MakieOrg/Makie.jl",
+            "number": 5847,
+            "title": "Opening interactive figure window in Jupyter notebook not documented",
             "true": "docs",
+            "predicted": "bug"
+          },
+          {
+            "repo": "ShaftHQ/SHAFT_ENGINE",
+            "number": 6947,
+            "title": "Enhancement: include withCustomReportMessage in the hard-assert AssertionError",
+            "true": "feature",
+            "predicted": "bug"
+          },
+          {
+            "repo": "phuongnse/lyre",
+            "number": 105,
+            "title": "Web client downloads, checks and keeps models",
+            "true": "feature",
+            "predicted": "bug"
+          },
+          {
+            "repo": "openJiuwen-ai/agent-core",
+            "number": 1940,
+            "title": "[Bug]:\u3010\u4f01\u4e1a\u7ea7\u67b6\u6784\u3011\u4e13\u5bb6\u56e2\u6267\u884c\u4efb\u52a1\u672a\u505a\u8f6e\u6b21\u9650\u5236\uff0c\u5faa\u73af\u6267\u884c70+\u6b21\u540e\u5f02\u5e38\u4e2d\u65ad",
+            "true": "bug",
             "predicted": "feature"
-          },
-          {
-            "repo": "anthropics/claude-code",
-            "number": 101989,
-            "title": "[BUG] No way to detach an already-attached secondary working directory from a session",
-            "true": "feature",
-            "predicted": "bug"
-          },
-          {
-            "repo": "michalwidera/retractordb",
-            "number": 511,
-            "title": "Port Result<T> i RDB_NO_EXCEPTIONS=ON: przegl\u0105d i zatwierdzenie",
-            "true": "feature",
-            "predicted": "bug"
           }
         ]
       }
     },
     "minilm": {
-      "accuracy": 0.644,
-      "macro_f1": 0.3974,
+      "accuracy": 0.6642,
+      "macro_f1": 0.4444,
       "per_class": {
         "bug": {
-          "precision": 0.6944,
-          "recall": 0.7353,
-          "f1": 0.7143,
-          "support": 102
+          "precision": 0.7069,
+          "recall": 0.7455,
+          "f1": 0.7257,
+          "support": 110
         },
         "docs": {
-          "precision": 0.1538,
-          "recall": 0.2353,
-          "f1": 0.186,
+          "precision": 0.2727,
+          "recall": 0.5294,
+          "f1": 0.36,
           "support": 17
         },
         "feature": {
-          "precision": 0.7664,
-          "recall": 0.626,
-          "f1": 0.6891,
-          "support": 131
+          "precision": 0.7845,
+          "recall": 0.619,
+          "f1": 0.692,
+          "support": 147
         },
         "question": {
           "precision": 0.0,
@@ -195,67 +195,67 @@
           "support": 0
         }
       },
-      "seconds": 62.0,
+      "seconds": 119.0,
       "encoder": "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2",
       "examples": {
         "right": [
           {
-            "repo": "calebn/sharecut-studio",
-            "number": 1471,
-            "title": "fix(tighten): propose-edits deadlocks when a gated track needs peer copy lags",
-            "true": "bug",
-            "predicted": "bug"
+            "repo": "MakieOrg/Makie.jl",
+            "number": 5847,
+            "title": "Opening interactive figure window in Jupyter notebook not documented",
+            "true": "docs",
+            "predicted": "docs"
           },
           {
-            "repo": "glennfaison/livepage",
-            "number": 329,
-            "title": "Editor / page builder: /try throws a React hydration error (#418) on every reload once a page is saved",
-            "true": "bug",
-            "predicted": "bug"
-          },
-          {
-            "repo": "TychoHenzen/dod-guard",
-            "number": 922,
-            "title": "Make quality-guard a required PR check instead of a PostToolUse hook",
+            "repo": "legend-esc/carbonchain",
+            "number": 1182,
+            "title": "Add Webhook Delivery History with Filtering",
             "true": "feature",
             "predicted": "feature"
           },
           {
-            "repo": "BAWES-Universe/workadventure-universe",
-            "number": 953,
-            "title": "Chat: opening a conversation does not stay on the newest message",
+            "repo": "Books-Vocab/Books-Vocab",
+            "number": 3719,
+            "title": "ReaderViewState.swift:210-217,252-258: same-resource anchored jump can report success before scroll lands (stale current",
             "true": "bug",
             "predicted": "bug"
+          },
+          {
+            "repo": "vkyphong/mid_term_web_application",
+            "number": 2,
+            "title": "[F02] X\u00e1c th\u1ef1c khi handshake WebSocket",
+            "true": "feature",
+            "predicted": "feature"
           }
         ],
         "wrong": [
           {
-            "repo": "omnigent-ai/omnigent",
-            "number": 9970,
-            "title": "[Bug] Codex model and effort picks are rolled back after its idle terminal is reaped",
-            "true": "bug",
-            "predicted": "feature"
-          },
-          {
-            "repo": "joromi1/splitvault-contracts",
-            "number": 15,
-            "title": "Fee and Tax Bypass in Graduated Tranche Distributions (`release_tranche`)",
-            "true": "bug",
-            "predicted": "feature"
-          },
-          {
-            "repo": "SO4-Markets/so4-oracle",
-            "number": 1291,
-            "title": "The band's min is clamped to 0, which the oracle contract rejects as InvalidPrice, and one invalid entry reverts the who",
-            "true": "bug",
-            "predicted": "feature"
-          },
-          {
-            "repo": "Havens-blog/e-cmdb-web",
-            "number": 9,
-            "title": "[e-cmdb-web] (1+2/5) ??????? 401/403 ???? & ????/?????",
+            "repo": "ai-pipestream/turboembed",
+            "number": 386,
+            "title": "analysis: complex-script word breaking (Thai, Lao, Khmer, Burmese) from ICU4X data",
             "true": "feature",
-            "predicted": "docs"
+            "predicted": "bug"
+          },
+          {
+            "repo": "iam-mercy/kora-app",
+            "number": 22,
+            "title": "[Wave 9 #19] Replace static public-key pseudo-encryption in `get_encryption_key` with secure user-derived key management",
+            "true": "bug",
+            "predicted": "feature"
+          },
+          {
+            "repo": "kailash-os/kailash-guide",
+            "number": 5,
+            "title": "guide: KA-WS-6.4 \u2014 Part IV: administrator guide (child of KA-WS-6)",
+            "true": "docs",
+            "predicted": "feature"
+          },
+          {
+            "repo": "AdguardTeam/AdguardForMac",
+            "number": 1801,
+            "title": "Add \"Block Outsider Intrusion into LAN\" to filter lists",
+            "true": "feature",
+            "predicted": "question"
           }
         ]
       }
