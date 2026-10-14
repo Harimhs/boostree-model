@@ -101,6 +101,8 @@ footer a { color: var(--muted); }
     <div class="list" id="commits"></div>
   </section>
 
+  <section class="card" id="frozen"></section>
+
   <section class="card" id="delay"></section>
 
   <section class="card">
@@ -228,6 +230,34 @@ my fix (Fisher, always positive):
     v0 uses the standard log-loss; the delay-aware objective is next. Built by Hari · <a href="https://github.com/Harimhs/boostree-model">source</a>`;
 }
 
+
+function renderFrozen(f) {
+  const S = f.seeds_summary, rows = [
+    ["Frozen network, no update", S["frozen net (no update)"], ""],
+    ["Retrain all weights (normal SGD)", S["fine-tune all weights (SGD)"], ""],
+    ["Frozen network + booster trees", S["frozen net + booster trees"], "ours"],
+  ];
+  const lo = 0.82, hi = 0.87, w = (a) => Math.max(3, ((a - lo) / (hi - lo)) * 100);
+  const b = f.boosters[0];
+  const layerName = ["input layer", "hidden layer", "output layer"];
+  const ab = f.ablation;
+  $("#frozen").innerHTML = `
+    <h2>Frozen network + booster trees</h2>
+    <p class="sub">A small neural network (23 inputs → 64 → 32 → risk) trained from scratch on 2003–2014, then <b style="color:var(--ink)">frozen</b>. When 2016's commits arrive, its weights are never retrained. Booster trees add Newton-step corrections (gradient + hessian) for specific groups of commits instead.</p>
+    <div class="bars">${rows.map(([n, m, c]) => `
+      <div class="brow"><div class="top"><span>${n}</span><b>AUC ${m.auc.toFixed(3)} · ${pct(m.recall_top20, 1)}</b></div>
+      <div class="track"><div class="fill ${c}" style="width:${w(m.auc)}%"></div></div></div>`).join("")}</div>
+    <p class="sub" style="margin:10px 0 0">Average of ${S.seeds} runs, test years 2017–2019. % = bug-causing commits caught when reviewing the riskiest 20%. Boosters beat normal retraining in every run, while the original weights stayed exactly the same.</p>
+    <h3 style="font-size:14px;margin:16px 0 6px">What one booster learned (round 1, ${layerName[b.layer]})</h3>
+    <div class="why">${b.leaves.map((l) => `<div class="r"><span>${esc(l.rule.replace(/fix <= 0/g, "not a bug-fix").replace(/fix > 0/g, "is a bug-fix").replaceAll("nf", "files").replaceAll("age", "days since files changed").replace(/\d+\.\d+/g, (m) => (+m >= 10 ? Math.round(+m) : (+m).toFixed(2))))} <small>(${l.commits.toLocaleString()} commits)</small></span>
+      <span class="w ${l.weight > 0 ? "up" : "down"}">${l.weight > 0 ? "+" : ""}${l.weight.toFixed(2)}</span></div>`).join("")}
+      <div class="verdict">Each group gets its own Newton step −G/(H+λ) along one direction of the frozen weights. Opposite signs = groups that needed opposite changes.</div></div>
+    <h3 style="font-size:14px;margin:16px 0 6px">Leakage / overfit check</h3>
+    <div class="why">${ab.map((a) => `<div class="r"><span>${esc(a.set)} <small>(${a.inputs} inputs)</small></span><span class="w">${a.test_auc.toFixed(3)}</span></div>`).join("")}
+      <div class="verdict">Adding project identity jumped AUC to 0.89, but it is a per-project shortcut that won't transfer to a new repo, so it was removed. The extra ratio features added nothing over the 13 base metrics. Train/test gap is small (0.855 vs 0.840). On these 13 numbers, plain boosted trees are still the strongest single model (0.865).</div></div>`;
+}
+
+fetch("frozen.json").then((r) => r.json()).then(renderFrozen).catch(() => {});
 fetch("data.json").then((r) => r.json()).then(render).catch(() => {
   document.querySelector(".wrap").insertAdjacentHTML("beforeend", '<p class="card">Could not load data.json.</p>');
 });
