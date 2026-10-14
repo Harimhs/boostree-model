@@ -1,0 +1,160 @@
+{
+ "delay": {
+  "buggy_commits": 28239,
+  "median_days": 154,
+  "p75_days": 452,
+  "hist": [
+   {
+    "label": "< 1 month",
+    "share": 0.2091
+   },
+   {
+    "label": "1\u20133 months",
+    "share": 0.1774
+   },
+   {
+    "label": "3\u20136 months",
+    "share": 0.1476
+   },
+   {
+    "label": "6\u201312 months",
+    "share": 0.17
+   },
+   {
+    "label": "1\u20132 years",
+    "share": 0.1417
+   },
+   {
+    "label": "> 2 years",
+    "share": 0.1541
+   }
+  ]
+ },
+ "recent_year": [
+  {
+   "cutoff": "2015-01-01",
+   "known": 0.1248,
+   "final": 0.2734
+  },
+  {
+   "cutoff": "2016-01-01",
+   "known": 0.174,
+   "final": 0.3007
+  },
+  {
+   "cutoff": "2017-01-01",
+   "known": 0.1495,
+   "final": 0.2889
+  }
+ ],
+ "adapt": {
+  "n_runs": 6,
+  "mean": {
+   "frozen net": {
+    "auc": 0.8476,
+    "recall_top20": 0.5253,
+    "logloss": 0.4223,
+    "mean_predicted": 0.2615,
+    "actual_rate": 0.2851
+   },
+   "boosters naive": {
+    "auc": 0.8197,
+    "recall_top20": 0.5046,
+    "logloss": 0.5181,
+    "mean_predicted": 0.1754,
+    "actual_rate": 0.2851
+   },
+   "boosters delay (ours)": {
+    "auc": 0.8524,
+    "recall_top20": 0.5385,
+    "logloss": 0.4342,
+    "mean_predicted": 0.2756,
+    "actual_rate": 0.2851
+   },
+   "boosters oracle": {
+    "auc": 0.862,
+    "recall_top20": 0.5536,
+    "logloss": 0.3988,
+    "mean_predicted": 0.3002,
+    "actual_rate": 0.2851
+   },
+   "SGD fine-tune naive": {
+    "auc": 0.8456,
+    "recall_top20": 0.5193,
+    "logloss": 0.4765,
+    "mean_predicted": 0.1837,
+    "actual_rate": 0.2851
+   },
+   "trees recent-year naive": {
+    "auc": 0.8559,
+    "recall_top20": 0.5433,
+    "logloss": 0.4773,
+    "mean_predicted": 0.1821,
+    "actual_rate": 0.2851
+   },
+   "trees recent-year delay (ours)": {
+    "auc": 0.8487,
+    "recall_top20": 0.5387,
+    "logloss": 0.442,
+    "mean_predicted": 0.2622,
+    "actual_rate": 0.2851
+   },
+   "trees recent-year oracle": {
+    "auc": 0.8663,
+    "recall_top20": 0.5623,
+    "logloss": 0.3916,
+    "mean_predicted": 0.3139,
+    "actual_rate": 0.2851
+   }
+  },
+  "wins": {
+   "delay_vs_naive_auc": 6,
+   "delay_vs_naive_top20": 6,
+   "delay_vs_frozen_auc": 5,
+   "delay_vs_frozen_top20": 6,
+   "delay_vs_sgd_auc": 5
+  }
+ },
+ "full_history": {
+  "naive": {
+   "auc": 0.8635,
+   "recall_top20": 0.5526,
+   "logloss": 0.4207,
+   "mean_predicted": 0.2592,
+   "actual_rate": 0.2851
+  },
+  "wait-90": {
+   "auc": 0.8624,
+   "recall_top20": 0.5509,
+   "logloss": 0.4136,
+   "mean_predicted": 0.2597,
+   "actual_rate": 0.2851
+  },
+  "delay raw-h": {
+   "auc": 0.8628,
+   "recall_top20": 0.5529,
+   "logloss": 0.3993,
+   "mean_predicted": 0.2894,
+   "actual_rate": 0.2851
+  },
+  "delay Fisher": {
+   "auc": 0.8631,
+   "recall_top20": 0.5543,
+   "logloss": 0.3986,
+   "mean_predicted": 0.2906,
+   "actual_rate": 0.2851
+  },
+  "oracle": {
+   "auc": 0.8649,
+   "recall_top20": 0.554,
+   "logloss": 0.3933,
+   "mean_predicted": 0.3149,
+   "actual_rate": 0.2851
+  }
+ },
+ "negative_hessian_share": [
+  0.0096,
+  0.0081,
+  0.0051
+ ]
+}

@@ -1,0 +1,470 @@
+{
+ "runs": [
+  {
+   "cutoff": "2015-01-01",
+   "seed": 0,
+   "adapt_known_rate": 0.1248,
+   "adapt_final_rate": 0.2734,
+   "variants": {
+    "frozen net": {
+     "auc": 0.8492,
+     "recall_top20": 0.5115,
+     "logloss": 0.45,
+     "mean_predicted": 0.2213,
+     "actual_rate": 0.3007
+    },
+    "boosters naive": {
+     "auc": 0.837,
+     "recall_top20": 0.5053,
+     "logloss": 0.5718,
+     "mean_predicted": 0.1351,
+     "actual_rate": 0.3007,
+     "boosters": 2
+    },
+    "boosters delay (ours)": {
+     "auc": 0.844,
+     "recall_top20": 0.5192,
+     "logloss": 0.4663,
+     "mean_predicted": 0.2243,
+     "actual_rate": 0.3007,
+     "boosters": 3
+    },
+    "boosters oracle": {
+     "auc": 0.8586,
+     "recall_top20": 0.5381,
+     "logloss": 0.4109,
+     "mean_predicted": 0.2707,
+     "actual_rate": 0.3007,
+     "boosters": 5
+    },
+    "SGD fine-tune naive": {
+     "auc": 0.8462,
+     "recall_top20": 0.5101,
+     "logloss": 0.5523,
+     "mean_predicted": 0.1406,
+     "actual_rate": 0.3007
+    },
+    "trees recent-year naive": {
+     "auc": 0.8497,
+     "recall_top20": 0.5285,
+     "logloss": 0.5291,
+     "mean_predicted": 0.152,
+     "actual_rate": 0.3007
+    },
+    "trees recent-year delay (ours)": {
+     "auc": 0.8426,
+     "recall_top20": 0.5261,
+     "logloss": 0.4874,
+     "mean_predicted": 0.217,
+     "actual_rate": 0.3007
+    },
+    "trees recent-year oracle": {
+     "auc": 0.8651,
+     "recall_top20": 0.552,
+     "logloss": 0.3941,
+     "mean_predicted": 0.2933,
+     "actual_rate": 0.3007
+    }
+   }
+  },
+  {
+   "cutoff": "2015-01-01",
+   "seed": 1,
+   "adapt_known_rate": 0.1248,
+   "adapt_final_rate": 0.2734,
+   "variants": {
+    "frozen net": {
+     "auc": 0.8402,
+     "recall_top20": 0.5065,
+     "logloss": 0.4482,
+     "mean_predicted": 0.2435,
+     "actual_rate": 0.3007
+    },
+    "boosters naive": {
+     "auc": 0.8362,
+     "recall_top20": 0.5024,
+     "logloss": 0.5622,
+     "mean_predicted": 0.1459,
+     "actual_rate": 0.3007,
+     "boosters": 4
+    },
+    "boosters delay (ours)": {
+     "auc": 0.8454,
+     "recall_top20": 0.5153,
+     "logloss": 0.4703,
+     "mean_predicted": 0.2153,
+     "actual_rate": 0.3007,
+     "boosters": 3
+    },
+    "boosters oracle": {
+     "auc": 0.8591,
+     "recall_top20": 0.5374,
+     "logloss": 0.4088,
+     "mean_predicted": 0.2813,
+     "actual_rate": 0.3007,
+     "boosters": 8
+    },
+    "SGD fine-tune naive": {
+     "auc": 0.8394,
+     "recall_top20": 0.5048,
+     "logloss": 0.5532,
+     "mean_predicted": 0.1462,
+     "actual_rate": 0.3007
+    },
+    "trees recent-year naive": {
+     "auc": 0.8497,
+     "recall_top20": 0.5285,
+     "logloss": 0.5291,
+     "mean_predicted": 0.152,
+     "actual_rate": 0.3007
+    },
+    "trees recent-year delay (ours)": {
+     "auc": 0.8426,
+     "recall_top20": 0.5261,
+     "logloss": 0.4874,
+     "mean_predicted": 0.217,
+     "actual_rate": 0.3007
+    },
+    "trees recent-year oracle": {
+     "auc": 0.8651,
+     "recall_top20": 0.552,
+     "logloss": 0.3941,
+     "mean_predicted": 0.2933,
+     "actual_rate": 0.3007
+    }
+   }
+  },
+  {
+   "cutoff": "2016-01-01",
+   "seed": 0,
+   "adapt_known_rate": 0.174,
+   "adapt_final_rate": 0.3007,
+   "variants": {
+    "frozen net": {
+     "auc": 0.84,
+     "recall_top20": 0.5144,
+     "logloss": 0.4289,
+     "mean_predicted": 0.2592,
+     "actual_rate": 0.2889
+    },
+    "boosters naive": {
+     "auc": 0.8387,
+     "recall_top20": 0.5047,
+     "logloss": 0.4552,
+     "mean_predicted": 0.2245,
+     "actual_rate": 0.2889,
+     "boosters": 5
+    },
+    "boosters delay (ours)": {
+     "auc": 0.8517,
+     "recall_top20": 0.5381,
+     "logloss": 0.4411,
+     "mean_predicted": 0.3387,
+     "actual_rate": 0.2889,
+     "boosters": 10
+    },
+    "boosters oracle": {
+     "auc": 0.8627,
+     "recall_top20": 0.5484,
+     "logloss": 0.406,
+     "mean_predicted": 0.3408,
+     "actual_rate": 0.2889,
+     "boosters": 23
+    },
+    "SGD fine-tune naive": {
+     "auc": 0.8381,
+     "recall_top20": 0.505,
+     "logloss": 0.4465,
+     "mean_predicted": 0.2312,
+     "actual_rate": 0.2889
+    },
+    "trees recent-year naive": {
+     "auc": 0.8567,
+     "recall_top20": 0.53,
+     "logloss": 0.4473,
+     "mean_predicted": 0.2201,
+     "actual_rate": 0.2889
+    },
+    "trees recent-year delay (ours)": {
+     "auc": 0.8581,
+     "recall_top20": 0.5358,
+     "logloss": 0.4219,
+     "mean_predicted": 0.3279,
+     "actual_rate": 0.2889
+    },
+    "trees recent-year oracle": {
+     "auc": 0.8692,
+     "recall_top20": 0.5575,
+     "logloss": 0.4006,
+     "mean_predicted": 0.3545,
+     "actual_rate": 0.2889
+    }
+   }
+  },
+  {
+   "cutoff": "2016-01-01",
+   "seed": 1,
+   "adapt_known_rate": 0.174,
+   "adapt_final_rate": 0.3007,
+   "variants": {
+    "frozen net": {
+     "auc": 0.8516,
+     "recall_top20": 0.5228,
+     "logloss": 0.4127,
+     "mean_predicted": 0.277,
+     "actual_rate": 0.2889
+    },
+    "boosters naive": {
+     "auc": 0.832,
+     "recall_top20": 0.4989,
+     "logloss": 0.4685,
+     "mean_predicted": 0.2135,
+     "actual_rate": 0.2889,
+     "boosters": 3
+    },
+    "boosters delay (ours)": {
+     "auc": 0.8542,
+     "recall_top20": 0.5374,
+     "logloss": 0.45,
+     "mean_predicted": 0.3398,
+     "actual_rate": 0.2889,
+     "boosters": 13
+    },
+    "boosters oracle": {
+     "auc": 0.8641,
+     "recall_top20": 0.5491,
+     "logloss": 0.4059,
+     "mean_predicted": 0.3423,
+     "actual_rate": 0.2889,
+     "boosters": 5
+    },
+    "SGD fine-tune naive": {
+     "auc": 0.8498,
+     "recall_top20": 0.5209,
+     "logloss": 0.4305,
+     "mean_predicted": 0.234,
+     "actual_rate": 0.2889
+    },
+    "trees recent-year naive": {
+     "auc": 0.8567,
+     "recall_top20": 0.53,
+     "logloss": 0.4473,
+     "mean_predicted": 0.2201,
+     "actual_rate": 0.2889
+    },
+    "trees recent-year delay (ours)": {
+     "auc": 0.8581,
+     "recall_top20": 0.5358,
+     "logloss": 0.4219,
+     "mean_predicted": 0.3279,
+     "actual_rate": 0.2889
+    },
+    "trees recent-year oracle": {
+     "auc": 0.8692,
+     "recall_top20": 0.5575,
+     "logloss": 0.4006,
+     "mean_predicted": 0.3545,
+     "actual_rate": 0.2889
+    }
+   }
+  },
+  {
+   "cutoff": "2017-01-01",
+   "seed": 0,
+   "adapt_known_rate": 0.1495,
+   "adapt_final_rate": 0.2889,
+   "variants": {
+    "frozen net": {
+     "auc": 0.8477,
+     "recall_top20": 0.5385,
+     "logloss": 0.4036,
+     "mean_predicted": 0.2838,
+     "actual_rate": 0.2656
+    },
+    "boosters naive": {
+     "auc": 0.8402,
+     "recall_top20": 0.5295,
+     "logloss": 0.4464,
+     "mean_predicted": 0.1757,
+     "actual_rate": 0.2656,
+     "boosters": 1
+    },
+    "boosters delay (ours)": {
+     "auc": 0.8563,
+     "recall_top20": 0.5524,
+     "logloss": 0.3939,
+     "mean_predicted": 0.2707,
+     "actual_rate": 0.2656,
+     "boosters": 6
+    },
+    "boosters oracle": {
+     "auc": 0.8634,
+     "recall_top20": 0.5739,
+     "logloss": 0.3817,
+     "mean_predicted": 0.2834,
+     "actual_rate": 0.2656,
+     "boosters": 5
+    },
+    "SGD fine-tune naive": {
+     "auc": 0.8458,
+     "recall_top20": 0.5299,
+     "logloss": 0.4407,
+     "mean_predicted": 0.1779,
+     "actual_rate": 0.2656
+    },
+    "trees recent-year naive": {
+     "auc": 0.8614,
+     "recall_top20": 0.5714,
+     "logloss": 0.4554,
+     "mean_predicted": 0.1741,
+     "actual_rate": 0.2656
+    },
+    "trees recent-year delay (ours)": {
+     "auc": 0.8454,
+     "recall_top20": 0.5542,
+     "logloss": 0.4168,
+     "mean_predicted": 0.2418,
+     "actual_rate": 0.2656
+    },
+    "trees recent-year oracle": {
+     "auc": 0.8647,
+     "recall_top20": 0.5775,
+     "logloss": 0.38,
+     "mean_predicted": 0.294,
+     "actual_rate": 0.2656
+    }
+   }
+  },
+  {
+   "cutoff": "2017-01-01",
+   "seed": 1,
+   "adapt_known_rate": 0.1495,
+   "adapt_final_rate": 0.2889,
+   "variants": {
+    "frozen net": {
+     "auc": 0.8569,
+     "recall_top20": 0.5581,
+     "logloss": 0.3904,
+     "mean_predicted": 0.2844,
+     "actual_rate": 0.2656
+    },
+    "boosters naive": {
+     "auc": 0.7343,
+     "recall_top20": 0.4866,
+     "logloss": 0.6046,
+     "mean_predicted": 0.1575,
+     "actual_rate": 0.2656,
+     "boosters": 1
+    },
+    "boosters delay (ours)": {
+     "auc": 0.8626,
+     "recall_top20": 0.5689,
+     "logloss": 0.3837,
+     "mean_predicted": 0.265,
+     "actual_rate": 0.2656,
+     "boosters": 8
+    },
+    "boosters oracle": {
+     "auc": 0.8641,
+     "recall_top20": 0.5746,
+     "logloss": 0.3797,
+     "mean_predicted": 0.2825,
+     "actual_rate": 0.2656,
+     "boosters": 7
+    },
+    "SGD fine-tune naive": {
+     "auc": 0.8545,
+     "recall_top20": 0.5449,
+     "logloss": 0.4356,
+     "mean_predicted": 0.1723,
+     "actual_rate": 0.2656
+    },
+    "trees recent-year naive": {
+     "auc": 0.8614,
+     "recall_top20": 0.5714,
+     "logloss": 0.4554,
+     "mean_predicted": 0.1741,
+     "actual_rate": 0.2656
+    },
+    "trees recent-year delay (ours)": {
+     "auc": 0.8454,
+     "recall_top20": 0.5542,
+     "logloss": 0.4168,
+     "mean_predicted": 0.2418,
+     "actual_rate": 0.2656
+    },
+    "trees recent-year oracle": {
+     "auc": 0.8647,
+     "recall_top20": 0.5775,
+     "logloss": 0.38,
+     "mean_predicted": 0.294,
+     "actual_rate": 0.2656
+    }
+   }
+  }
+ ],
+ "mean": {
+  "frozen net": {
+   "auc": 0.8476,
+   "recall_top20": 0.5253,
+   "logloss": 0.4223,
+   "mean_predicted": 0.2615,
+   "actual_rate": 0.2851
+  },
+  "boosters naive": {
+   "auc": 0.8197,
+   "recall_top20": 0.5046,
+   "logloss": 0.5181,
+   "mean_predicted": 0.1754,
+   "actual_rate": 0.2851
+  },
+  "boosters delay (ours)": {
+   "auc": 0.8524,
+   "recall_top20": 0.5385,
+   "logloss": 0.4342,
+   "mean_predicted": 0.2756,
+   "actual_rate": 0.2851
+  },
+  "boosters oracle": {
+   "auc": 0.862,
+   "recall_top20": 0.5536,
+   "logloss": 0.3988,
+   "mean_predicted": 0.3002,
+   "actual_rate": 0.2851
+  },
+  "SGD fine-tune naive": {
+   "auc": 0.8456,
+   "recall_top20": 0.5193,
+   "logloss": 0.4765,
+   "mean_predicted": 0.1837,
+   "actual_rate": 0.2851
+  },
+  "trees recent-year naive": {
+   "auc": 0.8559,
+   "recall_top20": 0.5433,
+   "logloss": 0.4773,
+   "mean_predicted": 0.1821,
+   "actual_rate": 0.2851
+  },
+  "trees recent-year delay (ours)": {
+   "auc": 0.8487,
+   "recall_top20": 0.5387,
+   "logloss": 0.442,
+   "mean_predicted": 0.2622,
+   "actual_rate": 0.2851
+  },
+  "trees recent-year oracle": {
+   "auc": 0.8663,
+   "recall_top20": 0.5623,
+   "logloss": 0.3916,
+   "mean_predicted": 0.3139,
+   "actual_rate": 0.2851
+  }
+ },
+ "delay_beats_naive_logloss_in_runs": {
+  "boosters delay (ours)": 6,
+  "trees recent-year delay (ours)": 6
+ },
+ "n_runs": 6,
+ "seconds": 125.9
+}

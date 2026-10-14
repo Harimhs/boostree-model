@@ -154,20 +154,27 @@ class Booster:
             node[a] = np.where(goes_left, left[node[a]], right[node[a]])
         return value[node]
 
-    def fit(self, X, y, X_val=None, y_val=None, log=print):
+    def fit(self, X, y, X_val=None, y_val=None, log=print, val_loss=None, base=None):
+        """val_loss(z_val) -> mean loss for early stopping (default: log-loss on y_val).
+        base: starting log-odds (default: training prior)."""
         p = self.p
+        self.stats = {"negative_hessians": 0, "hessian_values": 0}
         rng = np.random.default_rng(p.seed)
         self.binner = Binner().fit(X)
         B = self.binner.transform(X)
         Bv = self.binner.transform(X_val) if X_val is not None else None
         prior = float(np.clip(np.mean(y), 1e-6, 1 - 1e-6))
-        self.base = float(np.log(prior / (1 - prior)))
+        self.base = float(np.log(prior / (1 - prior))) if base is None else float(base)
         z = np.full(len(y), self.base)
         zv = np.full(len(y_val), self.base) if Bv is not None else None
         best, best_round = np.inf, 0
         self._arrays = []
         for r in range(p.n_rounds):
             g, h = self.objective(z, y)
+            raw_h = getattr(self.objective, "last_raw_h", None)
+            if raw_h is not None:
+                self.stats["negative_hessians"] += int((raw_h < 0).sum())
+                self.stats["hessian_values"] += int(raw_h.size)
             rows = np.where(rng.random(len(y)) < p.subsample)[0]
             tree = self._grow(B, g, h, rows)
             arrs = tree.arrays()
@@ -176,8 +183,11 @@ class Booster:
             z += p.learning_rate * self._tree_predict(arrs, B)
             if zv is not None:
                 zv += p.learning_rate * self._tree_predict(arrs, Bv)
-                pv = sigmoid(zv)
-                vloss = float(-np.mean(y_val * np.log(pv + 1e-12) + (1 - y_val) * np.log(1 - pv + 1e-12)))
+                if val_loss is not None:
+                    vloss = float(val_loss(zv))
+                else:
+                    pv = sigmoid(zv)
+                    vloss = float(-np.mean(y_val * np.log(pv + 1e-12) + (1 - y_val) * np.log(1 - pv + 1e-12)))
                 self.history.append({"round": r + 1, "val_logloss": vloss})
                 if vloss < best - 1e-6:
                     best, best_round = vloss, r + 1

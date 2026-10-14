@@ -1,51 +1,74 @@
-# boostree
+# Commit X-ray: delay-aware boosting for risky-commit prediction
 
-**Fine-tune a small transformer like XGBoost grows trees.**
+**Live demo (phone-friendly):** https://harimhs.github.io/boostree-model/xray/
 
-boostree adds tiny rank-1 "booster" adapters to a frozen encoder, one round at a
-time. XGBoost's own math decides everything:
+Commit X-ray scores every code change for bug risk the moment it is pushed.
+Its research contribution is in the **gradient and hessian**. It deals with the
+fact that a commit's true label arrives late: real bugs take a median of
+**154 days** to be found.
 
-- **Where to train:** each layer is scored with the gain `G² / (H + λ)`, and only
-  the best layer gets the next booster.
-- **Whom it applies to:** each booster is a small decision tree over the inputs,
-  grown with XGBoost's split gain from per-example gradients and Hessians. It
-  splits only where examples pull in opposite directions.
-- **When to stop:** when no layer's gain beats its own noise, training stops.
+## The problem: labels arrive late
 
-## Showcase: GitHub issue triage that learns each repo's style
+When a later "fix" commit lands, SZZ (`git blame`) traces it back to the commit
+that introduced the bug. In ApacheJIT's real fix dates, about **half the bugs in
+the most recent year are not yet known**: 12–17% of commits look buggy, against
+27–30% in the end. Any model retrained on recent data learns "recent = clean".
 
-Every project labels issues differently (`bug`, `kind/bug`, `type: defect`,
-and "how do I…" posts that one repo calls `question` and another `support`).
-boostree learns one shared model plus booster trees that split per repo only
-where repos disagree. It also reports where a repo's own labels are
-inconsistent.
+## The method
 
-- Trained continuously on **real public issues** from [GH Archive](https://www.gharchive.org)
-- Runs on **CPU**, free GitHub Actions runners
-- No issue text is sent to any outside AI service
+For a commit with no bug found yet, let p be the risk and q the chance its bug
+would have surfaced by now. q is learned from older commits only.
 
-## Status
+```
+loss            = −log(1 − p·q)
+gradient        = p(1−p)·q / (1−p·q)
+raw hessian     = p(1−p)·q·(1−2p+p²q) / (1−p·q)²   ← can be negative: breaks the Newton step
+Fisher hessian  = q·p·(1−p)² / (1−p·q)               ← always positive; equals p(1−p) at q = 1
+```
 
-- [x] Step 1: pull real labeled issues and summarize them
-- [x] Step 2: baselines (TF-IDF, frozen multilingual MiniLM encoder + label head), retrained every 3 hours
-- [x] Step 3: gain-guided booster trees inside the encoder (first version)
-- [ ] Step 4: scheduled continuous training, versions on Hugging Face
-- [ ] Step 5: live dashboard (curves, gain heatmap, split rules, drift, consistency report)
+The objective plugs into:
 
-Live dashboard: https://harimhs.github.io/boostree-model/ · Latest data report: [data branch](https://github.com/Harimhs/boostree-model/blob/data/latest.md)
+1. **A gradient-boosting engine written from scratch in NumPy**
+   (`src/riskycommit/engine.py`). Its AUC is 0.8647, against 0.8635 for
+   scikit-learn on the same split.
+2. **Booster trees on a frozen neural network** (`src/riskycommit/frozen_boost.py`).
+   - A small MLP is trained from scratch and then frozen.
+   - Adaptation adds only rank-1 Newton-step updates (`−G/(H+λ)`) to its
+     weights.
+   - Small trees over readable commit features decide which commits receive
+     each update.
 
-## Run step 1
+## Results (ApacheJIT, 106k real commits, 15 Apache projects)
 
-GitHub: **Actions → Pull data → Run workflow**.
+| Experiment | Result |
+|---|---|
+| Trees, train 2003–2015 → test 2017–2019 | AUC 0.865. Reviewing the riskiest 20% catches 63% of bug-inducing commits (lines-added rule 47%, random 20%) |
+| Frozen net adapted on the most recent year, labels as known (6 runs) | naive boosters **hurt** the model: AUC 0.848 → 0.820. **Delay-aware boosters → 0.852**, ahead of naive boosters in 6/6 runs on both AUC and recall@20% (ceiling with future labels: 0.862) |
+| Full 10+ year history | delay barely affects ranking. Delay-aware mainly corrects the predicted bug rate (log-loss 0.421 → 0.399, oracle 0.393) |
 
-Locally:
+Leakage check: one-hot project identity raised AUC from 0.84 to 0.89. It is a
+per-project shortcut that does not transfer to a new repository, so it was
+removed. Feature scaling is fitted on training years only, and every split is
+by time.
+
+## Reproduce
 
 ```bash
-pip install -r requirements.txt
-PYTHONPATH=src python -m boostree.data.pull_gharchive --hours 2 --out issues.parquet --stats-out stats.json
-PYTHONPATH=src python -m boostree.data.summarize --data issues.parquet --stats stats.json \
-  --out-md summary.md --out-json summary.json
+git clone --filter=blob:none --sparse https://github.com/harsh8398/apachejit && cd apachejit && git sparse-checkout set dataset data && cd ..
+PYTHONPATH=src python -m riskycommit.train --csv apachejit/dataset/apachejit_total.csv --out docs/xray/data.json --model models/riskycommit_v0.json
+PYTHONPATH=src python -m riskycommit.experiment --csv apachejit/dataset/apachejit_total.csv --out docs/xray/frozen.json
+PYTHONPATH=src python -m riskycommit.delay --csv apachejit/dataset/apachejit_total.csv --data-dir apachejit/data --out docs/xray/delay.json
+PYTHONPATH=src python -m riskycommit.delay_adapt --csv apachejit/dataset/apachejit_total.csv --data-dir apachejit/data --out docs/xray/delay_adapt.json
 ```
+
+Only NumPy, pandas and scikit-learn (for metrics) are needed. Everything runs
+on CPU in minutes.
+
+## Earlier work in this repo
+
+`src/boostree/` is the first experiment: gain-guided booster trees inside a
+frozen text encoder for GitHub issue labels. Its gains were small, and it led
+to this project.
 
 ## License
 

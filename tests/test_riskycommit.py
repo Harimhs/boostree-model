@@ -52,3 +52,25 @@ def test_delay_aware_gradient_hessian_math():
     assert saw_negative
     p = 0.7
     assert abs(1.0 * p * (1 - p) ** 2 / (1 - p) - p * (1 - p)) < 1e-12
+
+
+def test_tree_and_network_delay_objectives_agree():
+    from riskycommit.delay import DelayObjective
+    from riskycommit.frozen_boost import delay_aware_obj
+    rng = np.random.default_rng(2)
+    z, y, q = rng.normal(size=500) * 2, (rng.random(500) < 0.3).astype(float), rng.uniform(0.05, 1, 500)
+    g1, h1 = DelayObjective(q, fisher=True)(z, y)
+    _, g2, h2 = delay_aware_obj(z, y, q)
+    assert np.allclose(g1, g2) and np.allclose(np.maximum(h2, 1e-6), h1)
+
+
+def test_frozen_weights_never_change_under_boosting():
+    from riskycommit.frozen_boost import boost, train_mlp
+    rng = np.random.default_rng(3)
+    X = rng.normal(size=(1500, 6)); R = X[:, :3].copy()
+    y = (rng.random(1500) < sigmoid(2 * X[:, 0] - X[:, 1])).astype(float)
+    net = train_mlp(X[:1000], y[:1000], X[1000:1200], y[1000:1200], epochs=5, log=lambda *_: None)
+    before = [w.copy() for w in net.W]
+    bn, hist = boost(net, X[1200:1400], R[1200:1400], y[1200:1400], X[1400:], R[1400:], y[1400:],
+                     ["a", "b", "c"], rounds=3, min_leaf=20, log=lambda *_: None)
+    assert all(np.array_equal(a, b) for a, b in zip(before, bn.W))

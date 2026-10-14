@@ -105,6 +105,8 @@ footer a { color: var(--muted); }
 
   <section class="card" id="delay"></section>
 
+  <section class="card" id="research"></section>
+
   <section class="card">
     <h2>How it works</h2>
     <ol class="steps">
@@ -205,20 +207,11 @@ function render(d) {
       <text x="${x + w / 2}" y="${H - 4}" text-anchor="middle">'${String(y.year).slice(2)}</text>`;
   }).join("");
   $("#delay").innerHTML = `
-    <h2>The problem I'm solving next</h2>
+    <h2>The real problem: bugs are found late</h2>
     <p class="sub">Share of commits labelled "bug-causing", by year. Did developers suddenly get better in 2019?</p>
     <svg viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="Bug rate by year">${bars}</svg>
     <p class="sub" style="margin:8px 0 12px"><b style="color:var(--ink)">No. Their bugs just hadn't been found yet.</b> Bugs surface weeks or months after the commit, so recent commits look falsely clean, and every model retrained today learns from wrong labels. Research calls this <i>verification latency</i>; current boosting models ignore it.</p>
-    <p class="sub" style="margin:0 0 8px">My fix: a delay-aware boosting objective. For a commit with no bug found yet (risk p, chance a bug would have surfaced by now q):</p>
-    <div class="formula">loss = −log(1 − p·q)
-
-standard hessian:
- p(1−p)·q·(1−2p+p²q) / (1−p·q)²
- → can go NEGATIVE: breaks the Newton step
-
-my fix (Fisher, always positive):
- q·p·(1−p)² / (1−p·q)
- → = p(1−p) when q = 1, i.e. plain XGBoost</div>`;
+`;
 
   const eng = d.models.sklearn_hgb_reference;
   $("#engine").innerHTML = `<span class="chip">from-scratch engine AUC ${m.ours.auc.toFixed(4)}</span>
@@ -242,8 +235,8 @@ function renderFrozen(f) {
   const layerName = ["input layer", "hidden layer", "output layer"];
   const ab = f.ablation;
   $("#frozen").innerHTML = `
-    <h2>Frozen network + booster trees</h2>
-    <p class="sub">A small neural network (23 inputs → 64 → 32 → risk) trained from scratch on 2003–2014, then <b style="color:var(--ink)">frozen</b>. When 2016's commits arrive, its weights are never retrained. Booster trees add Newton-step corrections (gradient + hessian) for specific groups of commits instead.</p>
+    <h2>Frozen network + booster trees (complete labels)</h2>
+    <p class="sub">A small neural network (23 inputs → 64 → 32 → risk) trained from scratch on 2003–2014, then <b style="color:var(--ink)">frozen</b>. When 2016's commits arrive (here with their complete, final labels), its weights are never retrained. Booster trees add Newton-step corrections (gradient + hessian) for specific groups of commits instead.</p>
     <div class="bars">${rows.map(([n, m, c]) => `
       <div class="brow"><div class="top"><span>${n}</span><b>AUC ${m.auc.toFixed(3)} · ${pct(m.recall_top20, 1)}</b></div>
       <div class="track"><div class="fill ${c}" style="width:${w(m.auc)}%"></div></div></div>`).join("")}</div>
@@ -257,6 +250,55 @@ function renderFrozen(f) {
       <div class="verdict">Adding project identity jumped AUC to 0.89, but it is a per-project shortcut that won't transfer to a new repo, so it was removed. The extra ratio features added nothing over the 13 base metrics. Train/test gap is small (0.855 vs 0.840). On these 13 numbers, plain boosted trees are still the strongest single model (0.865).</div></div>`;
 }
 
+function renderResearch(r) {
+  const M = r.adapt.mean, W = r.adapt.wins, n = r.adapt.n_runs;
+  const rows = [
+    ["Frozen network, no update", M["frozen net"], ""],
+    ["Retrain all weights (SGD), labels as known", M["SGD fine-tune naive"], ""],
+    ["Boosters, labels as known (naive)", M["boosters naive"], "bad"],
+    ["Boosters, delay-aware + Fisher hessian (ours)", M["boosters delay (ours)"], "ours"],
+    ["Ceiling: boosters with future labels", M["boosters oracle"], "ghost"],
+  ];
+  const lo = 0.80, hi = 0.87, w = (a) => Math.max(3, ((a - lo) / (hi - lo)) * 100);
+  const hist = r.delay.hist, hmax = Math.max(...hist.map((h) => h.share));
+  $("#research").innerHTML = `
+    <h2>The research result</h2>
+    <p class="sub">Real fix dates for all ${r.delay.buggy_commits.toLocaleString()} bug-causing commits: how long until each bug was found?</p>
+    <div class="buckets">${hist.map((h) => `<div class="bk" style="grid-template-columns:96px 1fr 46px"><span class="lbl">${h.label}</span>
+      <div class="track"><div class="fill" style="width:${(h.share / hmax) * 100}%"></div></div><span class="val">${pct(h.share)}</span></div>`).join("")}</div>
+    <p class="sub" style="margin:10px 0 14px">Median: <b style="color:var(--ink)">${r.delay.median_days} days</b>. A quarter take over ${r.delay.p75_days} days.</p>
+    <p class="sub" style="margin:0 0 8px">So in the most recent year of data, about half the bugs are still hidden (share of commits known to be buggy at the start of the next year):</p>
+    <div class="buckets">${r.recent_year.map((y) => `<div class="bk" style="grid-template-columns:72px 1fr 92px"><span class="lbl">in ${+y.cutoff.slice(0, 4) - 1}</span>
+      <div class="track" style="position:relative"><div class="fill" style="width:${(y.final / 0.35) * 100}%;opacity:.35;position:absolute;inset:0 auto 0 0"></div><div class="fill ours" style="width:${(y.known / 0.35) * 100}%;position:absolute;inset:0 auto 0 0"></div></div>
+      <span class="val" style="font-weight:500">${pct(y.known)} <small style="color:var(--muted)">of ${pct(y.final)}</small></span></div>`).join("")}</div>
+    <p class="sub" style="margin:8px 0 16px">Dark = bug rate visible at that moment, light = the true rate found later. About half are missing.</p>
+
+    <h3 style="font-size:15px;margin:0 0 4px">Adapting the frozen network on that recent year</h3>
+    <p class="sub">Network trained from scratch on older commits, then frozen. Each method adapts it using only the labels known at the time, then is tested on the next year. Average of ${n} runs (3 cut-off dates × 2 seeds).</p>
+    <div class="bars">${rows.map(([name, m, c]) => `
+      <div class="brow"><div class="top"><span>${name}</span><b>AUC ${m.auc.toFixed(3)} · ${pct(m.recall_top20, 1)}</b></div>
+      <div class="track"><div class="fill ${c === "ours" ? "ours" : ""}" style="width:${w(m.auc)}%;${c === "bad" ? "background:var(--risk)" : ""}${c === "ghost" ? "opacity:.35" : ""}"></div></div></div>`).join("")}</div>
+    <div class="why" style="margin-top:12px">
+      <div class="r"><span>Naive boosters <b>hurt</b> the model: they learn "recent = clean"</span><span class="w up">${(M["boosters naive"].auc - M["frozen net"].auc).toFixed(3)}</span></div>
+      <div class="r"><span>Ours vs naive boosters: better AUC in</span><span class="w down">${W.delay_vs_naive_auc}/${n}</span></div>
+      <div class="r"><span>Ours vs naive boosters: more bugs caught in top 20% in</span><span class="w down">${W.delay_vs_naive_top20}/${n}</span></div>
+      <div class="r"><span>Ours vs normal retraining (SGD): better AUC in</span><span class="w down">${W.delay_vs_sgd_auc}/${n}</span></div>
+      <div class="r"><span>Predicted bug rate: naive ${pct(M["boosters naive"].mean_predicted)} · ours ${pct(M["boosters delay (ours)"].mean_predicted)} · true</span><span class="w">${pct(M["boosters delay (ours)"].actual_rate)}</span></div>
+    </div>
+    <p class="sub" style="margin:12px 0 8px">The objective that does it, for a commit with no bug found yet (risk p, chance a bug would have surfaced by now q, learned from older commits only):</p>
+    <div class="formula">loss = −log(1 − p·q)
+
+standard hessian:
+ p(1−p)·q·(1−2p+p²q) / (1−p·q)²
+ → can go NEGATIVE: breaks the Newton step
+
+my fix (Fisher, always positive):
+ q·p·(1−p)² / (1−p·q)
+ → = p(1−p) when q = 1, i.e. plain XGBoost</div>
+    <p class="sub" style="margin:12px 0 0"><b style="color:var(--ink)">Honest notes.</b> Ours still sits below the future-label ceiling (AUC ${M["boosters oracle"].auc.toFixed(3)}). When training on 10+ years of history, label delay barely changes ranking (AUC ${r.full_history.naive.auc.toFixed(3)} naive vs ${r.full_history["delay Fisher"].auc.toFixed(3)} ours) and mainly fixes the predicted bug rate. On recent-year trees, ours fixed calibration but not ranking. The raw hessian went negative for ~${pct(r.negative_hessian_share.reduce((a, b) => a + b) / r.negative_hessian_share.length, 1)} of commits per round here, so the Fisher fix is a safety guarantee more than a score booster on this data.</p>`;
+}
+
+fetch("research.json").then((r) => r.json()).then(renderResearch).catch(() => {});
 fetch("frozen.json").then((r) => r.json()).then(renderFrozen).catch(() => {});
 fetch("data.json").then((r) => r.json()).then(render).catch(() => {
   document.querySelector(".wrap").insertAdjacentHTML("beforeend", '<p class="card">Could not load data.json.</p>');

@@ -1,0 +1,213 @@
+{
+ "cutoffs": [
+  {
+   "cutoff": "2015-01-01",
+   "train_commits": 52278,
+   "test_commits": 13866,
+   "test_buggy": 4170,
+   "known_buggy_at_cutoff": 0.2289,
+   "final_buggy_in_pool": 0.2909,
+   "last_year_known_vs_final": [
+    0.1248,
+    0.2734
+   ],
+   "delay_curve_commits": 3827,
+   "variants": {
+    "naive": {
+     "auc": 0.8576,
+     "recall_top20": 0.5319,
+     "logloss": 0.4393,
+     "mean_predicted": 0.2183,
+     "actual_rate": 0.3007,
+     "trees": 253
+    },
+    "wait-90": {
+     "auc": 0.8576,
+     "recall_top20": 0.5319,
+     "logloss": 0.4393,
+     "mean_predicted": 0.2183,
+     "actual_rate": 0.3007,
+     "trees": 253
+    },
+    "delay raw-h": {
+     "auc": 0.8563,
+     "recall_top20": 0.5309,
+     "logloss": 0.4196,
+     "mean_predicted": 0.2557,
+     "actual_rate": 0.3007,
+     "trees": 285,
+     "negative_raw_hessians": 0.0096
+    },
+    "delay Fisher": {
+     "auc": 0.8564,
+     "recall_top20": 0.5317,
+     "logloss": 0.4188,
+     "mean_predicted": 0.2577,
+     "actual_rate": 0.3007,
+     "trees": 285,
+     "negative_raw_hessians": 0.0095
+    },
+    "oracle": {
+     "auc": 0.8565,
+     "recall_top20": 0.5324,
+     "logloss": 0.4061,
+     "mean_predicted": 0.2892,
+     "actual_rate": 0.3007,
+     "trees": 345
+    }
+   }
+  },
+  {
+   "cutoff": "2016-01-01",
+   "train_commits": 66144,
+   "test_commits": 10684,
+   "test_buggy": 3087,
+   "known_buggy_at_cutoff": 0.2438,
+   "final_buggy_in_pool": 0.293,
+   "last_year_known_vs_final": [
+    0.174,
+    0.3007
+   ],
+   "delay_curve_commits": 4110,
+   "variants": {
+    "naive": {
+     "auc": 0.8653,
+     "recall_top20": 0.5526,
+     "logloss": 0.3972,
+     "mean_predicted": 0.272,
+     "actual_rate": 0.2889,
+     "trees": 85
+    },
+    "wait-90": {
+     "auc": 0.8608,
+     "recall_top20": 0.5452,
+     "logloss": 0.4015,
+     "mean_predicted": 0.2707,
+     "actual_rate": 0.2889,
+     "trees": 162
+    },
+    "delay raw-h": {
+     "auc": 0.8603,
+     "recall_top20": 0.5465,
+     "logloss": 0.4014,
+     "mean_predicted": 0.3057,
+     "actual_rate": 0.2889,
+     "trees": 397,
+     "negative_raw_hessians": 0.0081
+    },
+    "delay Fisher": {
+     "auc": 0.8611,
+     "recall_top20": 0.5484,
+     "logloss": 0.3999,
+     "mean_predicted": 0.307,
+     "actual_rate": 0.2889,
+     "trees": 357,
+     "negative_raw_hessians": 0.0082
+    },
+    "oracle": {
+     "auc": 0.8659,
+     "recall_top20": 0.5471,
+     "logloss": 0.3946,
+     "mean_predicted": 0.3329,
+     "actual_rate": 0.2889,
+     "trees": 318
+    }
+   }
+  },
+  {
+   "cutoff": "2017-01-01",
+   "train_commits": 76832,
+   "test_commits": 10525,
+   "test_buggy": 2795,
+   "known_buggy_at_cutoff": 0.2541,
+   "final_buggy_in_pool": 0.2924,
+   "last_year_known_vs_final": [
+    0.1495,
+    0.2889
+   ],
+   "delay_curve_commits": 4498,
+   "variants": {
+    "naive": {
+     "auc": 0.8675,
+     "recall_top20": 0.5732,
+     "logloss": 0.4255,
+     "mean_predicted": 0.2874,
+     "actual_rate": 0.2656,
+     "trees": 20
+    },
+    "wait-90": {
+     "auc": 0.8688,
+     "recall_top20": 0.5757,
+     "logloss": 0.4001,
+     "mean_predicted": 0.2901,
+     "actual_rate": 0.2656,
+     "trees": 33
+    },
+    "delay raw-h": {
+     "auc": 0.8718,
+     "recall_top20": 0.5814,
+     "logloss": 0.3769,
+     "mean_predicted": 0.3068,
+     "actual_rate": 0.2656,
+     "trees": 125,
+     "negative_raw_hessians": 0.0051
+    },
+    "delay Fisher": {
+     "auc": 0.8717,
+     "recall_top20": 0.5828,
+     "logloss": 0.3772,
+     "mean_predicted": 0.3071,
+     "actual_rate": 0.2656,
+     "trees": 125,
+     "negative_raw_hessians": 0.0051
+    },
+    "oracle": {
+     "auc": 0.8723,
+     "recall_top20": 0.5825,
+     "logloss": 0.3792,
+     "mean_predicted": 0.3225,
+     "actual_rate": 0.2656,
+     "trees": 132
+    }
+   }
+  }
+ ],
+ "mean_over_cutoffs": {
+  "naive": {
+   "auc": 0.8635,
+   "recall_top20": 0.5526,
+   "logloss": 0.4207,
+   "mean_predicted": 0.2592,
+   "actual_rate": 0.2851
+  },
+  "wait-90": {
+   "auc": 0.8624,
+   "recall_top20": 0.5509,
+   "logloss": 0.4136,
+   "mean_predicted": 0.2597,
+   "actual_rate": 0.2851
+  },
+  "delay raw-h": {
+   "auc": 0.8628,
+   "recall_top20": 0.5529,
+   "logloss": 0.3993,
+   "mean_predicted": 0.2894,
+   "actual_rate": 0.2851
+  },
+  "delay Fisher": {
+   "auc": 0.8631,
+   "recall_top20": 0.5543,
+   "logloss": 0.3986,
+   "mean_predicted": 0.2906,
+   "actual_rate": 0.2851
+  },
+  "oracle": {
+   "auc": 0.8649,
+   "recall_top20": 0.554,
+   "logloss": 0.3933,
+   "mean_predicted": 0.3149,
+   "actual_rate": 0.2851
+  }
+ },
+ "seconds": 181.1
+}
