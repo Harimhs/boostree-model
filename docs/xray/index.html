@@ -4,120 +4,183 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Commit X-ray</title>
-<meta name="description" content="Predicts which code commits will cause bugs, before anyone knows. Real Apache commits, from-scratch gradient boosting.">
+<meta name="description" content="Predicts which code commits will cause bugs. Delay-aware gradient boosting on a frozen network, real Apache data.">
 <style>
 :root {
-  --bg: #f6f5f1; --card: #ffffff; --ink: #1b1d22; --muted: #646a73; --line: #e4e2dc;
-  --accent: #3d5afe; --risk: #d8452f; --risk-soft: #fbe5e1; --safe: #2f8f5b; --safe-soft: #e0f2e8;
-  --warn: #c98a12; --bar: #d9dce3; --shadow: 0 1px 2px rgba(0,0,0,.05), 0 4px 16px rgba(0,0,0,.04);
+  color-scheme: light;
+  --page: #f4f5fb; --card: #ffffff; --ink: #0b0b0b; --ink-2: #52514e; --muted: #898781;
+  --grid: #e1e0d9; --axis: #c3c2b7; --ring: rgba(11,11,11,.08);
+  --ours: #2a78d6; --naive: #eb6834; --oracle: #1baf7a; --base: #9a9890;
+  --good: #0ca30c; --good-text: #006300; --warn: #fab219; --crit: #d03b3b;
+  --hero-a: #3b2fc9; --hero-b: #2a78d6; --hero-c: #13a6a0;
+  --ours-soft: #e3eefc; --naive-soft: #fdeae2; --oracle-soft: #e1f6ee; --warn-soft: #fff3d6; --crit-soft: #fbe3e3; --good-soft: #e2f5e2;
+  --shadow: 0 1px 2px rgba(20,20,60,.06), 0 8px 24px rgba(20,20,60,.06);
 }
 @media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --bg: #111317; --card: #1a1d23; --ink: #eceef2; --muted: #9aa1ac; --line: #2a2e36;
-    --accent: #7b8cff; --risk: #ff6f59; --risk-soft: #3a211d; --safe: #4cc38a; --safe-soft: #17301f;
-    --warn: #e2a93b; --bar: #313641; --shadow: none;
+  :root:where(:not([data-theme="light"])) {
+    color-scheme: dark;
+    --page: #0d0d10; --card: #1a1a1d; --ink: #f0efec; --ink-2: #c3c2b7; --muted: #898781;
+    --grid: #2c2c2a; --axis: #383835; --ring: rgba(255,255,255,.08);
+    --ours: #3987e5; --naive: #d95926; --oracle: #199e70; --base: #77756f;
+    --good-text: #0ca30c;
+    --hero-a: #2a2296; --hero-b: #1c5cab; --hero-c: #0e7f7a;
+    --ours-soft: #16263d; --naive-soft: #35201a; --oracle-soft: #13302a; --warn-soft: #3a2f12; --crit-soft: #3a1a1a; --good-soft: #142e14;
+    --shadow: none;
   }
 }
 :root[data-theme="dark"] {
-  --bg: #111317; --card: #1a1d23; --ink: #eceef2; --muted: #9aa1ac; --line: #2a2e36;
-  --accent: #7b8cff; --risk: #ff6f59; --risk-soft: #3a211d; --safe: #4cc38a; --safe-soft: #17301f;
-  --warn: #e2a93b; --bar: #313641; --shadow: none;
+  color-scheme: dark;
+  --page: #0d0d10; --card: #1a1a1d; --ink: #f0efec; --ink-2: #c3c2b7; --muted: #898781;
+  --grid: #2c2c2a; --axis: #383835; --ring: rgba(255,255,255,.08);
+  --ours: #3987e5; --naive: #d95926; --oracle: #199e70; --base: #77756f;
+  --good-text: #0ca30c;
+  --hero-a: #2a2296; --hero-b: #1c5cab; --hero-c: #0e7f7a;
+  --ours-soft: #16263d; --naive-soft: #35201a; --oracle-soft: #13302a; --warn-soft: #3a2f12; --crit-soft: #3a1a1a; --good-soft: #142e14;
+  --shadow: none;
 }
 * { box-sizing: border-box; }
-html, body { margin: 0; background: var(--bg); color: var(--ink); }
-body { font: 15px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, sans-serif; -webkit-font-smoothing: antialiased; }
-.wrap { max-width: 640px; margin: 0 auto; padding: 20px 16px 48px; }
-header h1 { font-size: 28px; letter-spacing: -.02em; margin: 6px 0 4px; }
-header p { margin: 0; color: var(--muted); }
-.eyebrow { font-size: 12px; text-transform: uppercase; letter-spacing: .08em; color: var(--accent); font-weight: 600; }
-.card { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 18px 16px; margin-top: 16px; box-shadow: var(--shadow); }
-.card h2 { font-size: 17px; margin: 0 0 4px; letter-spacing: -.01em; }
-.card .sub { color: var(--muted); font-size: 13.5px; margin: 0 0 14px; }
-.big { font-size: 44px; font-weight: 700; letter-spacing: -.03em; line-height: 1; }
-.hero { display: flex; gap: 14px; align-items: baseline; flex-wrap: wrap; }
-.hero .txt { flex: 1 1 220px; color: var(--muted); }
-.hero .txt b { color: var(--ink); }
-.bars { margin-top: 14px; display: grid; gap: 10px; }
-.brow .top { display: flex; justify-content: space-between; font-size: 13.5px; margin-bottom: 4px; }
-.brow .top b { font-variant-numeric: tabular-nums; }
-.track { height: 10px; background: var(--bar); border-radius: 99px; overflow: hidden; }
-.fill { height: 100%; border-radius: 99px; background: var(--muted); }
-.fill.ours { background: var(--accent); }
-.meta { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 14px; }
-.chip { font-size: 12px; padding: 4px 9px; border-radius: 99px; background: var(--bg); border: 1px solid var(--line); color: var(--muted); }
-.buckets { display: grid; gap: 8px; }
-.bk { display: grid; grid-template-columns: 64px 1fr 46px; gap: 10px; align-items: center; font-size: 13.5px; }
-.bk .lbl { white-space: nowrap; color: var(--muted); font-variant-numeric: tabular-nums; }
-.bk .val { text-align: right; font-weight: 600; font-variant-numeric: tabular-nums; }
-.list { display: grid; gap: 10px; }
-.commit { border: 1px solid var(--line); border-radius: 14px; padding: 12px; cursor: pointer; background: var(--card); transition: border-color .15s; }
-.commit:hover { border-color: var(--accent); }
-.commit .row { display: flex; gap: 12px; align-items: center; }
-.pill { flex: 0 0 auto; min-width: 54px; text-align: center; font-weight: 700; font-size: 14px; padding: 6px 8px; border-radius: 10px; font-variant-numeric: tabular-nums; }
-.pill.hi { background: var(--risk-soft); color: var(--risk); }
-.pill.mid { background: color-mix(in srgb, var(--warn) 18%, transparent); color: var(--warn); }
-.pill.lo { background: var(--safe-soft); color: var(--safe); }
-.commit .t { font-size: 14px; line-height: 1.35; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
-.commit .p { font-size: 12px; color: var(--muted); margin-top: 2px; }
-.detail { display: none; margin-top: 12px; padding-top: 12px; border-top: 1px dashed var(--line); }
-.commit.open .detail { display: block; }
-.gauge { height: 12px; border-radius: 99px; background: linear-gradient(90deg, var(--safe), var(--warn), var(--risk)); position: relative; margin: 8px 0 4px; }
-.gauge i { position: absolute; top: -4px; width: 4px; height: 20px; border-radius: 2px; background: var(--ink); transform: translateX(-2px); }
-.scale { display: flex; justify-content: space-between; font-size: 11px; color: var(--muted); }
-.why { margin: 12px 0 0; display: grid; gap: 6px; }
-.why .r { display: grid; grid-template-columns: 1fr 58px; gap: 8px; align-items: center; font-size: 13px; }
-.why .r .w { text-align: right; font-weight: 600; font-variant-numeric: tabular-nums; }
-.why .r .w.up { color: var(--risk); } .why .r .w.down { color: var(--safe); }
-.why .r small { color: var(--muted); }
-.btn { margin-top: 12px; width: 100%; padding: 11px; border-radius: 12px; border: 1px solid var(--accent); background: transparent; color: var(--accent); font-weight: 600; font-size: 14px; cursor: pointer; }
-.truth { display: none; margin-top: 12px; padding: 12px; border-radius: 12px; font-size: 14px; }
-.truth.show { display: block; }
-.truth.bug { background: var(--risk-soft); }
-.truth.clean { background: var(--safe-soft); }
-.truth a { color: var(--accent); }
-.verdict { font-size: 12.5px; color: var(--muted); margin-top: 6px; }
-svg text { fill: var(--muted); font-size: 19px; }
-.formula { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12px; background: var(--bg); border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; overflow-x: auto; white-space: pre; }
-.steps { margin: 0; padding-left: 18px; color: var(--muted); font-size: 14px; }
-.steps li { margin: 4px 0; } .steps b { color: var(--ink); }
-footer { color: var(--muted); font-size: 12.5px; margin-top: 22px; line-height: 1.6; }
+html, body { margin: 0; background: var(--page); color: var(--ink); }
+body { font: 15px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif; -webkit-font-smoothing: antialiased; }
+.wrap { max-width: 560px; margin: 0 auto; padding: 0 16px 40px; }
+@media (min-width: 980px) {
+  .wrap { max-width: 1060px; }
+  .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; align-items: start; }
+}
+/* hero */
+.hero { margin: 0 -16px; padding: 22px 20px 26px; color: #fff; border-radius: 0 0 24px 24px;
+  background: linear-gradient(135deg, var(--hero-a), var(--hero-b) 55%, var(--hero-c)); }
+@media (min-width: 600px) { .hero { margin: 16px 0 0; border-radius: 24px; } }
+.hero .tag { display: inline-flex; gap: 6px; align-items: center; font-size: 12px; font-weight: 600; letter-spacing: .04em;
+  background: rgba(255,255,255,.16); padding: 4px 10px; border-radius: 99px; }
+.hero .tag i { width: 7px; height: 7px; border-radius: 50%; background: #7dffb3; box-shadow: 0 0 0 3px rgba(125,255,179,.25); }
+.hero h1 { font-size: 26px; line-height: 1.15; letter-spacing: -.02em; margin: 12px 0 6px; }
+.hero p { margin: 0; opacity: .88; font-size: 14.5px; }
+.pills { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
+.pills span { font-size: 12px; background: rgba(255,255,255,.14); padding: 3px 9px; border-radius: 99px; }
+/* kpis */
+.kpis { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: -14px; position: relative; }
+@media (min-width: 980px) { .kpis { grid-template-columns: repeat(4, 1fr); margin-top: 16px; } }
+.kpi { background: var(--card); border-radius: 16px; padding: 12px 12px 11px; box-shadow: var(--shadow); border: 1px solid var(--ring); border-top: 4px solid var(--c, var(--ours)); }
+.kpi .v { font-size: 26px; font-weight: 700; letter-spacing: -.02em; line-height: 1.1; }
+.kpi .l { font-size: 12.5px; color: var(--ink-2); margin-top: 3px; line-height: 1.3; }
+/* cards */
+.card { background: var(--card); border: 1px solid var(--ring); border-radius: 18px; padding: 16px; margin-top: 14px; box-shadow: var(--shadow); }
+.card h2 { font-size: 17px; margin: 0 0 2px; letter-spacing: -.01em; }
+.sub { color: var(--ink-2); font-size: 13.5px; margin: 0 0 12px; }
+.small { font-size: 12.5px; color: var(--muted); }
+/* with vs without */
+.cmp { display: grid; gap: 8px; }
+.row { display: grid; grid-template-columns: 1fr auto; gap: 4px 10px; align-items: center; padding: 10px 12px; border-radius: 12px; background: var(--page); border: 1px solid transparent; }
+.row .name { font-size: 14px; font-weight: 600; display: flex; align-items: center; gap: 8px; }
+.row .name i { width: 10px; height: 10px; border-radius: 3px; flex: 0 0 auto; }
+.row .val { font-weight: 700; font-size: 15px; text-align: right; }
+.row .meter { grid-column: 1 / -1; height: 6px; border-radius: 99px; background: var(--grid); overflow: hidden; }
+.row .meter b { display: block; height: 100%; border-radius: 99px; }
+.row .note { grid-column: 1 / -1; font-size: 12.5px; color: var(--ink-2); }
+.row.hl { background: var(--ours-soft); border-color: var(--ours); box-shadow: 0 0 0 3px color-mix(in srgb, var(--ours) 18%, transparent); }
+.row.bad { background: var(--naive-soft); }
+.delta { display: inline-block; font-size: 12px; font-weight: 700; padding: 1px 7px; border-radius: 99px; margin-left: 4px; }
+.delta.up { background: var(--good-soft); color: var(--good-text); }
+.delta.down { background: var(--crit-soft); color: var(--crit); }
+.metric-toggle, .tabs { display: flex; gap: 4px; background: var(--page); padding: 4px; border-radius: 12px; margin-bottom: 12px; overflow-x: auto; }
+.metric-toggle button, .tabs button { flex: 1 0 auto; border: 0; background: transparent; color: var(--ink-2); font: inherit; font-size: 13px; font-weight: 600; padding: 7px 10px; border-radius: 9px; cursor: pointer; white-space: nowrap; }
+.metric-toggle button[aria-pressed="true"], .tabs button[aria-selected="true"] { background: var(--card); color: var(--ink); box-shadow: 0 1px 3px rgba(0,0,0,.12); }
+/* charts */
+.chart { position: relative; }
+.chart svg { display: block; width: 100%; height: auto; overflow: visible; touch-action: pan-y; }
+.chart .gridline { stroke: var(--grid); stroke-width: 1; }
+.chart .axis { stroke: var(--axis); stroke-width: 1; }
+.chart text { fill: var(--muted); font-size: 11px; font-variant-numeric: tabular-nums; }
+.chart .lbl { font-size: 11.5px; font-weight: 600; fill: var(--ink-2); }
+.tip { position: absolute; pointer-events: none; background: var(--card); border: 1px solid var(--ring); box-shadow: 0 6px 20px rgba(0,0,0,.18);
+  border-radius: 10px; padding: 7px 9px; font-size: 12px; min-width: 120px; opacity: 0; transition: opacity .1s; z-index: 2; }
+.tip b { display: block; margin-bottom: 3px; }
+.tip div { display: flex; justify-content: space-between; gap: 10px; }
+.tip i { display: inline-block; width: 8px; height: 8px; border-radius: 2px; margin-right: 5px; }
+.legend { display: flex; flex-wrap: wrap; gap: 6px 14px; margin: 4px 0 8px; font-size: 12.5px; color: var(--ink-2); }
+.legend span { display: inline-flex; align-items: center; gap: 6px; }
+.legend i { width: 14px; height: 3px; border-radius: 2px; }
+.legend i.dash { background: repeating-linear-gradient(90deg, var(--base) 0 4px, transparent 4px 7px) !important; }
+.caption { font-size: 12.5px; color: var(--ink-2); margin-top: 8px; }
+/* samples */
+.stack { display: flex; height: 14px; border-radius: 99px; overflow: hidden; gap: 2px; margin: 4px 0 6px; }
+.stack b { display: block; height: 100%; }
+.keys { display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: 12.5px; color: var(--ink-2); margin-bottom: 12px; }
+.keys span { display: inline-flex; gap: 6px; align-items: center; }
+.keys i { width: 10px; height: 10px; border-radius: 3px; }
+.samples { display: grid; gap: 8px; }
+.sample { border: 1px solid var(--ring); border-left: 4px solid var(--c); border-radius: 12px; padding: 10px 12px; }
+.sample .t { font-size: 13.5px; font-weight: 600; line-height: 1.35; overflow-wrap: anywhere; }
+.sample .m { font-size: 12px; color: var(--muted); margin: 2px 0 8px; }
+.treat { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+.treat div { font-size: 12px; padding: 6px 8px; border-radius: 8px; background: var(--page); line-height: 1.35; }
+.treat div b { display: block; font-size: 11px; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); margin-bottom: 1px; }
+.treat .wrong { background: var(--naive-soft); }
+.treat .right { background: var(--ours-soft); }
+.chip { display: inline-flex; align-items: center; gap: 4px; font-size: 11.5px; font-weight: 700; padding: 2px 8px; border-radius: 99px; }
+.chip.crit { background: var(--crit-soft); color: var(--crit); }
+.chip.warn { background: var(--warn-soft); color: #8a5a00; }
+:root[data-theme="dark"] .chip.warn { color: var(--warn); }
+@media (prefers-color-scheme: dark) { :root:where(:not([data-theme="light"])) .chip.warn { color: var(--warn); } }
+.chip.good { background: var(--good-soft); color: var(--good-text); }
+.more { margin-top: 10px; width: 100%; border: 1px dashed var(--axis); background: transparent; color: var(--ours); font: inherit; font-weight: 600; font-size: 13.5px; padding: 9px; border-radius: 12px; cursor: pointer; }
+.hidden { display: none !important; }
+/* commits */
+.commit { border: 1px solid var(--ring); border-radius: 12px; padding: 10px 12px; cursor: pointer; }
+.commit + .commit { margin-top: 8px; }
+.commit .top { display: flex; gap: 10px; align-items: center; }
+.risk { flex: 0 0 auto; min-width: 50px; text-align: center; font-weight: 800; font-size: 14px; padding: 6px 6px; border-radius: 10px; }
+.risk.hi { background: var(--crit-soft); color: var(--crit); } .risk.mid { background: var(--warn-soft); color: #8a5a00; } .risk.lo { background: var(--good-soft); color: var(--good-text); }
+.commit .t { font-size: 13.5px; line-height: 1.35; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+.commit .p { font-size: 12px; color: var(--muted); }
+.commit .d { display: none; margin-top: 10px; padding-top: 10px; border-top: 1px dashed var(--ring); }
+.commit.open .d { display: block; }
+.why { display: grid; gap: 4px; font-size: 13px; }
+.why div { display: flex; justify-content: space-between; gap: 8px; }
+.why .up { color: var(--crit); font-weight: 700; } .why .dn { color: var(--good-text); font-weight: 700; }
+.reveal { margin-top: 10px; width: 100%; padding: 9px; border-radius: 10px; border: 0; background: var(--ours); color: #fff; font: inherit; font-weight: 600; font-size: 13.5px; cursor: pointer; }
+.truth { display: none; margin-top: 8px; font-size: 13px; padding: 9px 10px; border-radius: 10px; }
+.truth.show { display: block; } .truth.bug { background: var(--crit-soft); } .truth.ok { background: var(--good-soft); }
+.truth a { color: var(--ours); }
+/* details */
+details { border-top: 1px solid var(--ring); padding: 2px 0; }
+details:first-of-type { border-top: 0; }
+summary { cursor: pointer; list-style: none; padding: 12px 0; font-weight: 600; font-size: 14.5px; display: flex; justify-content: space-between; align-items: center; }
+summary::-webkit-details-marker { display: none; }
+summary::after { content: "+"; font-size: 18px; color: var(--ours); }
+details[open] summary::after { content: "–"; }
+details .body { padding: 0 0 12px; font-size: 13.5px; color: var(--ink-2); }
+.formula { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12px; background: var(--page); border-radius: 10px; padding: 10px 12px; white-space: pre; overflow-x: auto; color: var(--ink); }
+table { width: 100%; border-collapse: collapse; font-size: 13px; }
+td, th { padding: 6px 4px; border-bottom: 1px solid var(--ring); text-align: left; }
+td.n, th.n { text-align: right; font-variant-numeric: tabular-nums; }
+ol { padding-left: 18px; margin: 0; } li { margin: 4px 0; }
+footer { color: var(--muted); font-size: 12px; margin-top: 18px; line-height: 1.6; }
 footer a { color: var(--muted); }
 </style>
 </head>
 <body>
 <div class="wrap">
-  <header>
-    <div class="eyebrow">Commit X-ray · v0</div>
-    <h1>Which commit will break production?</h1>
-    <p>A model that scores every code change for bug risk the moment it's pushed, weeks before the bug is found.</p>
+  <header class="hero">
+    <span class="tag"><i></i> COMMIT X-RAY · RESEARCH DEMO</span>
+    <h1>Spot the commit that will break production</h1>
+    <p>Bug-risk score for every code change, and a fix for the hidden problem: bugs are found months late, so models retrained on recent data learn wrong labels.</p>
+    <div class="pills"><span>Real Apache commits</span><span>From-scratch boosting</span><span>Frozen network</span><span>CPU only</span></div>
   </header>
 
-  <section class="card" id="headline"></section>
-  <section class="card" id="trust"></section>
+  <section class="kpis" id="kpis"></section>
 
-  <section class="card">
-    <h2>Try it on real commits</h2>
-    <p class="sub">Real commits from Apache Kafka, Hive, Flink, HBase… from 2017–2019, years the model never saw. Tap one, read the risk, then reveal what really happened. Includes misses and false alarms too.</p>
-    <div class="list" id="commits"></div>
-  </section>
-
-  <section class="card" id="frozen"></section>
-
-  <section class="card" id="delay"></section>
-
-  <section class="card" id="research"></section>
-
-  <section class="card">
-    <h2>How it works</h2>
-    <ol class="steps">
-      <li><b>Every commit becomes 13 numbers</b>: size, files and subsystems touched, how spread-out it is, the files' past change history, the author's experience in that area.</li>
-      <li><b>Labels come from history itself</b>: when a later "fix" commit lands, <i>git blame</i> traces the fixed lines back to the commit that introduced the bug (SZZ algorithm).</li>
-      <li><b>Gradient boosting, written from scratch</b> in NumPy: each round computes every commit's gradient and hessian, grows a tree with histogram splits, and sets each leaf to the Newton step −G/(H+λ).</li>
-      <li><b>Explanations for free</b>: each tree split hands its change in risk to the feature it used, so every score comes with its reasons.</li>
-    </ol>
-    <div class="meta" id="engine"></div>
-  </section>
-
+  <div class="cols">
+    <div>
+      <section class="card" id="compare"></section>
+      <section class="card" id="trends"></section>
+      <section class="card" id="details"></section>
+    </div>
+    <div>
+      <section class="card" id="samples"></section>
+      <section class="card" id="commits"></section>
+    </div>
+  </div>
   <footer id="foot"></footer>
 </div>
 
@@ -125,184 +188,273 @@ footer a { color: var(--muted); }
 const $ = (s) => document.querySelector(s);
 const pct = (x, d = 0) => (x * 100).toFixed(d) + "%";
 const esc = (s) => String(s ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
-const level = (r) => (r >= 0.6 ? "hi" : r >= 0.3 ? "mid" : "lo");
-const fmtVal = (f, v) => {
-  if (f === "fix") return v ? "yes" : "no";
-  if (f === "ent") return v.toFixed(2);
-  if (f === "age") return v.toFixed(1);
-  if (["ndev", "nuc", "arexp", "asexp"].includes(f)) return v >= 100 ? Math.round(v).toLocaleString() : (+v.toFixed(1)).toString();
-  return Math.round(v).toLocaleString();
-};
+const css = (v) => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+const sign = (x, d = 3) => (x >= 0 ? "+" : "−") + Math.abs(x).toFixed(d);
 
-function bar(label, value, cls = "") {
-  return `<div class="brow"><div class="top"><span>${label}</span><b>${pct(value)}</b></div>
-    <div class="track"><div class="fill ${cls}" style="width:${Math.max(2, value * 100)}%"></div></div></div>`;
-}
-
-function render(d) {
-  const m = d.models, c = d.counts;
-  $("#headline").innerHTML = `
-    <h2>The result</h2>
-    <p class="sub">If reviewers look only at the riskiest 20% of commits…</p>
-    <div class="hero"><div class="big">${pct(m.ours.recall_top20)}</div>
-      <div class="txt">of all <b>bug-causing commits</b> are caught, out of ${c.test.toLocaleString()} real commits (${c.test_buggy.toLocaleString()} buggy).</div></div>
-    <div class="bars">
-      ${bar("Commit X-ray (this model)", m.ours.recall_top20, "ours")}
-      ${bar("Rule: biggest commits first", m.lines_added_rule.recall_top20)}
-      ${bar("Random 20%", m.random.recall_top20)}
-    </div>
-    <div class="meta"><span class="chip">AUC ${m.ours.auc.toFixed(3)}</span>
-      <span class="chip">rule AUC ${m.lines_added_rule.auc.toFixed(3)}</span>
-      <span class="chip">${c.projects} Apache projects</span>
-      <span class="chip">trained ${d.split.train}, tested ${d.split.test}</span></div>`;
-
-  $("#trust").innerHTML = `
-    <h2>Does the risk score mean anything?</h2>
-    <p class="sub">Commits grouped by the risk the model gave them → how many really turned out buggy:</p>
-    <div class="buckets">${d.buckets.map((b) => `
-      <div class="bk"><span class="lbl">${b.range}</span>
-        <div class="track"><div class="fill ${b.actually_buggy >= .5 ? "ours" : ""}" style="width:${Math.max(2, b.actually_buggy * 100)}%"></div></div>
-        <span class="val">${pct(b.actually_buggy)}</span></div>`).join("")}</div>
-    <p class="sub" style="margin:12px 0 0">Higher score → really more bugs. Commits it calls safe are almost always safe.</p>`;
-
-  $("#commits").innerHTML = d.commits.map((x, i) => {
-    const reasons = x.reasons.filter((r) => Math.abs(r.effect_pts) >= 0.5).slice(0, 4);
-    const correct = (x.risk >= 0.5) === x.buggy;
-    return `<div class="commit" data-i="${i}">
-      <div class="row"><div class="pill ${level(x.risk)}">${pct(x.risk)}</div>
-        <div><div class="t">${esc(x.title)}</div>
-        <div class="p">${esc(x.project.replace("apache/", ""))} · ${x.date} · +${x.la} −${x.ld} lines · ${x.nf} file${x.nf === 1 ? "" : "s"}</div></div></div>
-      <div class="detail">
-        <div style="font-size:13px;color:var(--muted)">Predicted bug risk</div>
-        <div class="gauge"><i style="left:${x.risk * 100}%"></i></div>
-        <div class="scale"><span>safe</span><span>risky</span></div>
-        <div class="why">${reasons.map((r) => `
-          <div class="r"><span>${esc(r.label)} <small>(${fmtVal(r.feature, r.value)})</small></span>
-            <span class="w ${r.effect_pts > 0 ? "up" : "down"}">${r.effect_pts > 0 ? "+" : ""}${r.effect_pts.toFixed(1)}</span></div>`).join("")}
-          <div class="verdict">Numbers = how many risk points each factor adds or removes.</div></div>
-        <button class="btn" type="button">Reveal what really happened</button>
-        <div class="truth ${x.buggy ? "bug" : "clean"}">
-          ${x.buggy ? "<b>🐞 This commit introduced a bug.</b> A later fix was traced back to it." : "<b>✓ This commit stayed clean.</b> No later fix was traced back to it."}
-          <div class="verdict">${correct ? "The model got this one right." : (x.buggy ? "The model missed this one." : "False alarm: the model was too cautious here.")}
-          · <a href="https://github.com/${esc(x.project)}/commit/${esc(x.sha)}" target="_blank" rel="noopener">see the real commit ↗</a></div>
-        </div>
-      </div></div>`;
-  }).join("");
-  document.querySelectorAll(".commit").forEach((el) => {
-    el.addEventListener("click", (e) => {
-      if (e.target.closest("a")) return;
-      if (e.target.closest(".btn")) { el.querySelector(".truth").classList.add("show"); e.target.style.display = "none"; return; }
-      if (e.target.closest(".detail")) return;
-      el.classList.toggle("open");
+/* ---------- generic line chart with crosshair tooltip ---------- */
+function lineChart(host, { series, xLabels, yFmt = (v) => v.toFixed(3), yMin, yMax, refLine, height = 200, xTitle }) {
+  const W = 340, H = height, L = 40, R = 46, T = 10, B = 28;
+  const n = xLabels.length;
+  const all = series.flatMap((s) => s.values.filter((v) => v != null)).concat(refLine ? [refLine.value] : []);
+  const lo = yMin ?? Math.min(...all), hi = yMax ?? Math.max(...all);
+  const pad = (hi - lo) * 0.12 || 0.01;
+  const y0 = lo - pad, y1 = hi + pad;
+  const X = (i) => L + (n === 1 ? (W - L - R) / 2 : (i * (W - L - R)) / (n - 1));
+  const Y = (v) => T + (1 - (v - y0) / (y1 - y0)) * (H - T - B);
+  const ticks = 4, tv = [...Array(ticks + 1)].map((_, i) => y0 + ((y1 - y0) * i) / ticks);
+  let g = tv.map((v) => `<line class="gridline" x1="${L}" x2="${W - R}" y1="${Y(v)}" y2="${Y(v)}"/><text x="${L - 6}" y="${Y(v) + 4}" text-anchor="end">${yFmt(v)}</text>`).join("");
+  const step = Math.max(1, Math.ceil(n / 7));
+  g += xLabels.map((l, i) => (i % step === 0 || i === n - 1) ? `<text x="${X(i)}" y="${H - 9}" text-anchor="middle">${l}</text>` : "").join("");
+  g += `<line class="axis" x1="${L}" x2="${W - R}" y1="${H - B}" y2="${H - B}"/>`;
+  if (refLine) g += `<line x1="${L}" x2="${W - R}" y1="${Y(refLine.value)}" y2="${Y(refLine.value)}" stroke="var(--base)" stroke-width="1.5" stroke-dasharray="4 3"/>`;
+  const labels = [];
+  for (const s of series) {
+    const pts = s.values.map((v, i) => (v == null ? null : [X(i), Y(v)])).filter(Boolean);
+    g += `<polyline fill="none" stroke="${s.color}" stroke-width="2.25" stroke-linejoin="round" stroke-linecap="round" points="${pts.map((p) => p.join(",")).join(" ")}"/>`;
+    const last = pts[pts.length - 1];
+    g += `<circle cx="${last[0]}" cy="${last[1]}" r="4" fill="${s.color}" stroke="var(--card)" stroke-width="2"/>`;
+    if (s.label) labels.push({ x: last[0] + 7, y: last[1] + 4, t: s.label });
+  }
+  // nudge end labels apart so they never overlap
+  labels.sort((a, b) => a.y - b.y);
+  for (let i = 1; i < labels.length; i++) {
+    const prev = labels[i - 1], cur = labels[i];
+    if (Math.abs(cur.x - prev.x) < 40 && cur.y - prev.y < 13) cur.y = prev.y + 13;
+  }
+  g += labels.map((l) => `<text class="lbl" x="${l.x}" y="${l.y}">${l.t}</text>`).join("");
+  g += `<line class="cross" x1="0" x2="0" y1="${T}" y2="${H - B}" stroke="var(--axis)" stroke-width="1" opacity="0"/>`;
+  g += series.map((s, k) => `<circle class="dot${k}" r="4.5" fill="${s.color}" stroke="var(--card)" stroke-width="2" opacity="0"/>`).join("");
+  g += `<rect x="${L - 10}" y="0" width="${W - L - R + 20}" height="${H}" fill="transparent" class="hit"/>`;
+  host.innerHTML = `<div class="chart"><svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(xTitle || "chart")}">${g}</svg><div class="tip"></div></div>`;
+  const svg = host.querySelector("svg"), tip = host.querySelector(".tip"), cross = svg.querySelector(".cross");
+  const move = (ev) => {
+    const r = svg.getBoundingClientRect(), sx = ((ev.clientX - r.left) / r.width) * W;
+    let i = n === 1 ? 0 : Math.round(((sx - L) / (W - L - R)) * (n - 1));
+    i = Math.max(0, Math.min(n - 1, i));
+    cross.setAttribute("x1", X(i)); cross.setAttribute("x2", X(i)); cross.setAttribute("opacity", 1);
+    series.forEach((s, k) => {
+      const d = svg.querySelector(".dot" + k), v = s.values[i];
+      if (v == null) { d.setAttribute("opacity", 0); return; }
+      d.setAttribute("cx", X(i)); d.setAttribute("cy", Y(v)); d.setAttribute("opacity", 1);
     });
+    tip.innerHTML = `<b>${esc(xTitle ? xTitle + ": " : "")}${esc(xLabels[i])}</b>` + series.map((s) => s.values[i] == null ? "" :
+      `<div><span><i style="background:${s.color}"></i>${esc(s.name)}</span><span>${yFmt(s.values[i])}</span></div>`).join("") +
+      (refLine ? `<div><span><i style="background:var(--base)"></i>${esc(refLine.name)}</span><span>${yFmt(refLine.value)}</span></div>` : "");
+    const px = (X(i) / W) * r.width;
+    tip.style.left = Math.min(Math.max(0, px - 70), r.width - 150) + "px";
+    tip.style.top = "-6px"; tip.style.opacity = 1;
+  };
+  svg.addEventListener("pointermove", move);
+  svg.addEventListener("pointerdown", move);
+  svg.addEventListener("pointerleave", () => { tip.style.opacity = 0; cross.setAttribute("opacity", 0); series.forEach((_, k) => svg.querySelector(".dot" + k).setAttribute("opacity", 0)); });
+}
+
+function barChart(host, { labels, values, colors, yFmt = (v) => pct(v), height = 180, notes = {} }) {
+  const W = 340, H = height, L = 8, R = 8, T = 18, B = 24, n = labels.length;
+  const max = Math.max(...values) * 1.15, bw = (W - L - R) / n;
+  let g = `<line class="axis" x1="${L}" x2="${W - R}" y1="${H - B}" y2="${H - B}"/>`;
+  values.forEach((v, i) => {
+    const h = (v / max) * (H - T - B), x = L + i * bw + bw * 0.16, w = bw * 0.68;
+    g += `<path d="M${x},${H - B} v${-(h - 4)} q0,-4 4,-4 h${w - 8} q4,0 4,4 v${h - 4} z" fill="${colors[i]}"><title>${labels[i]}: ${yFmt(v)}${notes[i] ? " · " + notes[i] : ""}</title></path>`;
+    g += `<text x="${x + w / 2}" y="${H - B - h - 5}" text-anchor="middle" class="lbl">${yFmt(v)}</text>`;
+    g += `<text x="${x + w / 2}" y="${H - 8}" text-anchor="middle">${labels[i]}</text>`;
   });
-
-  // Delay chart
-  const ys = d.bug_rate_by_year, W = 600, H = 250, pad = 6, bw = (W - pad * 2) / ys.length;
-  const max = Math.max(...ys.map((y) => y.rate)) * 1.15;
-  const bars = ys.map((y, i) => {
-    const h = (y.rate / max) * (H - 80), x = pad + i * bw + bw * 0.18, w = bw * 0.64, late = y.year >= 2018;
-    return `<rect x="${x}" y="${H - 30 - h}" width="${w}" height="${h}" rx="4" fill="${late ? "var(--risk)" : "var(--bar)"}"/>
-      <text x="${x + w / 2}" y="${H - 38 - h}" text-anchor="middle">${Math.round(y.rate * 100)}%</text>
-      <text x="${x + w / 2}" y="${H - 4}" text-anchor="middle">'${String(y.year).slice(2)}</text>`;
-  }).join("");
-  $("#delay").innerHTML = `
-    <h2>The real problem: bugs are found late</h2>
-    <p class="sub">Share of commits labelled "bug-causing", by year. Did developers suddenly get better in 2019?</p>
-    <svg viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="Bug rate by year">${bars}</svg>
-    <p class="sub" style="margin:8px 0 12px"><b style="color:var(--ink)">No. Their bugs just hadn't been found yet.</b> Bugs surface weeks or months after the commit, so recent commits look falsely clean, and every model retrained today learns from wrong labels. Research calls this <i>verification latency</i>; current boosting models ignore it.</p>
-`;
-
-  const eng = d.models.sklearn_hgb_reference;
-  $("#engine").innerHTML = `<span class="chip">from-scratch engine AUC ${m.ours.auc.toFixed(4)}</span>
-    ${eng ? `<span class="chip">scikit-learn reference ${eng.auc.toFixed(4)}</span>` : ""}
-    <span class="chip">${d.trees} trees</span><span class="chip">trains in ${d.seconds}s on CPU</span><span class="chip">no GPU · no LLM</span>`;
-
-  $("#foot").innerHTML = `Data: <a href="https://arxiv.org/abs/2203.00101">ApacheJIT</a>, ${(c.train + c.validation + c.test).toLocaleString()} real commits from ${c.projects} Apache projects, labelled with SZZ (known to be somewhat noisy).
-    Time split: train ${d.split.train}, early-stopping ${d.split.validation}, test ${d.split.test}. Example commits are a fair mix of hits, misses and false alarms.
-    v0 uses the standard log-loss; the delay-aware objective is next. Built by Hari · <a href="https://github.com/Harimhs/boostree-model">source</a>`;
+  host.innerHTML = `<div class="chart"><svg viewBox="0 0 ${W} ${H}" role="img" aria-label="bar chart">${g}</svg></div>`;
 }
 
-
-function renderFrozen(f) {
-  const S = f.seeds_summary, rows = [
-    ["Frozen network, no update", S["frozen net (no update)"], ""],
-    ["Retrain all weights (normal SGD)", S["fine-tune all weights (SGD)"], ""],
-    ["Frozen network + booster trees", S["frozen net + booster trees"], "ours"],
+/* ---------- sections ---------- */
+function kpis(D, Rs) {
+  const M = Rs.adapt.mean, k = [
+    [pct(D.models.ours.recall_top20), "of bug-causing commits caught by reviewing the riskiest 20%", "var(--ours)"],
+    [sign(M["boosters delay (ours)"].auc - M["boosters naive"].auc, 3), `AUC, delay-aware vs naive adaptation · wins ${Rs.adapt.wins.delay_vs_naive_auc}/${Rs.adapt.n_runs}`, "var(--oracle)"],
+    [Rs.delay.median_days + " d", "median time until a bug is found", "var(--naive)"],
+    ["≈ " + pct(1 - Rs.recent_year.reduce((a, y) => a + y.known / y.final, 0) / Rs.recent_year.length), "of last year's bugs still hidden when you retrain", "var(--warn)"],
   ];
-  const lo = 0.82, hi = 0.87, w = (a) => Math.max(3, ((a - lo) / (hi - lo)) * 100);
-  const b = f.boosters[0];
-  const layerName = ["input layer", "hidden layer", "output layer"];
-  const ab = f.ablation;
-  $("#frozen").innerHTML = `
-    <h2>Frozen network + booster trees (complete labels)</h2>
-    <p class="sub">A small neural network (23 inputs → 64 → 32 → risk) trained from scratch on 2003–2014, then <b style="color:var(--ink)">frozen</b>. When 2016's commits arrive (here with their complete, final labels), its weights are never retrained. Booster trees add Newton-step corrections (gradient + hessian) for specific groups of commits instead.</p>
-    <div class="bars">${rows.map(([n, m, c]) => `
-      <div class="brow"><div class="top"><span>${n}</span><b>AUC ${m.auc.toFixed(3)} · ${pct(m.recall_top20, 1)}</b></div>
-      <div class="track"><div class="fill ${c}" style="width:${w(m.auc)}%"></div></div></div>`).join("")}</div>
-    <p class="sub" style="margin:10px 0 0">Average of ${S.seeds} runs, test years 2017–2019. % = bug-causing commits caught when reviewing the riskiest 20%. Boosters beat normal retraining in every run, while the original weights stayed exactly the same.</p>
-    <h3 style="font-size:14px;margin:16px 0 6px">What one booster learned (round 1, ${layerName[b.layer]})</h3>
-    <div class="why">${b.leaves.map((l) => `<div class="r"><span>${esc(l.rule.replace(/fix <= 0/g, "not a bug-fix").replace(/fix > 0/g, "is a bug-fix").replaceAll("nf", "files").replaceAll("age", "days since files changed").replace(/\d+\.\d+/g, (m) => (+m >= 10 ? Math.round(+m) : (+m).toFixed(2))))} <small>(${l.commits.toLocaleString()} commits)</small></span>
-      <span class="w ${l.weight > 0 ? "up" : "down"}">${l.weight > 0 ? "+" : ""}${l.weight.toFixed(2)}</span></div>`).join("")}
-      <div class="verdict">Each group gets its own Newton step −G/(H+λ) along one direction of the frozen weights. Opposite signs = groups that needed opposite changes.</div></div>
-    <h3 style="font-size:14px;margin:16px 0 6px">Leakage / overfit check</h3>
-    <div class="why">${ab.map((a) => `<div class="r"><span>${esc(a.set)} <small>(${a.inputs} inputs)</small></span><span class="w">${a.test_auc.toFixed(3)}</span></div>`).join("")}
-      <div class="verdict">Adding project identity jumped AUC to 0.89, but it is a per-project shortcut that won't transfer to a new repo, so it was removed. The extra ratio features added nothing over the 13 base metrics. Train/test gap is small (0.855 vs 0.840). On these 13 numbers, plain boosted trees are still the strongest single model (0.865).</div></div>`;
+  $("#kpis").innerHTML = k.map(([v, l, c]) => `<div class="kpi" style="--c:${c}"><div class="v">${v}</div><div class="l">${l}</div></div>`).join("");
 }
 
-function renderResearch(r) {
-  const M = r.adapt.mean, W = r.adapt.wins, n = r.adapt.n_runs;
+function compare(Rs) {
+  const M = Rs.adapt.mean, f = M["frozen net"];
   const rows = [
-    ["Frozen network, no update", M["frozen net"], ""],
-    ["Retrain all weights (SGD), labels as known", M["SGD fine-tune naive"], ""],
-    ["Boosters, labels as known (naive)", M["boosters naive"], "bad"],
-    ["Boosters, delay-aware + Fisher hessian (ours)", M["boosters delay (ours)"], "ours"],
-    ["Ceiling: boosters with future labels", M["boosters oracle"], "ghost"],
+    { key: "frozen net", name: "Frozen network (no update)", color: "var(--base)", cls: "", note: "Starting point. Weights locked." },
+    { key: "boosters naive", name: "Without: plain gradient + hessian", color: "var(--naive)", cls: "bad", note: "Treats “no bug found yet” as clean, so it learns recent = safe." },
+    { key: "boosters delay (ours)", name: "With: delay-aware + Fisher hessian", color: "var(--ours)", cls: "hl", note: "Treats young commits as “not known yet”, weighted by how likely a bug would have surfaced." },
+    { key: "boosters oracle", name: "Ceiling: if future labels were known", color: "var(--oracle)", cls: "", note: "Impossible in practice; shows the room left." },
   ];
-  const lo = 0.80, hi = 0.87, w = (a) => Math.max(3, ((a - lo) / (hi - lo)) * 100);
-  const hist = r.delay.hist, hmax = Math.max(...hist.map((h) => h.share));
-  $("#research").innerHTML = `
-    <h2>The research result</h2>
-    <p class="sub">Real fix dates for all ${r.delay.buggy_commits.toLocaleString()} bug-causing commits: how long until each bug was found?</p>
-    <div class="buckets">${hist.map((h) => `<div class="bk" style="grid-template-columns:96px 1fr 46px"><span class="lbl">${h.label}</span>
-      <div class="track"><div class="fill" style="width:${(h.share / hmax) * 100}%"></div></div><span class="val">${pct(h.share)}</span></div>`).join("")}</div>
-    <p class="sub" style="margin:10px 0 14px">Median: <b style="color:var(--ink)">${r.delay.median_days} days</b>. A quarter take over ${r.delay.p75_days} days.</p>
-    <p class="sub" style="margin:0 0 8px">So in the most recent year of data, about half the bugs are still hidden (share of commits known to be buggy at the start of the next year):</p>
-    <div class="buckets">${r.recent_year.map((y) => `<div class="bk" style="grid-template-columns:72px 1fr 92px"><span class="lbl">in ${+y.cutoff.slice(0, 4) - 1}</span>
-      <div class="track" style="position:relative"><div class="fill" style="width:${(y.final / 0.35) * 100}%;opacity:.35;position:absolute;inset:0 auto 0 0"></div><div class="fill ours" style="width:${(y.known / 0.35) * 100}%;position:absolute;inset:0 auto 0 0"></div></div>
-      <span class="val" style="font-weight:500">${pct(y.known)} <small style="color:var(--muted)">of ${pct(y.final)}</small></span></div>`).join("")}</div>
-    <p class="sub" style="margin:8px 0 16px">Dark = bug rate visible at that moment, light = the true rate found later. About half are missing.</p>
+  let metric = "auc";
+  const draw = () => {
+    const vals = rows.map((r) => M[r.key][metric]), lo = Math.min(...vals) - (metric === "auc" ? 0.02 : 0.03), hi = Math.max(...vals) + 0.005;
+    const fmt = (v) => (metric === "auc" ? v.toFixed(3) : pct(v, 1));
+    $("#cmpRows").innerHTML = rows.map((r) => {
+      const v = M[r.key][metric], d = v - f[metric];
+      const dd = r.key === "frozen net" ? "" : `<span class="delta ${d >= 0 ? "up" : "down"}">${metric === "auc" ? sign(d) : (d >= 0 ? "+" : "−") + Math.abs(d * 100).toFixed(1) + " pts"}</span>`;
+      return `<div class="row ${r.cls}"><span class="name"><i style="background:${r.color}"></i>${r.name}</span>
+        <span class="val">${fmt(v)}${dd}</span>
+        <span class="meter"><b style="width:${((v - lo) / (hi - lo)) * 100}%;background:${r.color}"></b></span>
+        <span class="note">${r.note}</span></div>`;
+    }).join("");
+    document.querySelectorAll("#compare .metric-toggle button").forEach((b) => b.setAttribute("aria-pressed", b.dataset.m === metric));
+  };
+  const gain = M["boosters delay (ours)"].auc - M["boosters naive"].auc;
+  $("#compare").innerHTML = `
+    <h2>With vs without the fix</h2>
+    <p class="sub">A frozen network adapts on the latest year of commits, when about half its bugs are still undiscovered, and is tested on the next year. Average of ${Rs.adapt.n_runs} runs. Badges show the change from the frozen start.</p>
+    <div class="metric-toggle" role="group"><button data-m="auc">AUC (ranking)</button><button data-m="recall_top20">Bugs caught in top 20%</button></div>
+    <div class="cmp" id="cmpRows"></div>
+    <p class="caption">Plain boosting makes the model <b style="color:var(--crit)">worse</b> than doing nothing. With the fix, adapting helps: <b>${sign(gain)} AUC over plain</b>, better in ${Rs.adapt.wins.delay_vs_naive_auc} of ${Rs.adapt.n_runs} runs.</p>`;
+  document.querySelectorAll("#compare .metric-toggle button").forEach((b) => b.addEventListener("click", () => { metric = b.dataset.m; draw(); }));
+  draw();
+}
 
-    <h3 style="font-size:15px;margin:0 0 4px">Adapting the frozen network on that recent year</h3>
-    <p class="sub">Network trained from scratch on older commits, then frozen. Each method adapts it using only the labels known at the time, then is tested on the next year. Average of ${n} runs (3 cut-off dates × 2 seeds).</p>
-    <div class="bars">${rows.map(([name, m, c]) => `
-      <div class="brow"><div class="top"><span>${name}</span><b>AUC ${m.auc.toFixed(3)} · ${pct(m.recall_top20, 1)}</b></div>
-      <div class="track"><div class="fill ${c === "ours" ? "ours" : ""}" style="width:${w(m.auc)}%;${c === "bad" ? "background:var(--risk)" : ""}${c === "ghost" ? "opacity:.35" : ""}"></div></div></div>`).join("")}</div>
-    <div class="why" style="margin-top:12px">
-      <div class="r"><span>Naive boosters <b>hurt</b> the model: they learn "recent = clean"</span><span class="w up">${(M["boosters naive"].auc - M["frozen net"].auc).toFixed(3)}</span></div>
-      <div class="r"><span>Ours vs naive boosters: better AUC in</span><span class="w down">${W.delay_vs_naive_auc}/${n}</span></div>
-      <div class="r"><span>Ours vs naive boosters: more bugs caught in top 20% in</span><span class="w down">${W.delay_vs_naive_top20}/${n}</span></div>
-      <div class="r"><span>Ours vs normal retraining (SGD): better AUC in</span><span class="w down">${W.delay_vs_sgd_auc}/${n}</span></div>
-      <div class="r"><span>Predicted bug rate: naive ${pct(M["boosters naive"].mean_predicted)} · ours ${pct(M["boosters delay (ours)"].mean_predicted)} · true</span><span class="w">${pct(M["boosters delay (ours)"].actual_rate)}</span></div>
-    </div>
-    <p class="sub" style="margin:12px 0 8px">The objective that does it, for a commit with no bug found yet (risk p, chance a bug would have surfaced by now q, learned from older commits only):</p>
-    <div class="formula">loss = −log(1 − p·q)
+function trends(Dash, D) {
+  const tabs = [
+    ["adapt", "Adapting"], ["years", "By year"], ["train", "Training"], ["labels", "Hidden bugs"],
+  ];
+  $("#trends").innerHTML = `<h2>Trends</h2><p class="sub" id="trendSub"></p>
+    <div class="tabs" role="tablist">${tabs.map(([k, l]) => `<button role="tab" data-k="${k}">${l}</button>`).join("")}</div>
+    <div class="legend" id="trendLegend"></div><div id="trendChart"></div><p class="caption" id="trendCap"></p>`;
+  const C = { ours: css("--ours"), naive: css("--naive"), oracle: css("--oracle"), base: css("--base") };
+  const legend = (items) => ($("#trendLegend").innerHTML = items.map(([n, c, dash]) => `<span><i class="${dash ? "dash" : ""}" style="background:${c}"></i>${n}</span>`).join(""));
+  const show = (k) => {
+    document.querySelectorAll("#trends .tabs button").forEach((b) => b.setAttribute("aria-selected", b.dataset.k === k));
+    const T = Dash.trajectory, host = $("#trendChart");
+    if (k === "adapt") {
+      const S = T.series, n = Math.max(...Object.values(S).map((s) => s.length));
+      const vals = (s) => [...Array(n)].map((_, i) => (s[i] ? s[i].auc : null));
+      $("#trendSub").textContent = `Test AUC after each booster is added to the frozen network (one run, test year ${T.test_year}).`;
+      legend([["Ours (delay-aware)", C.ours], ["Plain (naive)", C.naive], ["Future labels (ceiling)", C.oracle], ["Frozen start", C.base, 1]]);
+      lineChart(host, { xTitle: "boosters added", xLabels: [...Array(n)].map((_, i) => String(i)),
+        series: [{ name: "Ours", color: C.ours, values: vals(S.ours), label: "ours" }, { name: "Plain", color: C.naive, values: vals(S.naive), label: "plain" },
+                 { name: "Ceiling", color: C.oracle, values: vals(S.oracle), label: "ceiling" }],
+        refLine: { name: "Frozen start", value: T.start.auc } });
+      $("#trendCap").textContent = "The first plain booster drops the score at once, and line search stops it after a few rounds. Ours keeps adding small improvements.";
+    } else if (k === "years") {
+      const P = Dash.per_cutoff_auc, yrs = Object.keys(P["frozen net"]).sort();
+      $("#trendSub").textContent = "Average AUC for each test year (adapt on the year before, test on this one).";
+      legend([["Ours", C.ours], ["Plain", C.naive], ["Ceiling", C.oracle], ["Frozen", C.base]]);
+      lineChart(host, { xTitle: "test year", xLabels: yrs,
+        series: [{ name: "Ours", color: C.ours, values: yrs.map((y) => P["boosters delay (ours)"][y]), label: "ours" },
+                 { name: "Plain", color: C.naive, values: yrs.map((y) => P["boosters naive"][y]), label: "plain" },
+                 { name: "Ceiling", color: C.oracle, values: yrs.map((y) => P["boosters oracle"][y]), label: "ceiling" },
+                 { name: "Frozen", color: C.base, values: yrs.map((y) => P["frozen net"][y]) }] });
+      $("#trendCap").textContent = "Ours stays above plain every year. In 2017 plain adaptation hurt badly.";
+    } else if (k === "train") {
+      const P = Dash.tree_curve.points;
+      $("#trendSub").textContent = "From-scratch boosting engine: test AUC as trees are added (train ≤2015, early-stop 2016, test 2017–2019).";
+      legend([["Test AUC", C.ours]]);
+      lineChart(host, { xTitle: "trees", xLabels: P.map((p) => String(p.trees)), series: [{ name: "Test AUC", color: C.ours, values: P.map((p) => p.test_auc) }] });
+      $("#trendCap").textContent = `Stopped automatically at ${Dash.tree_curve.kept} trees, when validation loss stopped improving. Final AUC ${P[P.length - 1].test_auc.toFixed(3)}.`;
+    } else {
+      const B = Dash.bug_rate_by_year;
+      $("#trendSub").textContent = "Share of commits labelled bug-causing, by year (as of the end of 2019).";
+      legend([["Settled years", C.base], ["Recent: bugs not found yet", C.naive]]);
+      barChart(host, { labels: B.map((b) => "'" + String(b.year).slice(2)), values: B.map((b) => b.rate), colors: B.map((b) => (b.year >= 2018 ? C.naive : C.base)) });
+      $("#trendCap").textContent = "The drop in 2018–19 isn't better code. Those bugs simply hadn't been found yet.";
+    }
+  };
+  document.querySelectorAll("#trends .tabs button").forEach((b) => b.addEventListener("click", () => show(b.dataset.k)));
+  show("adapt");
+}
+
+function samples(Dash) {
+  const c = Dash.sample_counts, tot = c.adapt_commits;
+  const crit = css("--crit"), warn = css("--warn"), good = css("--good");
+  const parts = [[c.known_buggy, crit, "bug already found"], [c.hidden_buggy, warn, "hidden bug (found later)"], [c.clean, good, "really clean"]];
+  const card = (s) => {
+    const col = s.known_bug ? "var(--crit)" : s.final_bug ? "var(--warn)" : "var(--good)";
+    const status = s.known_bug ? `<span class="chip crit">● bug found</span>` : `<span class="chip warn">○ no bug found yet</span>`;
+    const naive = s.known_bug ? "buggy ✓" : s.final_bug ? "clean ✗ (wrong)" : "clean ✓";
+    const ours = s.known_bug ? "buggy ✓" : `not known yet, counts ${pct(s.q)} as clean`;
+    const truth = s.final_bug ? `<span class="chip crit">bug found ${s.found_after_days} days after commit</span>` : `<span class="chip good">✓ stayed clean</span>`;
+    return `<div class="sample" style="--c:${col}">
+      <div class="t">${esc(s.title && !/^https?:/.test(s.title) ? s.title : "commit " + s.sha.slice(0, 8))}</div>
+      <div class="m">${esc(s.project.replace("apache/", ""))} · ${s.date} · ${s.age_days} days old at training time · ${status}</div>
+      <div class="treat"><div class="${!s.known_bug && s.final_bug ? "wrong" : ""}"><b>Plain treats as</b>${naive}</div><div class="right"><b>Ours treats as</b>${ours}</div></div>
+      <div class="m" style="margin:8px 0 0">Later truth: ${truth}</div></div>`;
+  };
+  $("#samples").innerHTML = `<h2>Active training samples</h2>
+    <p class="sub">What the model sees when it adapts: ${tot.toLocaleString()} commits from the latest year before ${Dash.trajectory.cutoff.slice(0, 4)}.</p>
+    <div class="stack">${parts.map(([v, col, n]) => `<b style="width:${(v / tot) * 100}%;background:${col}" title="${n}: ${v.toLocaleString()}"></b>`).join("")}</div>
+    <div class="keys">${parts.map(([v, col, n]) => `<span><i style="background:${col}"></i>${n} · ${v.toLocaleString()}</span>`).join("")}</div>
+    <div class="samples">${Dash.samples.map((s, i) => `<div class="${i >= 3 ? "hidden extra" : ""}">${card(s)}</div>`).join("")}</div>
+    <button class="more" type="button">Show ${Dash.samples.length - 3} more samples</button>`;
+  const btn = $("#samples .more");
+  btn.addEventListener("click", () => {
+    const open = btn.dataset.open === "1";
+    document.querySelectorAll("#samples .extra").forEach((e) => e.classList.toggle("hidden", open));
+    btn.dataset.open = open ? "0" : "1";
+    btn.textContent = open ? `Show ${Dash.samples.length - 3} more samples` : "Show fewer";
+  });
+}
+
+function commits(D) {
+  const lvl = (r) => (r >= 0.6 ? "hi" : r >= 0.3 ? "mid" : "lo");
+  $("#commits").innerHTML = `<h2>Try it: real commits</h2>
+    <p class="sub">2017–2019 commits the model never saw. Tap one, read the risk and why, then reveal what happened. Misses and false alarms are included.</p>
+    <div id="clist">${D.commits.map((x, i) => {
+      const reasons = x.reasons.filter((r) => Math.abs(r.effect_pts) >= 0.5).slice(0, 4);
+      const ok = (x.risk >= 0.5) === x.buggy;
+      return `<div class="commit ${i >= 4 ? "hidden extra" : ""}">
+        <div class="top"><div class="risk ${lvl(x.risk)}">${pct(x.risk)}</div><div><div class="t">${esc(x.title)}</div>
+          <div class="p">${esc(x.project.replace("apache/", ""))} · ${x.date} · +${x.la} −${x.ld} · ${x.nf} file${x.nf === 1 ? "" : "s"}</div></div></div>
+        <div class="d"><div class="why">${reasons.map((r) => `<div><span>${esc(r.label)}</span><span class="${r.effect_pts > 0 ? "up" : "dn"}">${r.effect_pts > 0 ? "+" : ""}${r.effect_pts.toFixed(1)} pts</span></div>`).join("")}</div>
+          <button class="reveal" type="button">Reveal what happened</button>
+          <div class="truth ${x.buggy ? "bug" : "ok"}">${x.buggy ? "<b>Introduced a bug.</b> A later fix was traced back to it." : "<b>Stayed clean.</b>"}
+            ${ok ? "The model got it right." : x.buggy ? "The model missed it." : "False alarm."} · <a href="https://github.com/${esc(x.project)}/commit/${esc(x.sha)}" target="_blank" rel="noopener">real commit ↗</a></div></div></div>`;
+    }).join("")}</div>
+    <button class="more" type="button" id="cmore">Show ${D.commits.length - 4} more commits</button>`;
+  document.querySelectorAll("#clist .commit").forEach((el) => el.addEventListener("click", (e) => {
+    if (e.target.closest("a")) return;
+    if (e.target.closest(".reveal")) { el.querySelector(".truth").classList.add("show"); e.target.remove(); return; }
+    if (e.target.closest(".d")) return;
+    el.classList.toggle("open");
+  }));
+  $("#cmore").addEventListener("click", (e) => {
+    const open = e.target.dataset.open === "1";
+    document.querySelectorAll("#clist .extra").forEach((x) => x.classList.toggle("hidden", open));
+    e.target.dataset.open = open ? "0" : "1";
+    e.target.textContent = open ? `Show ${D.commits.length - 4} more commits` : "Show fewer";
+  });
+}
+
+function details(D, Rs, F) {
+  const m = D.models, FH = Rs.full_history, ab = F ? F.ablation : [];
+  $("#details").innerHTML = `<h2>Under the hood</h2>
+    <details><summary>How it works</summary><div class="body"><ol>
+      <li><b>13 numbers per commit</b>, counted from git: size, files and modules touched, file history, author experience, plus 10 derived ratios and time of day.</li>
+      <li><b>Labels from history:</b> a later fix commit is traced back with <i>git blame</i> (SZZ) to the commit that caused the bug. Fix dates show <i>when</i> each bug was found.</li>
+      <li><b>Frozen network:</b> 23 inputs → 64 → 32 → risk (3,601 weights), trained from scratch in NumPy, then locked.</li>
+      <li><b>Booster trees:</b> each round picks a weight matrix, takes its best update direction (SVD of the gradient), measures every commit's gradient and hessian along it, and grows a small tree. Each group gets its own Newton step −G/(H+λ).</li>
+    </ol></div></details>
+    <details><summary>The math of the fix</summary><div class="body">
+      <p>For a commit with no bug found yet: p = risk, q = chance its bug would have surfaced by now (learned from older commits only).</p>
+      <div class="formula">loss = −log(1 − p·q)
 
 standard hessian:
  p(1−p)·q·(1−2p+p²q) / (1−p·q)²
  → can go NEGATIVE: breaks the Newton step
 
-my fix (Fisher, always positive):
+fix (Fisher, always positive):
  q·p·(1−p)² / (1−p·q)
- → = p(1−p) when q = 1, i.e. plain XGBoost</div>
-    <p class="sub" style="margin:12px 0 0"><b style="color:var(--ink)">Honest notes.</b> Ours still sits below the future-label ceiling (AUC ${M["boosters oracle"].auc.toFixed(3)}). When training on 10+ years of history, label delay barely changes ranking (AUC ${r.full_history.naive.auc.toFixed(3)} naive vs ${r.full_history["delay Fisher"].auc.toFixed(3)} ours) and mainly fixes the predicted bug rate. On recent-year trees, ours fixed calibration but not ranking. The raw hessian went negative for ~${pct(r.negative_hessian_share.reduce((a, b) => a + b) / r.negative_hessian_share.length, 1)} of commits per round here, so the Fisher fix is a safety guarantee more than a score booster on this data.</p>`;
+ → = p(1−p) when q = 1 (plain boosting)</div>
+      <p>Checked against numerical derivatives in the test suite.</p></div></details>
+    <details><summary>Leakage &amp; honesty checks</summary><div class="body">
+      <table><tr><th>Feature set</th><th class="n">Test AUC</th></tr>${ab.map((a) => `<tr><td>${esc(a.set)}</td><td class="n">${a.test_auc.toFixed(3)}</td></tr>`).join("")}</table>
+      <p>Project identity was removed: a per-project shortcut that won't transfer to a new repo. All splits are by time; scaling fitted on training years only.</p>
+      <p>Ours still sits below the future-label ceiling. With 10+ years of history, delay barely changes ranking (AUC ${FH.naive.auc.toFixed(3)} plain vs ${FH["delay Fisher"].auc.toFixed(3)} ours) and mainly corrects the predicted bug rate (log-loss ${FH.naive.logloss.toFixed(3)} → ${FH["delay Fisher"].logloss.toFixed(3)}). The raw hessian went negative for under 1% of commits, so the Fisher fix is a safety guarantee more than a score booster here.</p></div></details>
+    <details><summary>Overall model scores</summary><div class="body">
+      <table><tr><th>Ranking 2017–2019 commits</th><th class="n">AUC</th><th class="n">Top 20%</th></tr>
+        <tr><td>Boosted trees (from scratch)</td><td class="n">${m.ours.auc.toFixed(3)}</td><td class="n">${pct(m.ours.recall_top20)}</td></tr>
+        <tr><td>Rule: biggest commits first</td><td class="n">${m.lines_added_rule.auc.toFixed(3)}</td><td class="n">${pct(m.lines_added_rule.recall_top20)}</td></tr>
+        <tr><td>Random</td><td class="n">0.500</td><td class="n">20%</td></tr></table>
+      <p>Engine check: scikit-learn's boosting on the same split scores ${m.sklearn_hgb_reference ? m.sklearn_hgb_reference.auc.toFixed(3) : "—"}.</p></div></details>`;
 }
 
-fetch("research.json").then((r) => r.json()).then(renderResearch).catch(() => {});
-fetch("frozen.json").then((r) => r.json()).then(renderFrozen).catch(() => {});
-fetch("data.json").then((r) => r.json()).then(render).catch(() => {
-  document.querySelector(".wrap").insertAdjacentHTML("beforeend", '<p class="card">Could not load data.json.</p>');
-});
+Promise.all(["data.json", "research.json", "dash.json", "frozen.json"].map((f) => fetch(f).then((r) => r.json()).catch(() => null)))
+  .then(([D, Rs, Dash, F]) => {
+    kpis(D, Rs); compare(Rs); trends(Dash, D); samples(Dash); commits(D); details(D, Rs, F);
+    $("#foot").innerHTML = `Data: <a href="https://arxiv.org/abs/2203.00101">ApacheJIT</a>, 106,674 real commits from 15 Apache projects, with SZZ labels and real fix dates (SZZ labels are somewhat noisy). Built by Hari · <a href="https://github.com/Harimhs/boostree-model">source</a>`;
+  });
 </script>
 </body>
 </html>

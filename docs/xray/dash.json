@@ -1,0 +1,572 @@
+{
+ "trajectory": {
+  "cutoff": "2016-01-01",
+  "test_year": 2016,
+  "start": {
+   "auc": 0.8516,
+   "top20": 0.5228
+  },
+  "series": {
+   "naive": [
+    {
+     "boosters": 0,
+     "auc": 0.8516,
+     "top20": 0.5228
+    },
+    {
+     "boosters": 1,
+     "auc": 0.8254,
+     "top20": 0.4921,
+     "layer": 0
+    },
+    {
+     "boosters": 2,
+     "auc": 0.8299,
+     "top20": 0.4963,
+     "layer": 1
+    },
+    {
+     "boosters": 3,
+     "auc": 0.832,
+     "top20": 0.4989,
+     "layer": 1
+    }
+   ],
+   "ours": [
+    {
+     "boosters": 0,
+     "auc": 0.8516,
+     "top20": 0.5228
+    },
+    {
+     "boosters": 1,
+     "auc": 0.8534,
+     "top20": 0.5267,
+     "layer": 0
+    },
+    {
+     "boosters": 2,
+     "auc": 0.8578,
+     "top20": 0.5361,
+     "layer": 0
+    },
+    {
+     "boosters": 3,
+     "auc": 0.8543,
+     "top20": 0.5306,
+     "layer": 0
+    },
+    {
+     "boosters": 4,
+     "auc": 0.854,
+     "top20": 0.5303,
+     "layer": 0
+    },
+    {
+     "boosters": 5,
+     "auc": 0.8542,
+     "top20": 0.5348,
+     "layer": 1
+    },
+    {
+     "boosters": 6,
+     "auc": 0.8535,
+     "top20": 0.5358,
+     "layer": 0
+    },
+    {
+     "boosters": 7,
+     "auc": 0.8553,
+     "top20": 0.5371,
+     "layer": 0
+    },
+    {
+     "boosters": 8,
+     "auc": 0.8523,
+     "top20": 0.5361,
+     "layer": 0
+    },
+    {
+     "boosters": 9,
+     "auc": 0.8526,
+     "top20": 0.5368,
+     "layer": 1
+    },
+    {
+     "boosters": 10,
+     "auc": 0.8539,
+     "top20": 0.5355,
+     "layer": 0
+    },
+    {
+     "boosters": 11,
+     "auc": 0.8548,
+     "top20": 0.5358,
+     "layer": 1
+    },
+    {
+     "boosters": 12,
+     "auc": 0.8553,
+     "top20": 0.5368,
+     "layer": 0
+    },
+    {
+     "boosters": 13,
+     "auc": 0.8542,
+     "top20": 0.5374,
+     "layer": 2
+    }
+   ],
+   "oracle": [
+    {
+     "boosters": 0,
+     "auc": 0.8516,
+     "top20": 0.5228
+    },
+    {
+     "boosters": 1,
+     "auc": 0.8537,
+     "top20": 0.5283,
+     "layer": 1
+    },
+    {
+     "boosters": 2,
+     "auc": 0.8633,
+     "top20": 0.542,
+     "layer": 0
+    },
+    {
+     "boosters": 3,
+     "auc": 0.862,
+     "top20": 0.542,
+     "layer": 0
+    },
+    {
+     "boosters": 4,
+     "auc": 0.8623,
+     "top20": 0.5429,
+     "layer": 0
+    },
+    {
+     "boosters": 5,
+     "auc": 0.8641,
+     "top20": 0.5491,
+     "layer": 0
+    }
+   ]
+  }
+ },
+ "tree_curve": {
+  "points": [
+   {
+    "trees": 4,
+    "test_auc": 0.8567,
+    "val_logloss": 0.5406116785370693
+   },
+   {
+    "trees": 8,
+    "test_auc": 0.8595,
+    "val_logloss": 0.5003369885649489
+   },
+   {
+    "trees": 12,
+    "test_auc": 0.8602,
+    "val_logloss": 0.4723405018532156
+   },
+   {
+    "trees": 16,
+    "test_auc": 0.8612,
+    "val_logloss": 0.45192728630049117
+   },
+   {
+    "trees": 20,
+    "test_auc": 0.8616,
+    "val_logloss": 0.4366934782881548
+   },
+   {
+    "trees": 24,
+    "test_auc": 0.862,
+    "val_logloss": 0.42525474054706
+   },
+   {
+    "trees": 28,
+    "test_auc": 0.8624,
+    "val_logloss": 0.4168385218898338
+   },
+   {
+    "trees": 32,
+    "test_auc": 0.8631,
+    "val_logloss": 0.41006032680335375
+   },
+   {
+    "trees": 36,
+    "test_auc": 0.8633,
+    "val_logloss": 0.40479483807589595
+   },
+   {
+    "trees": 40,
+    "test_auc": 0.8631,
+    "val_logloss": 0.40071654495060305
+   },
+   {
+    "trees": 44,
+    "test_auc": 0.8633,
+    "val_logloss": 0.3974972873621879
+   },
+   {
+    "trees": 48,
+    "test_auc": 0.8633,
+    "val_logloss": 0.3949134888516479
+   },
+   {
+    "trees": 52,
+    "test_auc": 0.8636,
+    "val_logloss": 0.39275985208417735
+   },
+   {
+    "trees": 56,
+    "test_auc": 0.8636,
+    "val_logloss": 0.39115306646447645
+   },
+   {
+    "trees": 60,
+    "test_auc": 0.8639,
+    "val_logloss": 0.3897562739679295
+   },
+   {
+    "trees": 64,
+    "test_auc": 0.8639,
+    "val_logloss": 0.388694908022254
+   },
+   {
+    "trees": 68,
+    "test_auc": 0.8641,
+    "val_logloss": 0.3877934509977573
+   },
+   {
+    "trees": 72,
+    "test_auc": 0.8642,
+    "val_logloss": 0.3871895317894049
+   },
+   {
+    "trees": 76,
+    "test_auc": 0.8643,
+    "val_logloss": 0.3866595408052317
+   },
+   {
+    "trees": 80,
+    "test_auc": 0.8643,
+    "val_logloss": 0.3862987758205588
+   },
+   {
+    "trees": 84,
+    "test_auc": 0.8645,
+    "val_logloss": 0.3857837291009404
+   },
+   {
+    "trees": 88,
+    "test_auc": 0.8646,
+    "val_logloss": 0.3853889792366407
+   },
+   {
+    "trees": 92,
+    "test_auc": 0.8646,
+    "val_logloss": 0.38523621186827245
+   },
+   {
+    "trees": 96,
+    "test_auc": 0.8646,
+    "val_logloss": 0.3850520096859986
+   },
+   {
+    "trees": 100,
+    "test_auc": 0.8648,
+    "val_logloss": 0.38507670714297026
+   },
+   {
+    "trees": 104,
+    "test_auc": 0.8648,
+    "val_logloss": 0.3850233732729109
+   },
+   {
+    "trees": 108,
+    "test_auc": 0.8647,
+    "val_logloss": 0.384945452479769
+   }
+  ],
+  "kept": 108,
+  "ran": 148
+ },
+ "samples": [
+  {
+   "sha": "c42666ed5cfa2f1ff83be443aea21e8be8041b95",
+   "project": "apache/hive",
+   "date": "2015-05-05",
+   "age_days": 241,
+   "q": 0.64,
+   "group": "hidden bug (found later)",
+   "known_bug": false,
+   "final_bug": true,
+   "found_after_days": 402,
+   "la": 7,
+   "ld": 4,
+   "nf": 3,
+   "title": "HIVE-10061: HiveConf Should not be used as part of the HS2 client side code"
+  },
+  {
+   "sha": "ec0e09d0e7292e64841161388f05422f4720602c",
+   "project": "apache/hive",
+   "date": "2015-02-02",
+   "age_days": 332,
+   "q": 0.726,
+   "group": "hidden bug (found later)",
+   "known_bug": false,
+   "final_bug": true,
+   "found_after_days": 1017,
+   "la": 268,
+   "ld": 6,
+   "nf": 11,
+   "title": "HIVE-5472: support a simple scalar which returns the current timestamp"
+  },
+  {
+   "sha": "5e16d53e98e44567bbfa1b291f8a927a3e3e4b9b",
+   "project": "apache/hive",
+   "date": "2015-08-24",
+   "age_days": 129,
+   "q": 0.477,
+   "group": "bug already found",
+   "known_bug": true,
+   "final_bug": true,
+   "found_after_days": 3,
+   "la": 4702,
+   "ld": 261,
+   "nf": 9,
+   "title": "HIVE-10289: Support filter on non-first partition key and non-string partition key"
+  },
+  {
+   "sha": "bc392629e9ba4f968a4799af2d7f574deeb9901c",
+   "project": "apache/groovy",
+   "date": "2015-12-22",
+   "age_days": 9,
+   "q": 0.115,
+   "group": "hidden bug (found later)",
+   "known_bug": false,
+   "final_bug": true,
+   "found_after_days": 1913,
+   "la": 146,
+   "ld": 8,
+   "nf": 3,
+   "title": "GROOVY-6787: Compare arguments with the generic bounds (closes #221)"
+  },
+  {
+   "sha": "74efcecaf0ab3aa9f9398c324bda9648c7212928",
+   "project": "apache/ignite",
+   "date": "2015-01-22",
+   "age_days": 344,
+   "q": 0.731,
+   "group": "really clean",
+   "known_bug": false,
+   "final_bug": false,
+   "found_after_days": null,
+   "la": 2,
+   "ld": 2,
+   "nf": 1,
+   "title": "IGNITE-59 Fix broken test."
+  },
+  {
+   "sha": "f3a23dce083decc565447b7438527d7aec434b29",
+   "project": "apache/hive",
+   "date": "2015-04-30",
+   "age_days": 245,
+   "q": 0.646,
+   "group": "hidden bug (found later)",
+   "known_bug": false,
+   "final_bug": true,
+   "found_after_days": 299,
+   "la": 2005,
+   "ld": 49,
+   "nf": 6,
+   "title": "HIVE-5672 : Insert with custom separator not supported for non-local directory"
+  },
+  {
+   "sha": "a761cdcb7186a8eb565de2d6313cf2087b3ee087",
+   "project": "apache/flink",
+   "date": "2015-01-02",
+   "age_days": 364,
+   "q": 0.745,
+   "group": "really clean",
+   "known_bug": false,
+   "final_bug": false,
+   "found_after_days": null,
+   "la": 214,
+   "ld": 0,
+   "nf": 2,
+   "title": "[scala] [streaming] added group windowing example with different policy types"
+  },
+  {
+   "sha": "b7143f22042d88122bf416d7c5caf7b801bdf726",
+   "project": "apache/hive",
+   "date": "2015-02-09",
+   "age_days": 326,
+   "q": 0.721,
+   "group": "really clean",
+   "known_bug": false,
+   "final_bug": false,
+   "found_after_days": null,
+   "la": 2,
+   "ld": 1,
+   "nf": 1,
+   "title": "HIVE-9586: Too verbose log can hurt performance, we should always check log     l first (Rui via Xuefu) merged"
+  },
+  {
+   "sha": "7e9358feb326d48b8c4f00249e7af5023cebd2e2",
+   "project": "apache/hadoop-hdfs",
+   "date": "2015-01-13",
+   "age_days": 353,
+   "q": 0.737,
+   "group": "bug already found",
+   "known_bug": true,
+   "final_bug": true,
+   "found_after_days": 66,
+   "la": 1091,
+   "ld": 193,
+   "nf": 32,
+   "title": null
+  },
+  {
+   "sha": "7087e700e032dabc174ecc12b62c12e7d49b995f",
+   "project": "apache/hadoop-hdfs",
+   "date": "2015-08-22",
+   "age_days": 132,
+   "q": 0.482,
+   "group": "bug already found",
+   "known_bug": true,
+   "final_bug": true,
+   "found_after_days": 34,
+   "la": 712,
+   "ld": 4,
+   "nf": 10,
+   "title": null
+  },
+  {
+   "sha": "27edaffdedbe4949f5e447876f863cedccef6807",
+   "project": "apache/activemq",
+   "date": "2015-06-29",
+   "age_days": 185,
+   "q": 0.569,
+   "group": "bug already found",
+   "known_bug": true,
+   "final_bug": true,
+   "found_after_days": 0,
+   "la": 858,
+   "ld": 73,
+   "nf": 14,
+   "title": "https://issues.apache.org/jira/browse/AMQ-5856"
+  },
+  {
+   "sha": "52b8967f2ec3a1914a6059dcf31f9e3e57bbfe79",
+   "project": "apache/ignite",
+   "date": "2015-01-21",
+   "age_days": 345,
+   "q": 0.732,
+   "group": "really clean",
+   "known_bug": false,
+   "final_bug": false,
+   "found_after_days": null,
+   "la": 244,
+   "ld": 87,
+   "nf": 2,
+   "title": "Ignite-107 anonymous classes *ComputeJobAdapter became static classes"
+  }
+ ],
+ "sample_counts": {
+  "adapt_commits": 13866,
+  "known_buggy": 2412,
+  "hidden_buggy": 1758,
+  "clean": 9696
+ },
+ "per_cutoff_auc": {
+  "frozen net": {
+   "2015": 0.8447,
+   "2016": 0.8458,
+   "2017": 0.8523
+  },
+  "boosters naive": {
+   "2015": 0.8366,
+   "2016": 0.8354,
+   "2017": 0.7873
+  },
+  "boosters delay (ours)": {
+   "2015": 0.8447,
+   "2016": 0.8529,
+   "2017": 0.8595
+  },
+  "boosters oracle": {
+   "2015": 0.8589,
+   "2016": 0.8634,
+   "2017": 0.8638
+  },
+  "SGD fine-tune naive": {
+   "2015": 0.8428,
+   "2016": 0.8439,
+   "2017": 0.8501
+  },
+  "trees recent-year naive": {
+   "2015": 0.8497,
+   "2016": 0.8567,
+   "2017": 0.8614
+  },
+  "trees recent-year delay (ours)": {
+   "2015": 0.8426,
+   "2016": 0.8581,
+   "2017": 0.8454
+  },
+  "trees recent-year oracle": {
+   "2015": 0.8651,
+   "2016": 0.8692,
+   "2017": 0.8647
+  }
+ },
+ "bug_rate_by_year": [
+  {
+   "year": 2010,
+   "rate": 0.402
+  },
+  {
+   "year": 2011,
+   "rate": 0.322
+  },
+  {
+   "year": 2012,
+   "rate": 0.33
+  },
+  {
+   "year": 2013,
+   "rate": 0.373
+  },
+  {
+   "year": 2014,
+   "rate": 0.273
+  },
+  {
+   "year": 2015,
+   "rate": 0.301
+  },
+  {
+   "year": 2016,
+   "rate": 0.291
+  },
+  {
+   "year": 2017,
+   "rate": 0.272
+  },
+  {
+   "year": 2018,
+   "rate": 0.21
+  },
+  {
+   "year": 2019,
+   "rate": 0.102
+  }
+ ]
+}

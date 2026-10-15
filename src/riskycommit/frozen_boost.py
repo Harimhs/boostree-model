@@ -194,7 +194,7 @@ def leaves(tree, path=()):
 
 
 def boost(net, X, R, y, Xv, Rv, yv, names, obj=logloss_obj, q=None, qv=None, rounds=30,
-          max_depth=2, min_leaf=150, lam=1.0, lr=1.0, log=print):
+          max_depth=2, min_leaf=150, lam=1.0, lr=1.0, log=print, on_round=None):
     """Add booster trees to a FROZEN net. Returns the boosted copy and per-round records."""
     net = net.copy()
     cands = [np.unique(np.quantile(R[:, f], np.linspace(0.05, 0.95, 15))) for f in range(R.shape[1])]
@@ -230,6 +230,8 @@ def boost(net, X, R, y, Xv, Rv, yv, names, obj=logloss_obj, q=None, qv=None, rou
                     net, current, kept = trial, vl, True
                     history.append({"round": r + 1, "layer": k, "gain": round(float(gain), 3),
                                     "val_loss": round(vl, 5), "leaves": leaves(t)})
+                    if on_round is not None:
+                        on_round(net, history[-1])
                     break
             if kept:
                 break
